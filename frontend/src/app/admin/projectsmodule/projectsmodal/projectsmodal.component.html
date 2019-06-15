@@ -22,6 +22,22 @@
             class="wizard-link"
             [class.active]="tabId == 2"
             (click)="changeTab(2)"
+            >Objectives</a
+          >
+        </li>
+        <li class="wizard-item">
+          <a
+            class="wizard-link"
+            [class.active]="tabId == 3"
+            (click)="changeTab(3)"
+            >Activities</a
+          >
+        </li>
+        <li class="wizard-item">
+          <a
+            class="wizard-link"
+            [class.active]="tabId == 4"
+            (click)="changeTab(4)"
             >Tasks</a
           >
         </li>
@@ -204,7 +220,100 @@
         </div>
       </div>
       <div [hidden]="tabId !== 2">
-        here are all the tasksss
+        here are all the Objectives
+
+        <div id="tab-3" formArrayName="objectives">
+          <div
+            *ngFor="let item of formDataObjectives.controls; let i = index"
+            [formGroupName]="i"
+          >
+            <div class="row">
+              <div class="col-lg-12">
+                <div *ngIf="i == 0" class="pull-right add-btn">
+                  <button
+                    class="btn btn-sm btn-block btn-green"
+                    (click)="addObjectives()"
+                    type="button"
+                  >
+                    <i _ngcontent-c8="" class="material-icons">add</i>
+                  </button>
+                </div>
+                <div *ngIf="i != 0" class="pull-right add-btn">
+                  <button
+                    _ngcontent-c13=""
+                    (click)="deleteObjective(i, item)"
+                    class="btn btn-sm btn-block btn-line"
+                    type="button"
+                  >
+                    <i class="material-icons">delete</i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group row">
+                  <label class="col-lg-4 form-control-label l-label"
+                    >Objective Name:</label
+                  >
+
+                  <div class="col-lg-8">
+                    <input
+                      type="text"
+                      [ngClass]="{
+                        'error-input':
+                          submitObjectives &&
+                          formDataObjectives.controls[i].controls[
+                            'objective_name'
+                          ].invalid
+                      }"
+                      formControlName="objective_name"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group row">
+                  <label class="col-lg-4 form-control-label l-label"
+                    >Users Assigned:</label
+                  >
+
+                  <div class="col-lg-8">
+                    <input
+                      class="form-control"
+                      [ngClass]="{
+                        'error-input':
+                          submitObjectives &&
+                          formDataSubsidiariesInfo.controls[i].controls[
+                            'users_assigned'
+                          ].invalid
+                      }"
+                      maxLength="3"
+                      numbersOnly
+                      formControlName="users_assigned"
+                      id=""
+                      name=""
+                      rows="3"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <hr class="line" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div [hidden]="tabId !== 3">
+        here are all the Activities
+      </div>
+      <div [hidden]="tabId !== 4">
+        here are all the Tasks
       </div>
     </div>
     <div class="modal-footer">

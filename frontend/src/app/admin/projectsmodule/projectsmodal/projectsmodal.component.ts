@@ -14,7 +14,7 @@ import {
 
 // import { ApplicationApi } from '../../../../sdk/services/custom/assets.service';
 import { DataTableDirective } from 'angular-datatables';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormArray } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import { Subject } from 'rxjs/Subject';
@@ -48,7 +48,10 @@ export class ProjectsmodalComponent implements OnInit {
   isLoading = false;
   result;
   appInfoForm: FormGroup;
+  appActivityForm: FormGroup;
+  appObjectiveForm: FormGroup;
   submitForm = false;
+  submitObjectives = false;
   locationListing = [];
   categoriesList = [];
   role = 'User';
@@ -68,11 +71,8 @@ export class ProjectsmodalComponent implements OnInit {
     }
 
     this.role = Role;
-    if (Role == 'User') {
-      this.appInfoForm.patchValue({
-        Location: Location
-      });
-    }
+
+    this.addObjectives();
     // this.getAll();
   }
 
@@ -100,10 +100,43 @@ export class ProjectsmodalComponent implements OnInit {
       end_date: [null, []],
       notes: [null, []],
       attachments: [null, []],
-      status: [null, []]
+      status: [null, []],
+      objectives: this.fb.array([])
+    });
+    // this.appObjectiveForm = this.fb.group({
+    //   objectives: this.fb.array([])
+    // });
+  }
+
+  createObjectives() {
+    return this.fb.group({
+      _id: [''],
+      objective_name: ['', [Validators.required]],
+      users_assigned: [null]
     });
   }
 
+  get formDataObjectives() {
+    return <FormArray>this.appInfoForm.get('objectives');
+  }
+
+  addObjectives() {
+    (<FormArray>this.appInfoForm.get('objectives')).push(
+      this.createObjectives()
+    );
+  }
+
+  deleteObjective(id, item) {
+    if (id !== 0) {
+      const control = <FormArray>this.appInfoForm.get('objectives');
+      control.removeAt(id);
+      // if (item.value._id) {
+      //   this.subsidiaryDeleted = true;
+
+      //   //   this.deleteCompanySubsidiariesInfo(subinfo.value._id);
+      // }
+    }
+  }
   getUsersFromDB() {
     this.userApi.getUsers().subscribe(
       async response => {

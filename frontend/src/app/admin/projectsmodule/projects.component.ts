@@ -198,8 +198,8 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
     this.formData = data;
     const config = {
       backdrop: true,
-      ignoreBackdropClick: true
-      // class: 'gray modal-lg'
+      ignoreBackdropClick: true,
+      class: 'gray modal-lg'
     };
     this.modalRef = this.modalService.show(template, config);
   }
