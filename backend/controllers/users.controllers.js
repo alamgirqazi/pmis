@@ -230,8 +230,7 @@ async function runUpdateById(id, updates, res) {
         });
 
 
-        {
-            if (result.nModified == 1) {
+                    if (result.nModified == 1) {
                 res.status(200).send({
                     code: 200,
                     message: "Updated Successfully"
@@ -242,13 +241,20 @@ async function runUpdateById(id, updates, res) {
                     message: "Created Successfully"
                 });
             } else {
-                res
-                    .status(422)
-                    .send({
-                        code: 422,
-                        message: 'Unprocessible Entity'
+
+                {
+                    res.status(200).send({
+                        code: 200,
+                        message: "Task completed successfully"
                     });
-            }
+                }
+            //     res
+            //         .status(422)
+            //         .send({
+            //             code: 422,
+            //             message: 'Unprocessible Entity'
+            //         });
+            // }
         }
     } catch (error) {
         console.log('error', error);
