@@ -65,6 +65,7 @@
     "angular-datatables": "4.4.1",
     "codelyzer": "3.2.0",
     "datatables.net": "1.10.16",
+    "@ng-select/ng-select": "1.6.2",
     "datatables.net-dt": "1.10.16",
     "install": "0.10.2",
     "jasmine-core": "2.6.2",

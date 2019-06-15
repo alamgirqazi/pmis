@@ -15,6 +15,7 @@ import { NgModule } from '@angular/core';
 import { ProjectsModuleRoutes } from './projects.routing';
 import { ProjectsmodalComponent } from './projectsmodal/projectsmodal.component';
 import { ProjectsComponent } from './projects.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 // import { SelectModule } from 'ng2-select';
 
@@ -26,6 +27,7 @@ import { ProjectsComponent } from './projects.component';
     DataTablesModule,
     FormsModule,
     ReactiveFormsModule,
+    NgSelectModule,
     ProjectsModuleRoutes,
     BsDatepickerModule.forRoot(),
     CustompipesModule.forRoot(),

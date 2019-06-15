@@ -1,4 +1,5 @@
 @import url('../../plugins/stylish-radio-checkbox/stylish-radio-checkbox.css');
+@import "~@ng-select/ng-select/themes/material.theme.css";
 
 body {
     background-color: #F6FAFB;

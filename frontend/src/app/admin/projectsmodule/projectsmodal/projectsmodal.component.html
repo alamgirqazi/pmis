@@ -86,22 +86,6 @@
               class="form-control"
               type="text"
             />
-            <!-- <select
-            formControlName="Category"
-            [ngClass]="{
-              'error-input':
-                submitForm && appInfoForm.controls['Category'].invalid
-            }"
-            name="priority"
-            class="form-control valid"
-          >
-            <option
-              *ngFor="let listing of categoriesList"
-              [value]="listing.name"
-            >
-              {{ listing.name }}</option
-            >
-          </select> -->
           </div>
         </div>
         <div class="form-group row">
@@ -251,13 +235,13 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-5">
                 <div class="form-group row">
-                  <label class="col-lg-4 form-control-label l-label"
-                    >Objective Name:</label
+                  <label class="col-lg-3 form-control-label l-label"
+                    >Objective:</label
                   >
 
-                  <div class="col-lg-8">
+                  <div class="col-lg-9">
                     <input
                       type="text"
                       [ngClass]="{
@@ -273,14 +257,14 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-7">
                 <div class="form-group row">
-                  <label class="col-lg-4 form-control-label l-label"
+                  <!-- <label class="col-lg-2 form-control-label l-label"
                     >Users Assigned:</label
-                  >
+                  > -->
 
-                  <div class="col-lg-8">
-                    <input
+                  <div class="col-lg-12">
+                    <!-- <input
                       class="form-control"
                       [ngClass]="{
                         'error-input':
@@ -295,7 +279,41 @@
                       id=""
                       name=""
                       rows="3"
-                    />
+                    /> -->
+
+                    <ng-select
+                      [items]="usersList"
+                      [multiple]="true"
+                      bindLabel="name"
+                      placeholder="Select users"
+                    >
+                      <ng-template
+                        ng-multi-label-tmp
+                        let-items="items"
+                        let-clear="clear"
+                      >
+                        <div
+                          class="ng-value"
+                          *ngFor="let item of items ? items.slice(0, 2) : []"
+                        >
+                          <span class="ng-value-label"
+                            ><img [src]="item.src" width="20px" height="20px" />
+                            {{ item.name }}</span
+                          >
+                          <span
+                            class="ng-value-icon right"
+                            (click)="clear(item)"
+                            aria-hidden="true"
+                            >×</span
+                          >
+                        </div>
+                        <div class="ng-value" *ngIf="items.length > 2">
+                          <span class="ng-value-label"
+                            >{{ items.length - 2 }} more...</span
+                          >
+                        </div>
+                      </ng-template>
+                    </ng-select>
                   </div>
                 </div>
               </div>

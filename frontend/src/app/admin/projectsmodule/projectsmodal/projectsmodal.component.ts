@@ -23,6 +23,7 @@ import { Validators } from '@angular/forms';
 import { MiscHelperService } from '../../../../sdk/services/custom/misc.service';
 import { AuthService } from '../../../../sdk/services/core/auth.service';
 import { ProjectsApi } from '../../../../sdk/services/custom/projects.service';
+import { Baseconfig } from '../../../../sdk/base.config';
 
 @Component({
   selector: 'app-projectsmodal',
@@ -57,6 +58,7 @@ export class ProjectsmodalComponent implements OnInit {
   role = 'User';
   usersList = [];
   tabId = 1;
+  githubUsers = [];
   ngOnInit() {
     // this.locationListing = [...this.miscHelperService.locationList];
     // this.categoriesList = this.miscHelperService.categoriesList;
@@ -142,6 +144,14 @@ export class ProjectsmodalComponent implements OnInit {
       async response => {
         console.log('my users->', response);
         this.usersList = response.data.docs;
+
+        this.usersList.forEach(element => {
+          if (element.avatar) {
+            element.src =
+              Baseconfig.getPath() + '/' + element.avatar + element.avatar_ext;
+          }
+        });
+
         // this.slimScroll.complete();
       },
       error => {
