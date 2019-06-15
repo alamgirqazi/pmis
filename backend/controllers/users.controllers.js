@@ -7,7 +7,8 @@ usersController.getAll = async (req, res) => {
         const {
             start,
             length,
-            search
+            search,
+            user_type
         } = req.query
         const {
             value
@@ -22,8 +23,16 @@ usersController.getAll = async (req, res) => {
                 },
             }
         }
+            let user_type_obj = {};
+    if (user_type != '' && user_type) {
+        user_type_obj = { role: user_type };
+    }
 
-        users = await Users.paginate(obj, {
+
+    let merged = {...obj,...user_type_obj};
+    
+
+        users = await Users.paginate(merged, {
             offset: parseInt(start),
             limit: parseInt(length)
         });

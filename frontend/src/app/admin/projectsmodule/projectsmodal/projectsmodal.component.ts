@@ -140,7 +140,9 @@ export class ProjectsmodalComponent implements OnInit {
     }
   }
   getUsersFromDB() {
-    this.userApi.getUsers().subscribe(
+    const user_type = null;
+    // const user_type = 'Project Manager';
+    this.userApi.getUsers(user_type).subscribe(
       async response => {
         console.log('my users->', response);
         this.usersList = response.data.docs;

@@ -46,12 +46,15 @@ export class UserApi {
         return response;
       });
   }
-  public getUsers(): Observable<any> {
+  public getUsers(user_type?): Observable<any> {
     const url = Baseconfig.getPath() + `/users`;
 
     let params = new HttpParams();
     params = params.append('start', '0');
     params = params.append('length', '100');
+    if (user_type) {
+      params = params.append('user_type', user_type);
+    }
     params = params.append(
       'search',
       JSON.stringify({ value: '', regex: false })
