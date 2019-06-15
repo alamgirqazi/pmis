@@ -1,0 +1,13 @@
+.custom-scroll {
+  overflow-y: auto;
+  height: 100%;
+}
+
+.box-body {
+  padding: none !important;
+}
+
+.row [class*="col-"] {
+  padding-left: 2px !important;
+
+}

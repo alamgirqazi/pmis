@@ -1,0 +1,183 @@
+<div
+  id="content"
+  class="app-content box-shadow-z2"
+  [class.app-aside-open]="navOpened"
+  [class.app-aside-closed]="!navOpened"
+  role="main"
+>
+  <div class="app-body">
+    <!-- ############ PAGE START-->
+    <div class="app-body-inner">
+      <div class="row-col">
+        <div class="row-row">
+          <div class="row-col">
+            <div class="col-xs modal fade aside aside-sm  b-r">
+              <div class="row-col">
+                <div class="white bg b-b toptoolbar">
+                  <!-- inner top navbar start -->
+                  <div class="navbar no-radius">
+                    <!-- link and dropdown -->
+                    <div class="box-header p-l-0">
+                      <h2>Dashboard</h2>
+                    </div>
+                  </div>
+                  <!-- inner top navbar end -->
+                </div>
+                <div class="row-row">
+                  <div class="padding custom-scroll">
+                    <div class="row">
+                      <div class="col-md-7">
+                        <div class="box">
+                          <div class="box-header">
+                            <h2>Assets by Categories</h2>
+                          </div>
+                          <div class="box-body p-t-0">
+                            <div
+                              #chartTarget
+                              id="pie-chart"
+                              style="min-width: 220px; height: 300px; max-width: 600px; margin: 0 auto"
+                            >
+                              chart target
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-5">
+                        <div class="box">
+                          <div class="box-header">
+                            <h2>Assets Disposed</h2>
+                          </div>
+                          <div class="box-body p-t-0">
+                            <div
+                              #chartTargetDisposed
+                              id="pie-chart"
+                              style="min-width: 220px; height: 300px; max-width: 600px; margin: 0 auto"
+                            >
+                              chart target
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="box">
+                          <div class="box-header">
+                            <h2>Assets by Locations</h2>
+                          </div>
+                          <div class="box-body p-t-0">
+                            <div
+                              #chartTarget2
+                              id="pie-chart"
+                              style="min-width: 220px; height: 326px; max-width: 990; margin: 0 auto"
+                            >
+                              chart target
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="box">
+                          <div class="box-header">
+                            <h2>Assets by Sub Categories</h2>
+                          </div>
+                          <div class="box-body p-t-0">
+                            <div
+                              #chartTargetSubCategory
+                              id="pie-chart"
+                              style="min-width: 220px; height: 326px; max-width: 990; margin: 0 auto"
+                            >
+                              chart target
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="box">
+                          <div class="box-header">
+                            <h2>Supplies by Category</h2>
+                          </div>
+                          <div class="box-body p-t-0">
+                            <div
+                              #chartTargetSuppliesCategory
+                              id="pie-chart"
+                              style="min-width: 220px; height: 300px; max-width: 600px; margin: 0 auto"
+                            >
+                              chart target
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="box">
+                          <div class="box-header">
+                            <h2>Supplies by Location</h2>
+                          </div>
+                          <div class="box-body p-t-0">
+                            <div
+                              #chartTargetSuppliesLocation
+                              id="pie-chart"
+                              style="min-width: 220px; height: 300px; max-width: 600px; margin: 0 auto"
+                            >
+                              chart target
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="box">
+                          <div class="box-header">
+                            <h2>Users by Role</h2>
+                          </div>
+                          <div class="box-body p-t-0">
+                            <div
+                              #chartTargetUsersRole
+                              id="pie-chart"
+                              style="min-width: 220px; height: 300px; max-width: 600px; margin: 0 auto"
+                            >
+                              chart target
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="box">
+                          <div class="box-header">
+                            <h2>Users by Location</h2>
+                          </div>
+                          <div class="box-body p-t-0">
+                            <div
+                              #chartTargetUsersLocation
+                              id="pie-chart"
+                              style="min-width: 220px; height: 300px; max-width: 600px; margin: 0 auto"
+                            >
+                              chart target
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="row-row">
+                <div class="padding custom-scroll">
+
+
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ############ PAGE END-->
+  </div>
+</div>

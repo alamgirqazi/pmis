@@ -1,0 +1,111 @@
+<div class="sign-page">
+  <!-- <div id="preloader">
+  <div id="status">
+      <img src="assets/images/logo-icon.png" class="loader" alt="loader" />
+      <div class="sk-fading-circle">
+          <div class="sk-circle1 sk-circle"></div>
+          <div class="sk-circle2 sk-circle"></div>
+          <div class="sk-circle3 sk-circle"></div>
+          <div class="sk-circle4 sk-circle"></div>
+          <div class="sk-circle5 sk-circle"></div>
+          <div class="sk-circle6 sk-circle"></div>
+          <div class="sk-circle7 sk-circle"></div>
+          <div class="sk-circle8 sk-circle"></div>
+          <div class="sk-circle9 sk-circle"></div>
+          <div class="sk-circle10 sk-circle"></div>
+          <div class="sk-circle11 sk-circle"></div>
+          <div class="sk-circle12 sk-circle"></div>
+      </div>
+      <span>Quick Pay Admin Loading...</span>
+  </div>
+</div> -->
+  <div class="color-overlay">
+    <div class="sign-wrap">
+      <div class="middle">
+        <div class="inner">
+          <div class="sign-box">
+            <div class="logo-box">
+              <!-- brand -->
+              <a class="brand" title="PIMS">
+                <!-- <img
+                  src="./assets/images/irmlogo-lg.png"
+                  alt="Institute of Rural Management"
+                /> -->
+              </a>
+              <br />
+              <h2
+                style="text-align: center;    font-size: 1.7rem;
+              "
+              >
+                Project Information Management System (PIMS)
+              </h2>
+
+              <!-- / brand -->
+            </div>
+
+            <div class="form-block">
+              <form class="form-signin" [formGroup]="loginForm" id="login-form">
+                <div id="error">
+                  <!-- error will be shown here ! -->
+                </div>
+                <div class="form-group">
+                  <input
+                    type="Email"
+                    id="email"
+                    formControlName="email"
+                    name="Email"
+                    class="form-control"
+                    placeholder="Email Address"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <input
+                    type="password"
+                    id="password"
+                    formControlName="password"
+                    name="password"
+                    autocomplete="off"
+                    class="form-control"
+                    placeholder="Password"
+                    required
+                  />
+                </div>
+                <!-- <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <div class="checkbox m-t-0 checkbox-warning help-block">
+                        <input id="checkbox5" type="checkbox" name="remember" value="remember" checked="">
+                        <label for="checkbox5">
+                          Remember Me
+                        </label>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="col-md-6 text-right"> <a>Forgot password?</a> </div>
+                </div> -->
+
+                <div class="form-group m-b-0">
+                  <!-- routerLink="/admin/dashboard" -->
+                  <button
+                    class="btn btn-block btn-primary"
+                    (click)="login()"
+                    id="btn-login"
+                    type="submit"
+                  >
+                    <i
+                      *ngIf="isLoading"
+                      class="fa fa-circle-o-notch fa-spin btn-spinner"
+                    ></i>
+                    <span *ngIf="!isLoading">Log In</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

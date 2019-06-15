@@ -1,0 +1,286 @@
+/* .sign-page {
+  background-image: url(/assets/images/bgimage.jpg);
+  background-size: 100% 113%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  display: table;
+  width: 100%;
+  height: 100vh;
+}*/
+.white-spinner {
+  background-image: url(/assets/images/load.png);
+  height: 16px;
+  width: 16px;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  vertical-align: middle;
+}
+
+.sign-page {
+  margin-top: -3px;
+}
+
+
+.m-b-0 {
+  margin-bottom: 0px !important;
+}
+
+.sign-page {
+  background-image: url(/assets/images/bgimage.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 100vh;
+  background-size: 100% 100%;
+}
+
+.color-overlay {
+  background: rgba(16, 24, 35, 0.5);
+  position: relative;
+  z-index: 9;
+  height: 100vh;
+}
+
+.sign-wrap {
+  display: table;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.sign-wrap .middle {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.sign-wrap .inner {
+  margin-left: auto;
+  margin-right: auto;
+  width: 460px;
+  /*whatever width you want*/
+}
+
+.sign-box {
+  background: #fff;
+  padding: 50px 50px 0px 50px;
+  border-radius: 3px;
+  margin: 0px auto;
+  overflow: hidden;
+  display: block;
+  width: 460px;
+  box-shadow: 0 1px 4px 0 rgba(50, 50, 50, 0.7);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.logo-box {
+  width: 285px;
+  margin: 0px auto;
+  display: block;
+}
+
+.logo-box .brand {
+  display: block;
+}
+
+.logo-box .brand>img {
+  width: 100%;
+}
+
+.sign-box .form-block {
+  padding: 50px 40px 90px 40px;
+}
+
+.sign-box .form-control {
+  font-size: 14px;
+  border-color: rgba(120, 130, 140, 0.2);
+  border-radius: 0.25rem;
+  box-shadow: none;
+}
+
+.form-control {
+  border-color: rgba(120, 130, 140, 0.2);
+  border-radius: 0.25rem;
+  box-shadow: none;
+}
+
+.sign-box .help-block {
+  margin-bottom: 18px;
+}
+
+.help-block {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: #737373;
+}
+
+.checkbox {
+  padding-left: 20px;
+}
+
+.checkbox label {
+  display: inline-block;
+  position: relative;
+  padding-left: 5px;
+}
+
+.checkbox label::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  left: 0;
+  margin-left: -20px;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  background-color: #fff;
+  -webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+  -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+  transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.checkbox label::after {
+  display: inline-block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 0;
+  top: 0;
+  margin-left: -20px;
+  padding-left: 3px;
+  padding-top: 1px;
+  font-size: 11px;
+  color: #555555;
+}
+
+.checkbox input[type="checkbox"]:checked+label::after {
+  font-family: 'FontAwesome';
+  content: "\f00c";
+}
+
+.checkbox-warning input[type="checkbox"]:checked+label::after {
+  color: #fff;
+}
+
+.checkbox-warning input[type="checkbox"]:checked+label::before {
+  background-color: #4bad29;
+  border-color: #4bad29;
+}
+
+.sign-box .checkbox input[type=checkbox],
+.sign-box .checkbox-inline input[type=checkbox],
+.sign-box .radio input[type=radio],
+.sign-box .radio-inline input[type=radio] {
+  position: absolute;
+  margin-left: -20px;
+  opacity: 0;
+}
+
+.sign-box .help-block {
+  margin-top: 0px;
+}
+
+.sign-box .help-block label {
+  font-size: 12px;
+  margin-bottom: 0px;
+  color: rgba(0, 0, 0, 0.87);
+  line-height: 16px;
+
+}
+
+.sign-box .form-block a {
+  color: rgba(0, 0, 0, 0.87);
+  text-decoration: underline;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+form label.error {
+  font-size: 11px;
+  color: red;
+  margin-bottom: 0px;
+}
+
+form label .req {
+  color: red;
+  margin-bottom: 0px;
+}
+
+
+.x-tabs .tab-content {
+  border-left: 1px solid #dce4ec;
+  border-right: 1px solid #dce4ec;
+  border-bottom: 1px solid #dce4ec;
+  padding: 10px;
+}
+
+.x-tabs .nav-tabs {
+  border-bottom: 1px solid #dce4ec;
+}
+
+.x-tabs .nav-tabs>li.active>a,
+.x-tabs .nav-tabs>li.active>a:focus,
+.x-tabs .nav-tabs>li.active>a:hover {
+  color: #555;
+  cursor: default;
+  background-color: #fff;
+  border: 1px solid #dce4ec;
+  border-bottom-color: transparent;
+}
+
+.x-tabs .nav-tabs>li>a {
+  color: rgba(0, 0, 0, 0.87);
+  padding: 8px 20px;
+}
+
+.x-tabs .nav-tabs>li>a:hover {
+  border-color: #dce4ec #dce4ec #dce4ec;
+  color: #546a79;
+  background: #f6f8f9;
+}
+
+
+.btn-primary {
+  background: #4bad29;
+  border-color: #4bad29;
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+  background: #46a526;
+  border-color: #46a526;
+  color: #fff;
+  box-shadow: none;
+  outline: none;
+}
+
+.btn-primary:active:focus,
+.btn-primary:active:hover {
+  background: #46a526;
+  border-color: #46a526;
+  color: #fff;
+  box-shadow: none;
+  outline: none;
+}
+
+.btn-primary.active,
+.btn-primary.focus {
+  background: #46a526;
+  border-color: #46a526;
+  color: #fff;
+  box-shadow: none;
+  outline: none;
+}
+
+.btn-line {
+  background: #fff;
+  border-radius: 3px;
+  border: 1px solid rgba(120, 130, 140, 0.13);
+}
+
+.btn-line:hover,
+.btn-line:focus {
+  background-color: #f5f5f5;
+}

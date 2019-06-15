@@ -1,0 +1,15 @@
+const express = require("express");
+const router = express.Router();
+
+const ProjectsController = require('../controllers/projects.controllers');
+const checkAuth = require('../middleware/check-auth');
+
+// router.get("/",ProjectsController.sampleProjects);
+router.get("/",ProjectsController.getAll);
+router.get("/getnextid",ProjectsController.getNextId);
+// router.get("/statistics",ProjectsController.ProjectsStatistics);
+router.post("/",ProjectsController.addProject);
+router.put("/:_id", ProjectsController.updateProject);
+router.delete("/:_id", ProjectsController.deleteProject);
+// router.get("/",checkAuth,ProjectsController.sampleProjects);
+module.exports = router;

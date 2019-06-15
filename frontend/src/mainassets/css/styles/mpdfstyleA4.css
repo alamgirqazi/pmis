@@ -1,0 +1,92 @@
+		body { font-family: DejaVuSansCondensed, sans-serif; font-size: 11pt;  }
+		table {font-family: DejaVuSansCondensed; font-size: 9pt; line-height: 1.2;
+			margin-top: 2pt; margin-bottom: 5pt;
+			border-collapse: collapse;  }
+			thead {	font-weight: bold; vertical-align: bottom; }
+		tfoot {	font-weight: bold; vertical-align: top; }
+		thead td { font-weight: bold; }
+		tfoot td { font-weight: bold; }
+
+		thead td, thead th, tfoot td, tfoot th { font-variant: small-caps; }
+th {	font-weight: bold; 
+			vertical-align: top; 
+			text-align:left; 
+			padding-left: 2mm; 
+			padding-right: 2mm; 
+			padding-top: 0.5mm; 
+			padding-bottom: 0.5mm; 
+		 }
+
+		td {	padding-left: 2mm; 
+			vertical-align: top; 
+			text-align:left; 
+			padding-right: 2mm; 
+			padding-top: 0.5mm; 
+			padding-bottom: 0.5mm;
+		 }
+th p { text-align: left; margin:0pt;  }
+		td p { text-align: left; margin:0pt;  }
+.projectHeader{
+	text-align:center;
+}
+.projectHeader tr th, .projectHeader tr td{
+	text-align:center;
+}
+p.smallp{ font-size:10px;}
+h4.header-title{
+	font-size:18px;
+	text-transform:uppercase;
+	color:#000;
+}
+
+.projectmaindetail{
+	background-color: #cdcdcd;
+}
+.main-label{text-transform:uppercase;}
+
+.projectdetail{
+	background:#fff;
+}
+.projectdetail tr td{border-bottom:1px solid #555555;}
+.d-label{
+	font-size:11px;
+	font-weight:bold;
+	margin:0px;
+}
+.d-info{
+	font-size:11px;
+	margin:0px;
+}
+
+.projectdetail-2 thead tr th{
+	background-color: #dcdcdc;
+}
+.highlight_td tr td{
+	background-color: #dcdcdc;
+}
+.highlight_tfoot_padding tr td{
+	padding:20px 5px;
+}
+
+.sign{
+	height:50px;
+	width:200px;
+	float:right;
+	border-bottom:2px solid #000;background-color: #dcdcdc;
+	display:block;
+	padding:10px 20px;
+	margin-bottom:10px;
+}
+
+.log-table { width:100%; background-color: #fff; }
+.headerrow td, .headerrow th { background-color: #cdcdcd;}
+.evenrow td, .evenrow th {font-size:11px; background-color: #eaebec; } 
+		.oddrow td, .oddrow th {font-size:11px; background-color: #fff;}
+		
+.ticket-img{
+	width:100%;
+}	
+.note-table { width:100%; background-color: #fff; }	
+
+.footer-text{ text-align:left; margin:0px;font-size:11px;}
+ 

@@ -1,0 +1,322 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { AuthService } from '../core/auth.service';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Qpconfig } from '../../qp.config';
+
+/**
+ * Api services for the `Company` model.
+ */
+@Injectable()
+export class CompanyApi {
+  constructor(protected http: HttpClient, private authService: AuthService) {}
+
+  public getAllCompanies(): Observable<any> {
+    const url = Qpconfig.getPath() + '/companies';
+
+    return this.http
+      .get(url, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
+  public getCompanyById(company_id): Observable<any> {
+    const url = Qpconfig.getPath() + '/companies/' + company_id;
+
+    return this.http
+      .get(url, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
+
+  public getAllDrivers(): Observable<any> {
+    const url = Qpconfig.getPath() + '/drivers';
+
+    return this.http
+      .get(url, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
+
+  public updateApplicationLockStatus(
+    company_id: any,
+    data?: any
+  ): Observable<any> {
+    const url = Qpconfig.getPath() + '/companies/' + company_id;
+    // data['company_id'] = company_id;
+    return this.http
+      .put(url, data, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
+  public updateProfileStatus(company_id: any, data?: any): Observable<any> {
+    const url = Qpconfig.getPath() + '/companies/' + company_id;
+    return this.http
+      .put(url, data, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
+  public updateFileStatus(
+    company_id: any,
+    status_id?: any,
+    file?: any
+  ): Observable<any> {
+    const url =
+      Qpconfig.getPath() + `/companies/${company_id}/files/${file.id}`;
+    const data = { status_id: status_id };
+    return this.http
+      .put(url, data, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
+
+  public deleteCompany(company_id: any): Observable<any> {
+    const url = Qpconfig.getPath() + '/companies/' + company_id;
+    return this.http.delete(url, {
+      headers: new HttpHeaders().set(
+        'Authorization',
+        this.authService.getAccessTokenId()
+      )
+    });
+  }
+
+  public getCompanyDocuments(id: any): Observable<any> {
+    const url = Qpconfig.getPath() + `/companies/${id}/documents`;
+
+    return this.http
+      .get(url, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
+
+  public getCompanyTransactions(
+    company_entity_id: any,
+    cust_id: any
+  ): Observable<any> {
+    let url: any;
+    if (cust_id) {
+      url =
+        Qpconfig.getPath() +
+        `/companies/${company_entity_id}/transactions?customer_id=${cust_id}`;
+    } else {
+      url = Qpconfig.getPath() + `/companies/${company_entity_id}/transactions`;
+    }
+    return this.http
+      .get(url, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
+  public getCompanyDataById(id: any): Observable<any> {
+    const url = Qpconfig.getPath() + `/companies/${id}`;
+
+    return this.http
+      .get(url, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
+
+  public getCustomersByCompanyEntityId(
+    company_entity_id: any,
+    attached?: any,
+    all?: any
+  ): Observable<any> {
+    let url;
+
+    if (attached) {
+      url =
+        Qpconfig.getPath() +
+        `/companies/${company_entity_id}/customers?attached=true`;
+    } else {
+      url =
+        Qpconfig.getPath() +
+        `/companies/${company_entity_id}/customers?attached=false`;
+    }
+    if (all) {
+      url = Qpconfig.getPath() + `/companies/${company_entity_id}/customers`;
+    }
+
+    return this.http
+      .get(url, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
+  public addOrUpdateCompanyInfo(
+    company_obj_id,
+    company_id: any,
+    data?: any,
+    generatepdf?: boolean
+  ): Observable<any> {
+    const url = Qpconfig.getPath() + '/companies/' + company_id;
+    // data['_id'] = company_obj_id;
+    // data['company_id'] = company_id;
+    if (generatepdf) {
+      data['generatepdf'] = true;
+    }
+
+    return this.http
+      .put(url, data, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
+
+  public saveCustomerToCompany(
+    company_id: any,
+    customers_array: any
+  ): Observable<any> {
+    const url = Qpconfig.getPath() + `/companies/${company_id}/customers`;
+    return this.http
+      .put(
+        url,
+        { customers: customers_array },
+        {
+          headers: new HttpHeaders().set(
+            'Authorization',
+            this.authService.getAccessTokenId()
+          )
+        }
+      )
+      .map((response: any) => {
+        return response;
+      });
+  }
+
+  public deleteCompanyCustomer(company_id: any, customer_id): Observable<any> {
+    const url =
+      Qpconfig.getPath() + `/companies/${company_id}/customers/${customer_id}`;
+
+    return this.http.delete(url, {
+      headers: new HttpHeaders().set(
+        'Authorization',
+        this.authService.getAccessTokenId()
+      )
+    });
+  }
+  public downloadDocumentUrl(company_id: any, doc_id: any): Observable<any> {
+    const url = Qpconfig.getPath() + `/companies/${company_id}/files/${doc_id}`;
+
+    return this.http
+      .get(url, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
+  public downloadFormUrl(company_id: any, form_id: any): Observable<any> {
+    const url =
+      Qpconfig.getPath() + `/companies/${company_id}/forms/${form_id}`;
+
+    return this.http
+      .get(url, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
+
+  // http://localhost:3001/api/1/companies/626d20be-a8a8-41c4-9fff-2e821e807b42
+  // /customers/55e91b6b-ced7-443f-acec-c3578cf8d3b2/transactions
+
+  public createTransaction(
+    company_entity_id: string,
+    customer_entity_id: string,
+    data: any
+  ): Observable<any> {
+    const url =
+      Qpconfig.getPath() +
+      `/companies/${company_entity_id}/customers/${customer_entity_id}/transactions`;
+    return this.http
+      .post(url, data, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
+  // public downloadDocumentPdf(company_id: any): Observable<any> {
+  //   const url = Qpconfig.getPath() + `/companies/${company_id}/form/generate`;
+
+  //   const httpOptions = {
+  //     responseType: 'arraybuffer' as 'json'
+  //     //'responseType'  : 'blob' as 'json'        //This also worked
+  //   };
+
+  //   return this.http.get<any>(url, httpOptions);
+  // }
+}

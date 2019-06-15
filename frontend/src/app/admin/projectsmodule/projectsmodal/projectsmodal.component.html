@@ -1,0 +1,233 @@
+<div class="modal-content">
+  <!--  -->
+  <form class="form-horizontal" [formGroup]="appInfoForm">
+    <div class="modal-header _600">
+      <button type="button" class="close" (click)="closeModal()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <ul class="wizard-nav max">
+        <li class="wizard-item">
+          <a
+            class="wizard-link"
+            [class.active]="tabId == 1"
+            (click)="changeTab(1)"
+          >
+            Projects Info</a
+          >
+        </li>
+        <li class="wizard-item">
+          <a
+            class="wizard-link"
+            [class.active]="tabId == 2"
+            (click)="changeTab(2)"
+            >Tasks</a
+          >
+        </li>
+      </ul>
+
+      <div [hidden]="tabId !== 1">
+        <div class="form-group row">
+          <label class="col-lg-3 form-control-label">Id:</label>
+          <div class="col-lg-9">
+            <input
+              formControlName="id"
+              [ngClass]="{
+                'error-input': submitForm && appInfoForm.controls['id'].invalid
+              }"
+              class="form-control"
+              type="text"
+              disabled
+            />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-lg-3 form-control-label">name:</label>
+          <div class="col-lg-9">
+            <input
+              formControlName="name"
+              [ngClass]="{
+                'error-input':
+                  submitForm && appInfoForm.controls['name'].invalid
+              }"
+              class="form-control"
+              type="text"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-lg-3 form-control-label">objective:</label>
+          <div class="col-lg-9">
+            <input
+              formControlName="objective"
+              [ngClass]="{
+                'error-input':
+                  submitForm && appInfoForm.controls['objective'].invalid
+              }"
+              class="form-control"
+              type="text"
+            />
+            <!-- <select
+            formControlName="Category"
+            [ngClass]="{
+              'error-input':
+                submitForm && appInfoForm.controls['Category'].invalid
+            }"
+            name="priority"
+            class="form-control valid"
+          >
+            <option
+              *ngFor="let listing of categoriesList"
+              [value]="listing.name"
+            >
+              {{ listing.name }}</option
+            >
+          </select> -->
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-lg-3 form-control-label">activity:</label>
+          <div class="col-lg-9">
+            <input
+              formControlName="activity"
+              class="form-control"
+              type="text"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-lg-3 form-control-label">task:</label>
+          <div class="col-lg-9">
+            <input formControlName="task" class="form-control" type="text" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-lg-3 form-control-label">assigned_to:</label>
+          <div class="col-lg-9">
+            <select
+              formControlName="assigned_to"
+              (change)="assignedToChanged($event.target.value)"
+              [ngClass]="{
+                'error-input':
+                  submitForm && appInfoForm.controls['assigned_to'].invalid
+              }"
+              name="type"
+              class="form-control valid"
+            >
+              <ng-template ngFor let-item [ngForOf]="usersList" let-i="index">
+                <option value="{{ item.type }}"
+                  >{{ item.name }} | {{ item.role }}
+                </option>
+              </ng-template>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-lg-3 form-control-label">start_date:</label>
+          <div class="col-lg-9">
+            <input
+              formControlName="start_date"
+              placement="bottom"
+              bsDatepicker
+              [ngClass]="{
+                'error-input':
+                  submitForm && appInfoForm.controls['start_date'].invalid
+              }"
+              class="form-control"
+              type="text"
+            />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-lg-3 form-control-label">end_date:</label>
+          <div class="col-lg-9">
+            <input
+              formControlName="end_date"
+              placement="bottom"
+              bsDatepicker
+              [ngClass]="{
+                'error-input':
+                  submitForm && appInfoForm.controls['end_date'].invalid
+              }"
+              class="form-control"
+              type="text"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-lg-3 form-control-label">notes:</label>
+          <div class="col-lg-9">
+            <input
+              formControlName="notes"
+              [ngClass]="{
+                'error-input':
+                  submitForm && appInfoForm.controls['notes'].invalid
+              }"
+              class="form-control"
+              type="text"
+            />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-lg-3 form-control-label">attachments:</label>
+          <div class="col-lg-9">
+            <input
+              formControlName="attachments"
+              [ngClass]="{
+                'error-input':
+                  submitForm && appInfoForm.controls['attachments'].invalid
+              }"
+              class="form-control"
+              type="text"
+            />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-lg-3 form-control-label">status:</label>
+          <div class="col-lg-9">
+            <input
+              formControlName="status"
+              [ngClass]="{
+                'error-input':
+                  submitForm && appInfoForm.controls['status'].invalid
+              }"
+              class="form-control"
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+      <div [hidden]="tabId !== 2">
+        here are all the tasksss
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-line" (click)="closeModal()">
+        Cancel
+      </button>
+      <button
+        type="button"
+        (click)="saveAppInfo()"
+        class="btn btn-green round"
+        [disabled]="isLoading"
+      >
+        <i
+          *ngIf="isLoading"
+          class="fa fa-circle-o-notch fa-spin btn-spinner"
+        ></i>
+        <span *ngIf="!isLoading">Save </span>
+      </button>
+
+      <!--  -->
+    </div>
+    <!-- <div class="modal-footer">
+
+      </div> -->
+  </form>
+</div>
