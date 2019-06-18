@@ -103,6 +103,7 @@ export class ProjectsmodalComponent implements OnInit {
       notes: [null, []],
       attachments: [null, []],
       status: [null, []],
+      users: [],
       objectives: this.fb.array([])
     });
     // this.appObjectiveForm = this.fb.group({
@@ -113,19 +114,33 @@ export class ProjectsmodalComponent implements OnInit {
   createObjectives() {
     return this.fb.group({
       _id: [''],
-      objective_name: ['', [Validators.required]],
+      objective_name: [''],
       users_assigned: [null]
+    });
+  }
+  createUsers() {
+    return this.fb.group({
+      _id: [''],
+      name: ['', [Validators.required]],
+      type: [null],
+      avatar: [null]
     });
   }
 
   get formDataObjectives() {
     return <FormArray>this.appInfoForm.get('objectives');
   }
+  get formDataUsers() {
+    return <FormArray>this.appInfoForm.get('users');
+  }
 
   addObjectives() {
     (<FormArray>this.appInfoForm.get('objectives')).push(
       this.createObjectives()
     );
+  }
+  addUsers() {
+    (<FormArray>this.appInfoForm.get('users')).push(this.createUsers());
   }
 
   deleteObjective(id, item) {

@@ -36,6 +36,9 @@ const Projects = new Schema({
     notes: {
         type: String
     },
+    users: {
+        type: Array
+    },
     attachments: {
         type: String
     },
