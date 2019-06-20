@@ -120,6 +120,38 @@ projectsController.getNextId = async (req, res) => {
       return res.status(500).send(error);
     }
   };
+projectsController.getObjectivesOfUser = async (req, res) => {
+    if (!req.params._id) {
+        res.status(500).send({
+            message: 'ID missing'
+        });
+    }
+    try {
+        const _id = req.params._id;
+
+        const result = await Projects.find({
+            "users._id": _id
+        });
+        // this query workedd
+        console.log('result',result);
+    //   const result = await Inventory.updateOne({
+    //         _id: _id
+    //     }, {
+    //         $set: {is_deleted: 1}
+    //     }, {
+    //         upsert: true,
+    //         runValidators: true
+    //     });
+        res.status(200).send({
+            code: 200,
+            data:result
+        });
+
+    } catch (error) {
+        console.log('error', error);
+        return res.status(500).send(error);
+    }
+  };
 
 projectsController.deleteProject = async (req, res) => {
     if (!req.params._id) {

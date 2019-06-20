@@ -9,8 +9,6 @@ import {
   ViewChildren,
   AfterViewInit
 } from '@angular/core';
-import * as jsPDF from 'jsPDF';
-import * as html2canvas from 'html2canvas';
 
 import { AsideNavigationService } from '../../services/asideNavigation.Service';
 import { DataTableDirective } from 'angular-datatables';
@@ -75,30 +73,12 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
   selectedLocation = 'All';
   locationListing = [];
   categoriesList2 = [];
+  _id;
   // @TODO
   ngOnInit() {
-    const { Name, Role, Location } = this.authService.getAccessTokenInfo();
-    // this.categoriesList2 = JSON.parse(
-    //   JSON.stringify(this.miscHelperService.categoriesList)
-    // );
-    this.categoriesList2.unshift({
-      id: 0,
-      name: 'All'
-    });
-    this.name = Name;
-    this.location = Location;
-    this.role = Role;
-    if (Role == 'User') {
-      this.selectedLocation = Location;
-    }
-
-    // this.locationListing = JSON.parse(
-    //   JSON.stringify(this.miscHelperService.locationList)
-    // );
-    this.locationListing.unshift({
-      id: 0,
-      name: 'All'
-    });
+    const { id, _id } = this.authService.getAccessTokenInfo();
+    console.log('TCL: ObjectivesComponent -> ngOnInit -> id', _id);
+    this._id = _id;
     this._asideNavigationService.currentMessage.subscribe(message => {
       this.navOpened = message;
       // console.log('message: ', message);
@@ -136,25 +116,16 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
       processing: false,
       searching: false,
       // pageLength: 10,
-      lengthMenu: [5, 10, 50, 100, 200, 500],
+      lengthMenu: [5, 10, 50],
       // dom: 'Btp',
       // buttons: ['csv', 'excel'],
 
       ajax: (dataTablesParameters: any, callback) => {
-        let filter = this.selectedLocation;
-        let category_filter = this.selectedCategory;
-        if (this.selectedLocation == 'All') {
-          filter = '';
-        }
-        if (this.selectedCategory == 'All') {
-          category_filter = '';
-        }
-        dataTablesParameters.location_filter = filter;
-        dataTablesParameters.category_filter = category_filter;
         const params = this.miscHelperService.objectToHttpParams(
           dataTablesParameters
         );
-        const url = Baseconfig.getPath() + `/projects`;
+        const url =
+          Baseconfig.getPath() + `/projects/objectives/_id/${this._id}`;
 
         this.http
           .get(url, {

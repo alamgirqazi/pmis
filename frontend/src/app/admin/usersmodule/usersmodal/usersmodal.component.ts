@@ -106,17 +106,9 @@ export class UsersmodalComponent implements OnInit {
 
   formInitializer() {
     this.appInfoForm = this.fb.group({
-      name: [
-        null,
-        [
-          Validators.required,
-          this.miscHelperService.removeSpaces,
-          Validators.maxLength(12),
-          Validators.minLength(4)
-        ]
-      ],
+      name: [null, [Validators.required]],
       id: ['', [Validators.required]],
-      password: ['', [Validators.required]],
+      password: [''],
       email: ['', [Validators.required, Validators.email]],
       role: ['', [Validators.required]],
       avatar: [null],
@@ -182,21 +174,24 @@ export class UsersmodalComponent implements OnInit {
 
   updateData() {
     this.isLoading = true;
-    this.userApi
-      .updateUser(this.formData._id, this.appInfoForm.value)
-      .subscribe(
-        async response => {
-          console.log('response->', response);
-          this.outputAndReload.emit(null);
-          // this.slimScroll.complete();
-        },
-        error => {
-          console.log('error', error);
-          // this.modalRef.hide();
-          this.toasterService.pop('error', 'There are some error updating');
-          this.slimScroll.complete();
-        }
-      );
+
+    const val = this.appInfoForm.value;
+    if (val.password == '') {
+      delete val.password;
+    }
+    this.userApi.updateUser(this.formData._id, val).subscribe(
+      async response => {
+        console.log('response->', response);
+        this.outputAndReload.emit(null);
+        // this.slimScroll.complete();
+      },
+      error => {
+        console.log('error', error);
+        // this.modalRef.hide();
+        this.toasterService.pop('error', 'There are some error updating');
+        this.slimScroll.complete();
+      }
+    );
   }
   insertData() {
     this.isLoading = true;
