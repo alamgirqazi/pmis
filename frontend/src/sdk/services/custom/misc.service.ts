@@ -10,33 +10,50 @@ import { AbstractControl } from '@angular/forms';
 export class MiscHelperService {
   constructor() {}
 
-  userList =[
+  userList = [
     {
-      id:1,
+      id: 1,
       type: 'Admin'
     },
     {
-      id:2,
+      id: 2,
       type: 'Executive Director'
-    },{
-      id:3,
-      type: 'Manager'
-    },{
-      id:4,
-      type: 'Project Coordinator'
-    },{
-      id:5,
-      type: 'Project Manager'
-    },{
-      id:6,
-      type: 'Official'
     },
+    {
+      id: 3,
+      type: 'Manager'
+    },
+    {
+      id: 4,
+      type: 'Project Coordinator'
+    },
+    {
+      id: 5,
+      type: 'Project Manager'
+    },
+    {
+      id: 6,
+      type: 'Official'
+    }
+  ];
+  depList = [
+    {
+      id: 1,
+      name: 'Dep 1'
+    },
+    {
+      id: 2,
+      name: 'Dep 2'
+    }
+  ];
 
-  ]
-
-  get userTypeList(){
+  get userTypeList() {
     return this.userList;
   }
+  get departmentList() {
+    return this.depList;
+  }
+
   async destroyDataTable(tableId, dtElement) {
     dtElement.forEach(async alertInstance => {
       if (alertInstance['el'].nativeElement.id === tableId) {

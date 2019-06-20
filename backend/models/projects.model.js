@@ -11,10 +11,7 @@ const Projects = new Schema({
      name: {
         type: String
     },
-  
-     objective: {
-        type: String
-    },
+
     activity: {
         type: String
     },
@@ -37,6 +34,9 @@ const Projects = new Schema({
         type: String
     },
     users: {
+        type: Array
+    },
+    objectives: {
         type: Array
     },
     attachments: {

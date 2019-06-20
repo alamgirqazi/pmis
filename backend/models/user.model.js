@@ -40,6 +40,12 @@ const User = new Schema({
 });
 
 User.plugin(mongoosePaginate);
+
+User.methods.toJSON = function() {
+    var obj = this.toObject();
+    delete obj.password;
+    return obj;
+   }
 // User.index({'$**': 'text'});
 
 module.exports = mongoose.model("User", User);

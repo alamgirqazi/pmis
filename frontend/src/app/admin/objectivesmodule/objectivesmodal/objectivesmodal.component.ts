@@ -26,11 +26,11 @@ import { ProjectsApi } from '../../../../sdk/services/custom/projects.service';
 import { Baseconfig } from '../../../../sdk/base.config';
 
 @Component({
-  selector: 'app-projectsmodal',
-  templateUrl: './projectsmodal.component.html',
-  styleUrls: ['./projectsmodal.component.css']
+  selector: 'app-objectivesmodal',
+  templateUrl: './objectivesmodal.component.html',
+  styleUrls: ['./objectivesmodal.component.css']
 })
-export class ProjectsmodalComponent implements OnInit {
+export class ObjectivesmodalComponent implements OnInit {
   constructor(
     private slimScroll: SlimLoadingBarService,
     private miscHelperService: MiscHelperService,

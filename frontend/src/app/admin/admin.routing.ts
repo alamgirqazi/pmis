@@ -32,6 +32,11 @@ export const routes: Routes = [
         loadChildren:
           'app/admin/projectsmodule/projects.module#ProjectsmoduleModule'
       },
+      {
+        path: 'objectives',
+        loadChildren:
+          'app/admin/objectivesmodule/objectives.module#ObjectivesmoduleModule'
+      },
       // {
       //   path: 'reports',
       //   loadChildren:

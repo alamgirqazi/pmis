@@ -173,7 +173,8 @@ projectsController.updateProject = async (req, res) => {
 };
 
 async function runUpdate(_id, updates, res) {
-
+    console.log('updates')
+    console.log(updates)
     try {
         const result = await Projects.updateOne({
             _id: _id

@@ -32,7 +32,8 @@ usersController.getAll = async (req, res) => {
     let merged = {...obj,...user_type_obj};
     
 
-        users = await Users.paginate(merged, {
+        users = await Users.paginate(merged,{      password: 0}, {
+             password: 0,
             offset: parseInt(start),
             limit: parseInt(length)
         });
@@ -177,7 +178,6 @@ usersController.updateUser = async (req, res) => {
     try {
         const _id = req.params._id;
         let updates = req.body;
-
             runUpdate(_id, updates, res);
       
 
@@ -189,7 +189,6 @@ usersController.updateUser = async (req, res) => {
 };
 
 async function runUpdate(_id, updates, res) {
-
     try {
         const result = await Users.updateOne({
             _id: _id
