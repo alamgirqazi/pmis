@@ -9,7 +9,9 @@ import {
   Output,
   QueryList,
   TemplateRef,
-  ViewChildren
+  ViewChildren,
+  ElementRef,
+  ViewChild
 } from '@angular/core';
 
 // import { ApplicationApi } from '../../../../sdk/services/custom/assets.service';
@@ -24,6 +26,7 @@ import { MiscHelperService } from '../../../../sdk/services/custom/misc.service'
 import { AuthService } from '../../../../sdk/services/core/auth.service';
 import { ProjectsApi } from '../../../../sdk/services/custom/projects.service';
 import { Baseconfig } from '../../../../sdk/base.config';
+import { ObjectivesApi } from '../../../../sdk/services/custom/objectives.service';
 
 @Component({
   selector: 'app-projectsmodal',
@@ -36,7 +39,9 @@ export class ProjectsmodalComponent implements OnInit {
     private miscHelperService: MiscHelperService,
     private authService: AuthService,
     private projectsApi: ProjectsApi,
+    private objectivesApi: ObjectivesApi,
     private userApi: UserApi,
+    private modalService: BsModalService,
     private toasterService: ToasterService,
     private fb: FormBuilder
   ) {
@@ -46,13 +51,22 @@ export class ProjectsmodalComponent implements OnInit {
   @Input() newInstance;
   @Output() output: EventEmitter<any> = new EventEmitter();
   @Output() outputAndReload: EventEmitter<any> = new EventEmitter();
+  // deleteTemplate: TemplateRef<any>;
+  @ViewChild('deleteTemplate') deleteTemplate: TemplateRef<any>;
+
   isLoading = false;
+  deleteId;
+  control;
   result;
+  modalRef: BsModalRef;
+
   appInfoForm: FormGroup;
   appActivityForm: FormGroup;
   appObjectiveForm: FormGroup;
   submitForm = false;
   submitObjectives = false;
+  objectiveDeleted = false;
+  objectiveInfo;
   locationListing = [];
   categoriesList = [];
   role = 'User';
@@ -81,19 +95,48 @@ export class ProjectsmodalComponent implements OnInit {
   }
 
   addExistingActivities() {
-    if (this.formData.objectives && this.formData.objectives.length > 0) {
-      // patch Rooms here
-      this.resetObjectives();
-      const control = <FormArray>this.appInfoForm.get('objectives');
+    // if (this.formData.objectives && this.formData.objectives.length > 0) {
+    //   // patch Rooms here
+    //   this.resetObjectives();
+    //   const control = <FormArray>this.appObjectiveForm.get('objectives');
 
-      for (const obj of this.formData.objectives) {
-        const addrCtrl = this.createObjectives();
-        addrCtrl.patchValue(obj);
-        control.push(addrCtrl);
+    //   for (const obj of this.formData.objectives) {
+    //     const addrCtrl = this.createObjectives();
+    //     addrCtrl.patchValue(obj);
+    //     control.push(addrCtrl);
+    //   }
+    // } else {
+    // this.addObjectives();
+    this.getObjectivesFromDB();
+    // }
+  }
+
+  getObjectivesFromDB() {
+    const project_id = this.appInfoForm.controls['_id'].value;
+    console.log('project_id', project_id);
+    this.objectivesApi.getObjectivesByIds(project_id, '').subscribe(
+      async response => {
+        console.log('my projects objectives->', response);
+        if (response.data && response.data.docs.length > 0) {
+          // patch Rooms here
+          this.resetObjectives();
+          const control = <FormArray>this.appObjectiveForm.get('objectives');
+
+          for (const obj of response.data.docs) {
+            const addrCtrl = this.createObjectives();
+            addrCtrl.patchValue(obj);
+            control.push(addrCtrl);
+          }
+        } else {
+          this.addObjectives();
+        }
+        // this.slimScroll.complete();
+      },
+      error => {
+        console.log('error', error);
+        this.slimScroll.complete();
       }
-    } else {
-      this.addObjectives();
-    }
+    );
   }
   // getAll() {}
 
@@ -123,20 +166,21 @@ export class ProjectsmodalComponent implements OnInit {
       users: [],
       objectives: this.fb.array([])
     });
-    // this.appObjectiveForm = this.fb.group({
-    //   objectives: this.fb.array([])
-    // });
+    this.appObjectiveForm = this.fb.group({
+      objectives: this.fb.array([])
+    });
   }
 
   createObjectives() {
     return this.fb.group({
       _id: [''],
       objective_name: [''],
+      project_id: [''],
       users_assigned: [null]
     });
   }
   resetObjectives() {
-    const control = <FormArray>this.appInfoForm.get('objectives');
+    const control = <FormArray>this.appObjectiveForm.get('objectives');
     this.clearFormArray(control);
   }
   clearFormArray = (formArray: FormArray) => {
@@ -155,7 +199,7 @@ export class ProjectsmodalComponent implements OnInit {
   }
 
   get formDataObjectives() {
-    return <FormArray>this.appInfoForm.get('objectives');
+    return <FormArray>this.appObjectiveForm.get('objectives');
   }
   get formDataUsers() {
     return <FormArray>this.appInfoForm.get('users');
@@ -165,7 +209,7 @@ export class ProjectsmodalComponent implements OnInit {
   }
 
   addObjectives() {
-    (<FormArray>this.appInfoForm.get('objectives')).push(
+    (<FormArray>this.appObjectiveForm.get('objectives')).push(
       this.createObjectives()
     );
   }
@@ -174,15 +218,42 @@ export class ProjectsmodalComponent implements OnInit {
   }
 
   deleteObjective(id, item) {
+    console.log('this', this.appObjectiveForm.value);
     if (id !== 0) {
-      const control = <FormArray>this.appInfoForm.get('objectives');
-      control.removeAt(id);
-      // if (item.value._id) {
-      //   this.subsidiaryDeleted = true;
+      console.log('item--', item);
+      if (item.value._id && item.value._id != '') {
+        this.objectiveDeleted = true;
+        this.objectiveInfo = item;
+        const control = <FormArray>this.appObjectiveForm.get('objectives');
+        this.control = control;
+        this.deleteId = id;
+        this.openDeleteModal(this.deleteTemplate);
 
-      //   //   this.deleteCompanySubsidiariesInfo(subinfo.value._id);
-      // }
+        // control.removeAt(id);
+        //open delete modal;
+      } else {
+        const control = <FormArray>this.appObjectiveForm.get('objectives');
+        control.removeAt(id);
+      }
     }
+  }
+  deleteObjectiveFromDB() {
+    this.objectivesApi.deleteObjective(this.objectiveInfo._id).subscribe(
+      async response => {
+        console.log('my users->', response);
+        this.control.removeAt(this.deleteId);
+        this.toasterService.pop('success', 'Objective deleted Successfully');
+        // this.slimScroll.complete();
+      },
+      error => {
+        console.log('error', error);
+        this.slimScroll.complete();
+      }
+    );
+  }
+
+  decline() {
+    this.modalRef.hide();
   }
   getUsersFromDB() {
     // const user_type = null;
@@ -220,19 +291,20 @@ export class ProjectsmodalComponent implements OnInit {
       }
     );
   }
+  openDeleteModal(template) {
+    this.modalRef = this.modalService.show(template, { class: 'modal-xs' });
+  }
   saveAppInfo() {
     this.submitForm = true;
     if (this.appInfoForm.valid) {
       if (this.newInstance) {
         this.insertData();
       } else {
-        this.updateData(this.appInfoForm.value);
-
-        // if (this.tabId === 1) {
-        //   this.updateData(this.appInfoForm.value);
-        // } else if (this.tabId === 2) {
-        //   this.updateData(this.appInfoForm.value);
-        // }
+        if (this.tabId === 1) {
+          this.updateData(this.appInfoForm.value);
+        } else if (this.tabId === 2) {
+          this.saveObjectivesToDB();
+        }
         // //   let objectives = this.appInfoForm.controls['objectives'].value;
         // //   objectives.forEach(element => {
         // //     if (element._id == '') {
@@ -267,6 +339,32 @@ export class ProjectsmodalComponent implements OnInit {
         }
       );
   }
+
+  saveObjectivesToDB() {
+    this.isLoading = true;
+    const project_id = this.appInfoForm.controls['_id'].value;
+
+    this.objectivesApi
+      .insertObjectives(this.appObjectiveForm.value, project_id)
+      .subscribe(
+        async response => {
+          console.log('response->', response);
+          this.outputAndReload.emit(null);
+          this.isLoading = false;
+
+          // this.slimScroll.complete();
+        },
+        error => {
+          console.log('error', error);
+          // this.modalRef.hide();
+          this.isLoading = false;
+
+          this.toasterService.pop('error', 'There are some error inserting');
+          this.slimScroll.complete();
+        }
+      );
+  }
+
   insertData() {
     this.isLoading = true;
     this.projectsApi.insertProjects(this.appInfoForm.value).subscribe(

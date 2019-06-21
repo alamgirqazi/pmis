@@ -1,6 +1,6 @@
 <div class="modal-content">
   <!--  -->
-  <form class="form-horizontal" [formGroup]="appInfoForm">
+  <form class="form-horizontal">
     <div class="modal-header _600">
       <button type="button" class="close" (click)="closeModal()">
         <span aria-hidden="true">×</span>
@@ -43,7 +43,7 @@
         </li>
       </ul>
 
-      <div [hidden]="tabId !== 1">
+      <div [hidden]="tabId !== 1" [formGroup]="appInfoForm">
         <div class="form-group row">
           <label class="col-lg-3 form-control-label">Id:</label>
           <div class="col-lg-9">
@@ -241,7 +241,7 @@
           </div>
         </div>
       </div>
-      <div [hidden]="tabId !== 2">
+      <div [hidden]="tabId !== 2" [formGroup]="appObjectiveForm">
         <div id="tab-3" formArrayName="objectives">
           <div
             *ngFor="let item of formDataObjectives.controls; let i = index"
@@ -395,3 +395,23 @@
       </div> -->
   </form>
 </div>
+
+<!-- Confirmation  Modal -->
+<ng-template #deleteTemplate>
+  <div class="modal-body text-center">
+    <p>
+      Are you sure you want to remove
+      {{ objectiveInfo?.objective_name }} Objective?
+    </p>
+    <button
+      type="button"
+      class="btn btn-green"
+      (click)="deleteObjectiveFromDB()"
+    >
+      Yes
+    </button>
+    <button type="button" class="btn btn-default" (click)="decline()">
+      No
+    </button>
+  </div>
+</ng-template>

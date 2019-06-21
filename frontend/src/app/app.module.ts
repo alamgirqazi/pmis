@@ -1,3 +1,4 @@
+import { ObjectivesApi } from './../sdk/services/custom/objectives.service';
 import {
   BrowserXhr,
   Http,
@@ -61,6 +62,7 @@ import { UserApi } from '../sdk/services/custom/user.service';
     MiscHelperService,
     ExcelService,
     ProjectsApi,
+    ObjectivesApi,
     AuthService,
     UserApi,
     AsideNavigationService,

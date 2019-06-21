@@ -24,6 +24,7 @@ app.use(
 const authRoutes = require('./routes/auth.routes');
 const usersRoutes = require('./routes/users.routes');
 const projectsRoutes = require('./routes/projects.routes');
+const objectivesRoutes = require('./routes/objectives.routes');
 // const inventoryRoutes = require('./routes/inventory.routes');
 
 // config mongodb
@@ -56,6 +57,7 @@ app.use(cors());
 // checkAuth
 app.use("/users",usersRoutes);
 app.use("/projects",projectsRoutes);
+app.use("/objectives",objectivesRoutes);
 // checkAuth
 // app.use("/inventory",inventoryRoutes);
 app.use("/auth",authRoutes);

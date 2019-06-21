@@ -10,19 +10,19 @@ projectsController.getAll = async (req, res) => {
             search
         } = req.query
         
-        const {
-            value
-        } = JSON.parse(search)
+        // const {
+        //     value
+        // } = JSON.parse(search)
 
         let obj = {}
-        if (value != '') {
+        // if (value != '') {
 
-            obj = {
-                $text: {
-                    $search: value
-                },
-            }
-        }
+        //     obj = {
+        //         $text: {
+        //             $search: value
+        //         },
+        //     }
+        // }
 
         projects = await Projects.paginate(obj, {
             offset: parseInt(start),
