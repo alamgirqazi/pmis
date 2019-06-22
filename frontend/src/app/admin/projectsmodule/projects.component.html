@@ -64,10 +64,11 @@
                         <div class="b-b white bg">
                           <div class="navbar no-radius">
                             <ul class="nav navbar-nav list-top-navbar">
-                              <li class="nav-item">
-                                <!-- <h5 class="navbar-item-title">Inventory List</h5> -->
-                              </li>
-                              <li class="nav-item">
+                              <li class="nav-item"></li>
+                              <li
+                                class="nav-item"
+                                *ngIf="role === 'Executive Director'"
+                              >
                                 <a
                                   class="nav-link btn btn-green"
                                   data-toggle="modal"
@@ -87,14 +88,6 @@
                                 <div class="row">
                                   <div class="col-xs-12">
                                     <div class="table-box box visible">
-                                      <!-- <div class="box-header">
-                                        <div class="row">
-                                          <div class="col-md-12">
-                                            <h2>Applications List</h2>
-                                          </div>
-                                        </div>
-                                      </div> -->
-
                                       <div class="box-header p-8">
                                         <div class="row">
                                           <div class="col-md-1">
@@ -102,123 +95,9 @@
                                               Projects
                                             </h2>
                                           </div>
-                                          <div class="col-md-11 text-right">
-                                            <!-- <form
-                                              class="form-inline pull-right"
-                                            >
-                                              <ul class="p-l-0 m-b-0">
-                                                <li class="nav-item dropdown">
-                                                  <div
-                                                    class="btn-group"
-                                                    dropdown
-                                                  >
-                                                    <span
-                                                      class="nav-item inline dropdown"
-                                                    >
-                                                      <a
-                                                        dropdownToggle
-                                                        class="nav-link btn btn-line dropdown-toggle"
-                                                        data-toggle="dropdown"
-                                                        aria-expanded="false"
-                                                      >
-                                                        Location:
-                                                        {{ selectedLocation }}
-                                                      </a>
-                                                    </span>
-                                                    <ul
-                                                      *dropdownMenu
-                                                      class="dropdown-menu dropdown-menu-scale  pull-right"
-                                                      role="menu"
-                                                    >
-                                                      <li
-                                                        *ngFor="
-                                                          let listing of locationListing
-                                                        "
-                                                      >
-                                                        <a
-                                                          (click)="
-                                                            changedListing(
-                                                              listing
-                                                            )
-                                                          "
-                                                          class="dropdown-item"
-                                                        >
-                                                          {{ listing.name }}
-                                                        </a>
-                                                      </li>
-                                                    </ul>
-                                                  </div>
-                                                </li>
-                                                <li class="nav-item dropdown">
-                                                  <div
-                                                    class="btn-group"
-                                                    dropdown
-                                                  >
-                                                    <span
-                                                      class="nav-item inline dropdown"
-                                                    >
-                                                      <a
-                                                        dropdownToggle
-                                                        class="nav-link btn btn-line dropdown-toggle"
-                                                        data-toggle="dropdown"
-                                                        aria-expanded="false"
-                                                      >
-                                                        Category:
-                                                        {{ selectedCategory }}
-                                                      </a>
-                                                    </span>
-                                                    <ul
-                                                      *dropdownMenu
-                                                      class="dropdown-menu dropdown-menu-scale  pull-right"
-                                                      role="menu"
-                                                    >
-                                                      <li
-                                                        *ngFor="
-                                                          let listing of categoriesList2
-                                                        "
-                                                      >
-                                                        <a
-                                                          (click)="
-                                                            changedCategoryListing(
-                                                              listing
-                                                            )
-                                                          "
-                                                          class="dropdown-item"
-                                                        >
-                                                          {{ listing.name }}
-                                                        </a>
-                                                      </li>
-                                                    </ul>
-                                                  </div>
-                                                </li>
-
-
-                                                <label>
-                                                  <a
-                                                    class="text-muted p-x-xs inline"
-                                                    aria-expanded="true"
-                                                  >
-                                                    <i
-                                                      class="material-icons dropdown-icon"
-                                                    >
-                                                      file_upload
-                                                    </i>
-
-                                                    Upload File
-                                                    <input
-                                                      type="file"
-                                                      id="myfile"
-                                                      accept=".csv"
-                                                      (change)="
-                                                        fileChanged($event)
-                                                      "
-                                                      style="display:none"
-                                                    />
-                                                  </a>
-                                                </label>
-                                              </ul>
-                                            </form> -->
-                                          </div>
+                                          <div
+                                            class="col-md-11 text-right"
+                                          ></div>
                                         </div>
                                       </div>
                                       <div

@@ -70,9 +70,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.configDatatable();
     this.userList = this.miscHelperService.userList;
-    const { Role } = this.authService.getAccessTokenInfo();
-    if (Role == 'User') {
-      this.router.navigate(['/admin/assets']);
+    const { role } = this.authService.getAccessTokenInfo();
+    if (role != 'Executive Director') {
+      this.router.navigate(['/admin/projects']);
     }
     this._asideNavigationService.currentMessage.subscribe(message => {
       this.navOpened = message;
@@ -157,7 +157,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
       processing: false,
       searching: false,
       // pageLength: 10,
-      lengthMenu: [10, 50, 100, 200, 500],
+      lengthMenu: [10, 50],
       // dom: 'Btp',
       // buttons: ['csv', 'excel'],
 

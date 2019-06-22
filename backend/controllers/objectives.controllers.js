@@ -24,10 +24,10 @@ objectivesController.getAll = async (req, res) => {
     // }
     if (user_id != '' && user_id!==undefined) {
       user_query = {
-        'users._id': user_id
+        'users_assigned._id': user_id
       };
     }
-    if (project_id != '') {
+    if (project_id != '' && project_id!==undefined) {
       project_query = {
         project_id: project_id
       };
@@ -35,12 +35,10 @@ objectivesController.getAll = async (req, res) => {
 
     merged = { ...obj, ...user_query, ...project_query };
     console.log('get all');
-    console.log(merged);
     objectives = await Objectives.paginate(merged, {
       offset: parseInt(start),
       limit: parseInt(length)
     });
-    console.log('objectives',objectives);
     res.status(200).send({
       code: 200,
       message: 'Successful',

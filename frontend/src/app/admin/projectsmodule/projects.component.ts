@@ -24,6 +24,7 @@ import { AuthService } from '../../../sdk/services/core/auth.service';
 import * as moment from 'moment';
 import { Baseconfig } from '../../../sdk/base.config';
 import { ProjectsApi } from '../../../sdk/services/custom/projects.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projects',
@@ -40,6 +41,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
     private projectsApi: ProjectsApi,
     private modalService: BsModalService,
     private toasterService: ToasterService,
+    private router: Router,
     private _asideNavigationService: AsideNavigationService
   ) {
     this.toasterService = toasterService;
@@ -77,28 +79,19 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   categoriesList2 = [];
   // @TODO
   ngOnInit() {
-    const { Name, Role, Location } = this.authService.getAccessTokenInfo();
-    // this.categoriesList2 = JSON.parse(
-    //   JSON.stringify(this.miscHelperService.categoriesList)
-    // );
-    this.categoriesList2.unshift({
-      id: 0,
-      name: 'All'
-    });
-    this.name = Name;
-    this.location = Location;
-    this.role = Role;
-    if (Role == 'User') {
-      this.selectedLocation = Location;
+    const { role } = this.authService.getAccessTokenInfo();
+    console.log('role', role);
+    console.log(role === 'Managing Director');
+    if (role.includes('Director')) {
+      console.log('nothing');
+    } else {
+      this.router.navigate(['/admin/objectives']);
     }
+    // if (role != 'Executive Director' || role != 'Managing Director') {
+    //   this.router.navigate(['/admin/objectives']);
+    // }
+    this.role = role;
 
-    // this.locationListing = JSON.parse(
-    //   JSON.stringify(this.miscHelperService.locationList)
-    // );
-    this.locationListing.unshift({
-      id: 0,
-      name: 'All'
-    });
     this._asideNavigationService.currentMessage.subscribe(message => {
       this.navOpened = message;
       // console.log('message: ', message);
@@ -136,7 +129,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
       processing: false,
       searching: false,
       // pageLength: 10,
-      lengthMenu: [5, 10, 50, 100, 200, 500],
+      lengthMenu: [5, 10, 50],
       // dom: 'Btp',
       // buttons: ['csv', 'excel'],
 

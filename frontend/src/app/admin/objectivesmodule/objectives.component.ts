@@ -124,8 +124,16 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
         const params = this.miscHelperService.objectToHttpParams(
           dataTablesParameters
         );
-        const url =
-          Baseconfig.getPath() + `/projects/objectives/_id/${this._id}`;
+        const { _id } = this.authService.getAccessTokenInfo();
+
+        //      let filter = this.selectedLocation;
+        // if (this.selectedLocation == 'All') {
+        //   filter = '';
+        // }
+        dataTablesParameters.user_id = _id;
+        const url = Baseconfig.getPath() + `/objectives`;
+        // const url =
+        //   Baseconfig.getPath() + `/projects/objectives/_id/${this._id}`;
 
         this.http
           .get(url, {

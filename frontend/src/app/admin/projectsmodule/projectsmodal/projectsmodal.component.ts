@@ -72,6 +72,7 @@ export class ProjectsmodalComponent implements OnInit {
   role = 'User';
   usersList = [];
   departmentList = [];
+  projectManagersList = [];
   tabId = 1;
   githubUsers = [];
   ngOnInit() {
@@ -79,6 +80,7 @@ export class ProjectsmodalComponent implements OnInit {
     this.departmentList = this.miscHelperService.departmentList;
     const { Role, Location } = this.authService.getAccessTokenInfo();
     this.getUsersFromDB();
+    this.getProjectManagers();
     this.formInitializer();
     if (this.newInstance) {
       this.getProjectsNextId();
@@ -219,30 +221,32 @@ export class ProjectsmodalComponent implements OnInit {
 
   deleteObjective(id, item) {
     console.log('this', this.appObjectiveForm.value);
-    if (id !== 0) {
-      console.log('item--', item);
-      if (item.value._id && item.value._id != '') {
-        this.objectiveDeleted = true;
-        this.objectiveInfo = item;
-        const control = <FormArray>this.appObjectiveForm.get('objectives');
-        this.control = control;
-        this.deleteId = id;
-        this.openDeleteModal(this.deleteTemplate);
+    // if (id !== 0) {
+    console.log('item--', item);
+    if (item.value._id && item.value._id != '') {
+      this.objectiveDeleted = true;
+      this.objectiveInfo = item;
+      const control = <FormArray>this.appObjectiveForm.get('objectives');
+      this.control = control;
+      this.deleteId = id;
+      this.openDeleteModal(this.deleteTemplate);
 
-        // control.removeAt(id);
-        //open delete modal;
-      } else {
-        const control = <FormArray>this.appObjectiveForm.get('objectives');
-        control.removeAt(id);
-      }
+      // control.removeAt(id);
+      //open delete modal;
+    } else {
+      const control = <FormArray>this.appObjectiveForm.get('objectives');
+      control.removeAt(id);
     }
+    // }
   }
   deleteObjectiveFromDB() {
-    this.objectivesApi.deleteObjective(this.objectiveInfo._id).subscribe(
+    console.log('this.objectiveInfo', this.objectiveInfo.value._id);
+    this.objectivesApi.deleteObjective(this.objectiveInfo.value._id).subscribe(
       async response => {
-        console.log('my users->', response);
+        console.log('deleteObjectiveFromDB->', response);
         this.control.removeAt(this.deleteId);
         this.toasterService.pop('success', 'Objective deleted Successfully');
+        this.modalRef.hide();
         // this.slimScroll.complete();
       },
       error => {
@@ -255,20 +259,31 @@ export class ProjectsmodalComponent implements OnInit {
   decline() {
     this.modalRef.hide();
   }
-  getUsersFromDB() {
+
+  getProjectManagers() {
+    const type = 'Project Manager';
+    this.getUsersFromDB(type);
+  }
+
+  getUsersFromDB(type = 'Managing Director') {
     // const user_type = null;
-    const user_type = 'Project Manager';
-    this.userApi.getUsers(user_type).subscribe(
+    this.userApi.getUsers(type).subscribe(
       async response => {
         console.log('my users->', response);
-        this.usersList = response.data.docs;
 
-        this.usersList.forEach(element => {
+        response.data.docs.forEach(element => {
           if (element.avatar) {
             element.src =
               Baseconfig.getPath() + '/' + element.avatar + element.avatar_ext;
           }
         });
+
+        if (type === 'Managing Director') {
+          this.usersList = response.data.docs;
+        } else {
+          console.log('else', response.data.docs);
+          this.projectManagersList = response.data.docs;
+        }
 
         // this.slimScroll.complete();
       },

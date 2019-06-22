@@ -9,6 +9,7 @@ import {
 
 import { AsideNavigationService } from '../../services/asideNavigation.Service';
 import { AuthService } from '../../../sdk/services/core/auth.service';
+import { Baseconfig } from '../../../sdk/base.config';
 
 // import { UserApi } from '../../../sdk/services/custom/user.service';
 
@@ -31,6 +32,7 @@ export class LeftsidemenuComponent implements OnInit {
   role = 'User';
   isClosedNav: boolean;
   settingIconOpen: boolean;
+  user;
   constructor(
     // private user: UserApi,
     public router: Router,
@@ -46,9 +48,18 @@ export class LeftsidemenuComponent implements OnInit {
 
   ngOnInit() {
     this.toggleMenu(true);
-    const { Name, Role } = this.authService.getAccessTokenInfo();
-    this.name = Name;
-    this.role = Role;
+    const {
+      role,
+      avatar,
+      name,
+      avatar_ext
+    } = this.authService.getAccessTokenInfo();
+    this.name = name;
+    this.role = role;
+    if (avatar) {
+      this.user = {};
+      this.user.src = Baseconfig.getPath() + '/' + avatar + avatar_ext;
+    }
   }
 
   clopse() {

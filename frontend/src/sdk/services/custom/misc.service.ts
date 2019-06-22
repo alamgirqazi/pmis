@@ -13,15 +13,15 @@ export class MiscHelperService {
   userList = [
     {
       id: 1,
-      type: 'Admin'
-    },
-    {
-      id: 2,
       type: 'Executive Director'
     },
     {
+      id: 2,
+      type: 'Managing Director'
+    },
+    {
       id: 3,
-      type: 'Manager'
+      type: 'Project Manager'
     },
     {
       id: 4,
@@ -29,10 +29,6 @@ export class MiscHelperService {
     },
     {
       id: 5,
-      type: 'Project Manager'
-    },
-    {
-      id: 6,
       type: 'Official'
     }
   ];

@@ -12,49 +12,6 @@
           <div class="row-body scrollable hover">
             <div class="row-inner">
               <div class="row-col">
-                <!-- <! Aside -> -->
-                <!-- <div class="col-xs modal fade aside aside-sm  b-r width-300 white" id="list">
-                  <div class="white bg b-b toptoolbar">
-                    <div class="navbar no-radius">
-                      <ul class="nav navbar-nav list-top-navbar">
-
-                        <li class="nav-item">
-                          <a class="nav-link btn btn-green" data-toggle="modal" (click)="openModal(appinfomodal,null,true)">
-                            <i class="material-icons">add</i> Add Inventory
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="list">
-                    <ng-template ngFor let-item [ngForOf]="allStatuses" let-i="index">
-
-                      <div class="inner-list">
-
-                        <div class="list-item" [ngClass]="{'active': item.id == selectedAppStatus?.id}" (click)="statusSelected(item)">
-
-                          <div class="list-item-wrapper">
-                            <div class="list-left">
-                              <i class="material-icons" [class.text-danger]="item.name === 'Blocked'"
-                                [class.text-success]="item.name === 'Unblocked'" [class.icon-gray]="item.name === 'All'">lense</i>
-                            </div>
-                            <div class="list-body">
-                              <div class="item-title">
-                                <a class="_500">{{item.name}}</a>
-                              </div>
-                            </div>
-                          </div>
-
-
-
-                        </div>
-                      </div>
-
-                    </ng-template>
-
-                  </div>
-
-                </div> -->
                 <!-- Aside End -->
                 <!--Rightside -->
                 <div class="col-xs hidden-lg-up show" id="detail">
@@ -65,9 +22,9 @@
                           <div class="navbar no-radius">
                             <ul class="nav navbar-nav list-top-navbar">
                               <li class="nav-item">
-                                <!-- <h5 class="navbar-item-title">Inventory List</h5> -->
+                                <h5 class="navbar-item-title">Objectives</h5>
                               </li>
-                              <li class="nav-item">
+                              <!-- <li class="nav-item">
                                 <a
                                   class="nav-link btn btn-green"
                                   data-toggle="modal"
@@ -76,7 +33,7 @@
                                   <i class="material-icons">add</i> Add
                                   Objectives
                                 </a>
-                              </li>
+                              </li> -->
                             </ul>
                           </div>
                         </div>
@@ -100,126 +57,12 @@
                                         <div class="row">
                                           <div class="col-md-1">
                                             <h2 class="nowrap l-h">
-                                              Projects
+                                              Objectives
                                             </h2>
                                           </div>
-                                          <div class="col-md-11 text-right">
-                                            <!-- <form
-                                              class="form-inline pull-right"
-                                            >
-                                              <ul class="p-l-0 m-b-0">
-                                                <li class="nav-item dropdown">
-                                                  <div
-                                                    class="btn-group"
-                                                    dropdown
-                                                  >
-                                                    <span
-                                                      class="nav-item inline dropdown"
-                                                    >
-                                                      <a
-                                                        dropdownToggle
-                                                        class="nav-link btn btn-line dropdown-toggle"
-                                                        data-toggle="dropdown"
-                                                        aria-expanded="false"
-                                                      >
-                                                        Location:
-                                                        {{ selectedLocation }}
-                                                      </a>
-                                                    </span>
-                                                    <ul
-                                                      *dropdownMenu
-                                                      class="dropdown-menu dropdown-menu-scale  pull-right"
-                                                      role="menu"
-                                                    >
-                                                      <li
-                                                        *ngFor="
-                                                          let listing of locationListing
-                                                        "
-                                                      >
-                                                        <a
-                                                          (click)="
-                                                            changedListing(
-                                                              listing
-                                                            )
-                                                          "
-                                                          class="dropdown-item"
-                                                        >
-                                                          {{ listing.name }}
-                                                        </a>
-                                                      </li>
-                                                    </ul>
-                                                  </div>
-                                                </li>
-                                                <li class="nav-item dropdown">
-                                                  <div
-                                                    class="btn-group"
-                                                    dropdown
-                                                  >
-                                                    <span
-                                                      class="nav-item inline dropdown"
-                                                    >
-                                                      <a
-                                                        dropdownToggle
-                                                        class="nav-link btn btn-line dropdown-toggle"
-                                                        data-toggle="dropdown"
-                                                        aria-expanded="false"
-                                                      >
-                                                        Category:
-                                                        {{ selectedCategory }}
-                                                      </a>
-                                                    </span>
-                                                    <ul
-                                                      *dropdownMenu
-                                                      class="dropdown-menu dropdown-menu-scale  pull-right"
-                                                      role="menu"
-                                                    >
-                                                      <li
-                                                        *ngFor="
-                                                          let listing of categoriesList2
-                                                        "
-                                                      >
-                                                        <a
-                                                          (click)="
-                                                            changedCategoryListing(
-                                                              listing
-                                                            )
-                                                          "
-                                                          class="dropdown-item"
-                                                        >
-                                                          {{ listing.name }}
-                                                        </a>
-                                                      </li>
-                                                    </ul>
-                                                  </div>
-                                                </li>
-
-
-                                                <label>
-                                                  <a
-                                                    class="text-muted p-x-xs inline"
-                                                    aria-expanded="true"
-                                                  >
-                                                    <i
-                                                      class="material-icons dropdown-icon"
-                                                    >
-                                                      file_upload
-                                                    </i>
-
-                                                    Upload File
-                                                    <input
-                                                      type="file"
-                                                      id="myfile"
-                                                      accept=".csv"
-                                                      (change)="
-                                                        fileChanged($event)
-                                                      "
-                                                      style="display:none"
-                                                    />
-                                                  </a>
-                                                </label>
-                                              </ul>
-                                            </form> -->
-                                          </div>
+                                          <div
+                                            class="col-md-11 text-right"
+                                          ></div>
                                         </div>
                                       </div>
                                       <div
@@ -237,17 +80,13 @@
                                           <thead class="thead-light">
                                             <tr>
                                               <!-- class="loadfreeth" -->
-                                              <th>ID</th>
-                                              <th>Name</th>
-                                              <th>Objective</th>
-                                              <th>Activity</th>
-                                              <th>Task</th>
-                                              <th>Department</th>
-                                              <th>Priority</th>
-                                              <th>Start Date</th>
-                                              <th>End Date</th>
-                                              <th>Notes</th>
-                                              <th>Attachments</th>
+
+                                              <th></th>
+                                              <th>Objective Name</th>
+                                              <th>Project ID</th>
+                                              <th>Users</th>
+
+                                              <th>Add Tasks</th>
                                               <th>Status</th>
 
                                               <th class="text-align">Edit</th>
@@ -263,29 +102,37 @@
                                             >
                                               <!-- [class.odd]="" -->
                                               <tr role="row" class="">
-                                                <td>{{ data.id }}</td>
-                                                <td>{{ data.name }}</td>
-                                                <td>{{ data.objective }}</td>
                                                 <td>
-                                                  {{ data.activity }}
+                                                  {{ i + 1 }}
                                                 </td>
-                                                <td>{{ data.task }}</td>
-                                                <td>{{ data.department }}</td>
-                                                <td>{{ data.priority }}</td>
                                                 <td>
-                                                  {{
-                                                    data.start_date
-                                                      | date: 'dd-MM-yyyy'
-                                                  }}
+                                                  {{ data.objective_name }}
+                                                </td>
+                                                <td>
+                                                  {{ data.project_id }}
                                                 </td>
                                                 <td>
                                                   {{
-                                                    data.end_date
-                                                      | date: 'dd-MM-yyyy'
+                                                    data.users_assigned.toString()
                                                   }}
                                                 </td>
-                                                <td>{{ data.notes }}</td>
-                                                <td>{{ data.attachments }}</td>
+
+                                                <td>
+                                                  <span>
+                                                    <a
+                                                      (click)="
+                                                        openModal(
+                                                          appinfomodal,
+                                                          data,
+                                                          false
+                                                        )
+                                                      "
+                                                      ><i class="material-icons"
+                                                        >add</i
+                                                      >
+                                                    </a>
+                                                  </span>
+                                                </td>
                                                 <td>{{ data.status }}</td>
 
                                                 <!-- <td class="text-align">

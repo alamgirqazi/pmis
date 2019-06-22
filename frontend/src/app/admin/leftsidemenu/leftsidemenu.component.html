@@ -9,6 +9,15 @@
       <!-- brand -->
       <a class="navbar-brand">
         <!-- <img src="./assets/images/irmlogo-lg.png" alt="IRM" /> -->
+
+        <img
+          [src]="user.src"
+          alt="Avatar"
+          class="nav-avatar"
+          onError="this.src='assets/images/avatar.jpg'"
+        />
+        <span> {{ name }} </span>
+
         <span class="hidden-folded inline"></span>
       </a>
       <!-- / brand -->
@@ -105,9 +114,9 @@
               </div>
             </div>
             <div class="clear txt hidden-folded p-x">
-              <span class="block _500 text-muted" style="color: #4bad29;">{{
-                name
-              }}</span>
+              <span class="block _500 text-muted" style="color: #4bad29;"
+                >{{ role }}
+              </span>
               <div class="progress-xxs hide m-y-sm lt progress">
                 <div class="progress-bar warning" style="width: 15%;"></div>
               </div>
