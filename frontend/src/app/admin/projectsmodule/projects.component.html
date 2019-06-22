@@ -117,16 +117,14 @@
                                               <!-- class="loadfreeth" -->
                                               <th>ID</th>
                                               <th>Name</th>
-                                              <th>Objective</th>
-                                              <th>Activity</th>
-                                              <th>Task</th>
-                                              <th>Department</th>
+                                             <th>Department</th>
                                               <th>Priority</th>
                                               <th>Start Date</th>
                                               <th>End Date</th>
                                               <th>Notes</th>
                                               <th>Attachments</th>
                                               <th>Status</th>
+                                              <th>Change Status</th>
 
                                               <th class="text-align">Edit</th>
                                               <th class="text-align">Delete</th>
@@ -143,11 +141,7 @@
                                               <tr role="row" class="">
                                                 <td>{{ data.id }}</td>
                                                 <td>{{ data.name }}</td>
-                                                <td>{{ data.objective }}</td>
-                                                <td>
-                                                  {{ data.activity }}
-                                                </td>
-                                                <td>{{ data.task }}</td>
+                                               
                                                 <td>{{ data.department }}</td>
                                                 <td>{{ data.priority }}</td>
                                                 <td>
@@ -164,7 +158,66 @@
                                                 </td>
                                                 <td>{{ data.notes }}</td>
                                                 <td>{{ data.attachments }}</td>
-                                                <td>{{ data.status }}</td>
+                                                <td>
+                                                    <span
+                                                    class="label label-sm"
+                                                    [class.green]="
+                                                      data.status == 'complete'
+                                                    "
+                                                    [class.blue]="
+                                                      data.status == 'pending'
+                                                    "
+                                                    [class.orange]="
+                                                      data.status == 'hold'
+                                                    "
+                                                    [class.red]="
+                                                      data.status == 'cancelled'
+                                                    "
+                                                  >
+                                                  {{ data.status }}
+                                                  </span>
+                                                 </td>  <td>
+                                                    <div class="btn-group inline" dropdown>
+                                                      <span class="nav-item inline dropdown">
+                                                        <a class="text-muted p-x-xs" aria-expanded="true" dropdownToggle>
+                                                          <i class="material-icons dropdown-icon">
+                                                            more_vert
+                                                          </i>
+                                                        </a>
+                                                      </span>
+                                                      <ul *dropdownMenu class="dropdown-menu custom-dropdown dropdown-menu-left  pull-right" role="menu">
+                                  
+                                  
+                                                        <li>
+                                                          <a class="dropdown-items" id="" title="View Detail">
+                                                            <!-- <i class="material-icons">do_not_disturb</i> -->
+                                                            <label>Pending</label>
+                                                          </a>
+                                                          <a class="dropdown-items" id="" title="View Detail">
+                                                            <!-- <i class="material-icons">do_not_disturb</i> -->
+                                                            <label>Complete</label>
+                                                          </a>
+                                                          <a class="dropdown-items" id="" title="View Detail">
+                                                            <!-- <i class="material-icons">do_not_disturb</i> -->
+                                                            <label>Hold</label>
+                                                          </a>
+                                                          <a class="dropdown-items" id="" title="View Detail">
+                                                            <!-- <i class="material-icons">do_not_disturb</i> -->
+                                                            <label>Cancelled</label>
+                                                          </a>
+                                                        </li>
+                                                        <!-- <li>
+                                                            <a class="dropdown-item" id="" title="View Detail">
+                                                              <i class="material-icons">delete</i>
+                                                              <label>Delete</label>
+                                                            </a>
+                                                          </li> -->
+                                  
+                                                      </ul>
+                                  
+                                                    </div>
+                                                    <!-- <a><i class="material-icons">more_vert</i></a> -->
+                                                  </td>
 
                                                 <!-- <td class="text-align">
                                                   <span class="label label-sm" [class.green]="

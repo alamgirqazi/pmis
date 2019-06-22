@@ -89,6 +89,7 @@
                                               <th>Add Activities</th>
                                               <th>Status</th>
 
+                                              <th class="text-align">Change Status</th>
                                               <th class="text-align">Edit</th>
                                               <th class="text-align">Delete</th>
                                             </tr>
@@ -132,9 +133,36 @@
                                                         >add</i
                                                       >
                                                     </a>
+
+                                                    <!-- <ng-template
+                                                    ngFor
+                                                    let-myitem
+                                                    [ngForOf]="result"
+                                                    let-ind="index"
+                                                  >
+                                                    {{}}
+                                                  </ng-template> -->
                                                   </span>
                                                 </td>
-                                                <td>{{ data.status }}</td>
+                                                <td>
+                                                    <span
+                                                    class="label label-sm"
+                                                    [class.green]="
+                                                      data.status == 'complete'
+                                                    "
+                                                    [class.blue]="
+                                                      data.status == 'pending'
+                                                    "
+                                                    [class.orange]="
+                                                      data.status == 'hold'
+                                                    "
+                                                    [class.red]="
+                                                      data.status == 'cancelled'
+                                                    "
+                                                  >
+                                                  {{ data.status }}
+                                                  </span>
+                                                 </td>
 
                                                 <!-- <td class="text-align">
                                                   <span class="label label-sm" [class.green]="
@@ -143,7 +171,48 @@
                                                       data.status == 'Blocked'
                                                     ">{{ data.status }}</span>
                                                 </td> -->
-
+                                                <td>
+                                                  <div class="btn-group inline" dropdown>
+                                                    <span class="nav-item inline dropdown">
+                                                      <a class="text-muted p-x-xs" aria-expanded="true" dropdownToggle>
+                                                        <i class="material-icons dropdown-icon">
+                                                          more_vert
+                                                        </i>
+                                                      </a>
+                                                    </span>
+                                                    <ul *dropdownMenu class="dropdown-menu custom-dropdown dropdown-menu-left  pull-right" role="menu">
+                                
+                                
+                                                      <li>
+                                                        <a class="dropdown-items" id="" title="View Detail">
+                                                          <!-- <i class="material-icons">do_not_disturb</i> -->
+                                                          <label>Pending</label>
+                                                        </a>
+                                                        <a class="dropdown-items" id="" title="View Detail">
+                                                          <!-- <i class="material-icons">do_not_disturb</i> -->
+                                                          <label>Complete</label>
+                                                        </a>
+                                                        <a class="dropdown-items" id="" title="View Detail">
+                                                          <!-- <i class="material-icons">do_not_disturb</i> -->
+                                                          <label>Hold</label>
+                                                        </a>
+                                                        <a class="dropdown-items" id="" title="View Detail">
+                                                          <!-- <i class="material-icons">do_not_disturb</i> -->
+                                                          <label>Cancelled</label>
+                                                        </a>
+                                                      </li>
+                                                      <!-- <li>
+                                                          <a class="dropdown-item" id="" title="View Detail">
+                                                            <i class="material-icons">delete</i>
+                                                            <label>Delete</label>
+                                                          </a>
+                                                        </li> -->
+                                
+                                                    </ul>
+                                
+                                                  </div>
+                                                  <!-- <a><i class="material-icons">more_vert</i></a> -->
+                                                </td>
                                                 <td class="text-align">
                                                   <span
                                                     *ngIf="
