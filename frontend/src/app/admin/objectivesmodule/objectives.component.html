@@ -84,9 +84,9 @@
                                               <th></th>
                                               <th>Objective Name</th>
                                               <th>Project ID</th>
-                                              <th>Users</th>
+                                              <th>Project Name</th>
 
-                                              <th>Add Tasks</th>
+                                              <th>Add Activities</th>
                                               <th>Status</th>
 
                                               <th class="text-align">Edit</th>
@@ -109,13 +109,14 @@
                                                   {{ data.objective_name }}
                                                 </td>
                                                 <td>
-                                                  {{ data.project_id }}
+                                                  {{ data?.project_detail?.id }}
                                                 </td>
                                                 <td>
                                                   {{
-                                                    data.users_assigned.toString()
+                                                    data?.project_detail?.name
                                                   }}
                                                 </td>
+                                              
 
                                                 <td>
                                                   <span>

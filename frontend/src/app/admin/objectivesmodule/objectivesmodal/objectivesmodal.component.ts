@@ -63,37 +63,50 @@ export class ObjectivesmodalComponent implements OnInit {
   ngOnInit() {
     // this.locationListing = [...this.miscHelperService.locationList];
     this.departmentList = this.miscHelperService.departmentList;
-    const { Role, Location } = this.authService.getAccessTokenInfo();
-    this.getUsersFromDB();
+    const { role } = this.authService.getAccessTokenInfo();
+    this.getProjectCoordinators();
     this.formInitializer();
+
+    this.addActivities();
+
     if (this.newInstance) {
-      this.getProjectsNextId();
-      this.addObjectives();
+      this.addActivities();
     }
     if (!this.newInstance) {
       this.appInfoForm.patchValue(this.formData);
-      this.addExistingActivities();
+      this.getActivitiesFromDB();
       // create new activities
     }
 
-    this.role = Role;
+    this.role = role;
     // this.getAll();
   }
+  getActivitiesFromDB() {
+    // const project_id = this.appInfoForm.controls['_id'].value;
+    console.log('project_id');
+    // this.objectivesApi.getObjectivesByIds(project_id, '').subscribe(
+    //   async response => {
+    //     console.log('my projects objectives->', response);
+    //     if (response.data && response.data.docs.length > 0) {
+    //       // patch Rooms here
+    //       this.resetObjectives();
+    //       const control = <FormArray>this.appObjectiveForm.get('objectives');
 
-  addExistingActivities() {
-    if (this.formData.objectives && this.formData.objectives.length > 0) {
-      // patch Rooms here
-      this.resetObjectives();
-      const control = <FormArray>this.appInfoForm.get('objectives');
-
-      for (const obj of this.formData.objectives) {
-        const addrCtrl = this.createObjectives();
-        addrCtrl.patchValue(obj);
-        control.push(addrCtrl);
-      }
-    } else {
-      this.addObjectives();
-    }
+    //       for (const obj of response.data.docs) {
+    //         const addrCtrl = this.createObjectives();
+    //         addrCtrl.patchValue(obj);
+    //         control.push(addrCtrl);
+    //       }
+    //     } else {
+    //       this.addObjectives();
+    //     }
+    //     // this.slimScroll.complete();
+    //   },
+    //   error => {
+    //     console.log('error', error);
+    //     this.slimScroll.complete();
+    //   }
+    // );
   }
   // getAll() {}
 
@@ -106,37 +119,12 @@ export class ObjectivesmodalComponent implements OnInit {
   }
   formInitializer() {
     this.appInfoForm = this.fb.group({
-      id: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      _id: ['', []],
-      // objective: ['', []],
-      // activity: ['', []],
-      // assigned_to: ['', []],
-      // task: ['', []],
-      department: ['', []],
-      priority: ['', []],
-      start_date: [null, []],
-      end_date: [null, []],
-      notes: [null, []],
-      attachments: [null, []],
-      status: [null, []],
-      users: [],
-      objectives: this.fb.array([])
+      activities: this.fb.array([])
     });
-    // this.appObjectiveForm = this.fb.group({
-    //   objectives: this.fb.array([])
-    // });
   }
 
-  createObjectives() {
-    return this.fb.group({
-      _id: [''],
-      objective_name: [''],
-      users_assigned: [null]
-    });
-  }
-  resetObjectives() {
-    const control = <FormArray>this.appInfoForm.get('objectives');
+  resetActivities() {
+    const control = <FormArray>this.appInfoForm.get('activities');
     this.clearFormArray(control);
   }
   clearFormArray = (formArray: FormArray) => {
@@ -145,49 +133,32 @@ export class ObjectivesmodalComponent implements OnInit {
     }
   };
 
-  createUsers() {
-    return this.fb.group({
-      _id: [''],
-      name: ['', [Validators.required]],
-      type: [null],
-      avatar: [null]
-    });
+  get formDataActivities() {
+    return <FormArray>this.appInfoForm.get('activities');
   }
 
-  get formDataObjectives() {
-    return <FormArray>this.appInfoForm.get('objectives');
-  }
-  get formDataUsers() {
-    return <FormArray>this.appInfoForm.get('users');
-  }
-  get formDataUsersArray() {
-    return this.appInfoForm.controls['users'].value;
-  }
-
-  addObjectives() {
-    (<FormArray>this.appInfoForm.get('objectives')).push(
-      this.createObjectives()
+  addActivities() {
+    (<FormArray>this.appInfoForm.get('activities')).push(
+      this.createActivities()
     );
   }
-  addUsers() {
-    (<FormArray>this.appInfoForm.get('users')).push(this.createUsers());
+  createActivities() {
+    return this.fb.group({
+      _id: [''],
+      activity_name: [''],
+      project_id: [''],
+      objective_id: [''],
+      users_assigned: [null]
+    });
+  }
+  getProjectCoordinators() {
+    const type = 'Project Coordinator';
+    this.getUsersFromDB(type);
   }
 
-  deleteObjective(id, item) {
-    if (id !== 0) {
-      const control = <FormArray>this.appInfoForm.get('objectives');
-      control.removeAt(id);
-      // if (item.value._id) {
-      //   this.subsidiaryDeleted = true;
-
-      //   //   this.deleteCompanySubsidiariesInfo(subinfo.value._id);
-      // }
-    }
-  }
-  getUsersFromDB() {
+  getUsersFromDB(type = 'Project Coordinator') {
     // const user_type = null;
-    const user_type = 'Project Manager';
-    this.userApi.getUsers(user_type).subscribe(
+    this.userApi.getUsers(type).subscribe(
       async response => {
         console.log('my users->', response);
         this.usersList = response.data.docs;
@@ -207,19 +178,7 @@ export class ObjectivesmodalComponent implements OnInit {
       }
     );
   }
-  getProjectsNextId() {
-    this.projectsApi.getProjectsNextId().subscribe(
-      async response => {
-        console.log('respoe->', response);
-        this.appInfoForm.patchValue(response.data);
-        // this.slimScroll.complete();
-      },
-      error => {
-        console.log('error', error);
-        this.slimScroll.complete();
-      }
-    );
-  }
+
   saveAppInfo() {
     this.submitForm = true;
     if (this.appInfoForm.valid) {

@@ -78,7 +78,7 @@ export class ProjectsmodalComponent implements OnInit {
   ngOnInit() {
     // this.locationListing = [...this.miscHelperService.locationList];
     this.departmentList = this.miscHelperService.departmentList;
-    const { Role, Location } = this.authService.getAccessTokenInfo();
+    const { role } = this.authService.getAccessTokenInfo();
     this.getUsersFromDB();
     this.getProjectManagers();
     this.formInitializer();
@@ -92,7 +92,7 @@ export class ProjectsmodalComponent implements OnInit {
       // create new activities
     }
 
-    this.role = Role;
+    this.role = role;
     // this.getAll();
   }
 

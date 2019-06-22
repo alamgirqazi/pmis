@@ -1,5 +1,6 @@
 const objectivesController = {};
 const Objectives = require('../models/objectives.model');
+const Projects = require("../models/projects.model");
 
 objectivesController.getAll = async (req, res) => {
   let objectives;
@@ -35,14 +36,27 @@ objectivesController.getAll = async (req, res) => {
 
     merged = { ...obj, ...user_query, ...project_query };
     console.log('get all');
-    objectives = await Objectives.paginate(merged, {
+
+   let objectives = await Objectives.paginate(merged, {
       offset: parseInt(start),
       limit: parseInt(length)
     });
+
+
+    let response_object = JSON.parse(JSON.stringify(objectives));
+
+    for (let[index, iterator] of response_object.docs.entries()) {
+   
+     const res = await Projects.findOne({"_id": iterator.project_id })
+      console.log('res',res);
+      response_object.docs[index].project_detail = res;
+    }
+
+
     res.status(200).send({
       code: 200,
       message: 'Successful',
-      data: objectives
+      data: response_object
     });
   } catch (error) {
     console.log('error', error);

@@ -9,242 +9,14 @@
     <div class="modal-body">
       <ul class="wizard-nav max">
         <li class="wizard-item">
-          <a
-            class="wizard-link"
-            [class.active]="tabId == 1"
-            (click)="changeTab(1)"
-          >
-            Projects Info</a
-          >
-        </li>
-        <li class="wizard-item">
-          <a
-            class="wizard-link"
-            [class.active]="tabId == 2"
-            (click)="changeTab(2)"
-            >Objectives</a
-          >
-        </li>
-        <li class="wizard-item">
-          <a
-            class="wizard-link"
-            [class.active]="tabId == 3"
-            (click)="changeTab(3)"
-            >Activities</a
-          >
-        </li>
-        <li class="wizard-item">
-          <a
-            class="wizard-link"
-            [class.active]="tabId == 4"
-            (click)="changeTab(4)"
-            >Tasks</a
-          >
+          <a class="wizard-link" [class.active]="true">Activities</a>
         </li>
       </ul>
 
-      <div [hidden]="tabId !== 1">
-        <div class="form-group row">
-          <label class="col-lg-3 form-control-label">Id:</label>
-          <div class="col-lg-9">
-            <input
-              formControlName="id"
-              [ngClass]="{
-                'error-input': submitForm && appInfoForm.controls['id'].invalid
-              }"
-              class="form-control"
-              type="text"
-              disabled
-            />
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="col-lg-3 form-control-label">name:</label>
-          <div class="col-lg-9">
-            <input
-              formControlName="name"
-              [ngClass]="{
-                'error-input':
-                  submitForm && appInfoForm.controls['name'].invalid
-              }"
-              class="form-control"
-              type="text"
-            />
-          </div>
-        </div>
-        <!--
-        <div class="form-group row">
-          <label class="col-lg-3 form-control-label">objective:</label>
-          <div class="col-lg-9">
-            <input
-              formControlName="objective"
-              [ngClass]="{
-                'error-input':
-                  submitForm && appInfoForm.controls['objective'].invalid
-              }"
-              class="form-control"
-              type="text"
-            />
-          </div>
-        </div> -->
-        <!-- <div class="form-group row">
-          <label class="col-lg-3 form-control-label">activity:</label>
-          <div class="col-lg-9">
-            <input
-              formControlName="activity"
-              class="form-control"
-              type="text"
-            />
-          </div>
-        </div> -->
-
-        <div class="form-group row">
-          <label class="col-lg-3 form-control-label">users:</label>
-          <div class="col-lg-9">
-            <ng-select
-              [items]="usersList"
-              formControlName="users"
-              [multiple]="true"
-              bindLabel="name"
-              placeholder="Select users"
-            >
-              <ng-template
-                ng-multi-label-tmp
-                let-items="items"
-                let-clear="clear"
-              >
-                <div
-                  class="ng-value"
-                  *ngFor="let item of items ? items.slice(0, 2) : []"
-                >
-                  <span class="ng-value-label"
-                    ><img [src]="item.src" width="20px" height="20px" />
-                    {{ item.name }}</span
-                  >
-                  <span
-                    class="ng-value-icon right"
-                    (click)="clear(item)"
-                    aria-hidden="true"
-                    >×</span
-                  >
-                </div>
-                <div class="ng-value" *ngIf="items.length > 2">
-                  <span class="ng-value-label"
-                    >{{ items.length - 2 }} more...</span
-                  >
-                </div>
-              </ng-template>
-            </ng-select>
-            <!-- <input formControlName="task" class="form-control" type="text" /> -->
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="col-lg-3 form-control-label">department:</label>
-          <div class="col-lg-9">
-            <select
-              formControlName="department"
-              (change)="assignedToChanged($event.target.value)"
-              [ngClass]="{
-                'error-input':
-                  submitForm && appInfoForm.controls['department'].invalid
-              }"
-              name="name"
-              class="form-control valid"
-            >
-              <ng-template
-                ngFor
-                let-item
-                [ngForOf]="departmentList"
-                let-i="index"
-              >
-                <option value="{{ item.name }}">{{ item.name }} </option>
-              </ng-template>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="col-lg-3 form-control-label">start_date:</label>
-          <div class="col-lg-9">
-            <input
-              formControlName="start_date"
-              placement="bottom"
-              bsDatepicker
-              [ngClass]="{
-                'error-input':
-                  submitForm && appInfoForm.controls['start_date'].invalid
-              }"
-              class="form-control"
-              type="text"
-            />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-lg-3 form-control-label">end_date:</label>
-          <div class="col-lg-9">
-            <input
-              formControlName="end_date"
-              placement="bottom"
-              bsDatepicker
-              [ngClass]="{
-                'error-input':
-                  submitForm && appInfoForm.controls['end_date'].invalid
-              }"
-              class="form-control"
-              type="text"
-            />
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="col-lg-3 form-control-label">notes:</label>
-          <div class="col-lg-9">
-            <input
-              formControlName="notes"
-              [ngClass]="{
-                'error-input':
-                  submitForm && appInfoForm.controls['notes'].invalid
-              }"
-              class="form-control"
-              type="text"
-            />
-          </div>
-        </div>
-        <!-- <div class="form-group row">
-          <label class="col-lg-3 form-control-label">attachments:</label>
-          <div class="col-lg-9">
-            <input
-              formControlName="attachments"
-              [ngClass]="{
-                'error-input':
-                  submitForm && appInfoForm.controls['attachments'].invalid
-              }"
-              class="form-control"
-              type="text"
-            />
-          </div>
-        </div> -->
-        <div class="form-group row">
-          <label class="col-lg-3 form-control-label">status:</label>
-          <div class="col-lg-9">
-            <input
-              formControlName="status"
-              [ngClass]="{
-                'error-input':
-                  submitForm && appInfoForm.controls['status'].invalid
-              }"
-              class="form-control"
-              type="text"
-            />
-          </div>
-        </div>
-      </div>
-      <div [hidden]="tabId !== 2">
-        <div id="tab-3" formArrayName="objectives">
+      <div>
+        <div id="tab-3" formArrayName="activities">
           <div
-            *ngFor="let item of formDataObjectives.controls; let i = index"
+            *ngFor="let item of formDataActivities.controls; let i = index"
             [formGroupName]="i"
           >
             <div class="row">
@@ -252,7 +24,7 @@
                 <div *ngIf="i == 0" class="pull-right add-btn">
                   <button
                     class="btn btn-sm btn-block btn-green"
-                    (click)="addObjectives()"
+                    (click)="addActivities()"
                     type="button"
                   >
                     <i _ngcontent-c8="" class="material-icons">add</i>
@@ -274,7 +46,7 @@
               <div class="col-lg-5">
                 <div class="form-group row">
                   <label class="col-lg-3 form-control-label l-label"
-                    >Objective:</label
+                    >Activity Name:</label
                   >
 
                   <div class="col-lg-9">
@@ -283,11 +55,11 @@
                       [ngClass]="{
                         'error-input':
                           submitObjectives &&
-                          formDataObjectives.controls[i].controls[
-                            'objective_name'
+                          formDataActivities.controls[i].controls[
+                            'activity_name'
                           ].invalid
                       }"
-                      formControlName="objective_name"
+                      formControlName="activity_name"
                       class="form-control"
                     />
                   </div>
@@ -318,11 +90,11 @@
                     /> -->
 
                     <ng-select
-                      [items]="formDataUsersArray"
+                      [items]="usersList"
                       [multiple]="true"
                       bindLabel="name"
                       formControlName="users_assigned"
-                      placeholder="Select project managers"
+                      placeholder="Select project coordinators"
                     >
                       <ng-template
                         ng-multi-label-tmp
@@ -363,12 +135,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div [hidden]="tabId !== 3">
-        here are all the Activities
-      </div>
-      <div [hidden]="tabId !== 4">
-        here are all the Tasks
       </div>
     </div>
     <div class="modal-footer">
