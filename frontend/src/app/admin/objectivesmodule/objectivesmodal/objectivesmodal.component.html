@@ -21,23 +21,23 @@
           >
             <div class="row">
               <div class="col-lg-12">
-                <div *ngIf="i == 0" class="pull-right add-btn">
-                  <button
-                    class="btn btn-sm btn-block btn-green"
-                    (click)="addActivities()"
-                    type="button"
-                  >
-                    <i _ngcontent-c8="" class="material-icons">add</i>
-                  </button>
-                </div>
-                <div *ngIf="i != 0" class="pull-right add-btn">
+                <div *ngIf="i != -1" class="pull-right add-btn">
                   <button
                     _ngcontent-c13=""
-                    (click)="deleteObjective(i, item)"
+                    (click)="deleteActivity(i, item)"
                     class="btn btn-sm btn-block btn-line"
                     type="button"
                   >
                     <i class="material-icons">delete</i>
+                  </button>
+                </div>
+                <div *ngIf="i == 0" class="pull-right add-btn">
+                  <button
+                    class="btn btn-sm customclass btn-block btn-green"
+                    (click)="addActivities()"
+                    type="button"
+                  >
+                    <i _ngcontent-c8="" class="material-icons">add</i>
                   </button>
                 </div>
               </div>
@@ -161,3 +161,23 @@
       </div> -->
   </form>
 </div>
+
+<!-- Confirmation  Modal -->
+<ng-template #deleteTemplate>
+  <div class="modal-body text-center">
+    <p>
+      Are you sure you want to remove
+      {{ activityInfo?.activity_name }} Activity?
+    </p>
+    <button
+      type="button"
+      class="btn btn-green"
+      (click)="deleteActivityFromDB()"
+    >
+      Yes
+    </button>
+    <button type="button" class="btn btn-default" (click)="decline()">
+      No
+    </button>
+  </div>
+</ng-template>

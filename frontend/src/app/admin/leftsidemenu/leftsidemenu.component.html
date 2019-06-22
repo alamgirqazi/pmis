@@ -16,7 +16,7 @@
           class="nav-avatar"
           onError="this.src='assets/images/avatar.jpg'"
         />
-        <span> {{ name }} </span>
+        <span class="clear txt hidden-folded p-x"> {{ name }} </span>
 
         <span class="hidden-folded inline"></span>
       </a>
@@ -62,6 +62,45 @@
             </a>
           </li> -->
 
+          <li
+            class=""
+            routerLinkActive="active"
+            data-toggle="tooltip"
+            data-placement="right"
+          >
+            <a routerLink="/admin/activities" title="Activities">
+              <span class="nav-icon">
+                <i class="material-icons">people</i>
+              </span>
+              <span class="nav-text">Activities</span>
+            </a>
+          </li>
+          <li
+            class=""
+            routerLinkActive="active"
+            data-toggle="tooltip"
+            data-placement="right"
+          >
+            <a routerLink="/admin/tasks" title="Tasks">
+              <span class="nav-icon">
+                <i class="material-icons">people</i>
+              </span>
+              <span class="nav-text">Tasks</span>
+            </a>
+          </li>
+          <li
+            class=""
+            routerLinkActive="active"
+            data-toggle="tooltip"
+            data-placement="right"
+          >
+            <a routerLink="/admin/profile" title="Profile">
+              <span class="nav-icon">
+                <i class="material-icons">people</i>
+              </span>
+              <span class="nav-text">Profile</span>
+            </a>
+          </li>
           <li
             class=""
             routerLinkActive="active"

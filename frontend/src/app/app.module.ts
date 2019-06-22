@@ -32,6 +32,7 @@ import { isLoginGuard } from './guard/islogin.service';
 import { ExcelService } from '../sdk/services/custom/excel.service';
 import { ProjectsApi } from '../sdk/services/custom/projects.service';
 import { UserApi } from '../sdk/services/custom/user.service';
+import { ActivitiesApi } from '../sdk/services/custom/activities.service';
 
 // import { SidebarService } from './shared/sidebar.service';
 
@@ -63,6 +64,7 @@ import { UserApi } from '../sdk/services/custom/user.service';
     ExcelService,
     ProjectsApi,
     ObjectivesApi,
+    ActivitiesApi,
     AuthService,
     UserApi,
     AsideNavigationService,

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
 const Schema = mongoose.Schema;
 
-const Objectives = new Schema({
+const Activities = new Schema({
  
      name: {
         type: String
@@ -11,7 +11,10 @@ const Objectives = new Schema({
     project_id: {
         type: String
     },
-    objective_name: {
+    objective_id: {
+        type: String
+    },
+    activity_name: {
         type: String
     },
     status: {
@@ -27,8 +30,8 @@ const Objectives = new Schema({
     }
 });
 
-Objectives.plugin(mongoosePaginate);
+Activities.plugin(mongoosePaginate);
 // Project.index({'$**': 'text'});
 
-module.exports = mongoose.model("Objectives", Objectives);
+module.exports = mongoose.model("Activities", Activities);
 

@@ -9,7 +9,8 @@ import {
   Output,
   QueryList,
   TemplateRef,
-  ViewChildren
+  ViewChildren,
+  ViewChild
 } from '@angular/core';
 
 // import { ApplicationApi } from '../../../../sdk/services/custom/assets.service';
@@ -24,6 +25,7 @@ import { MiscHelperService } from '../../../../sdk/services/custom/misc.service'
 import { AuthService } from '../../../../sdk/services/core/auth.service';
 import { ProjectsApi } from '../../../../sdk/services/custom/projects.service';
 import { Baseconfig } from '../../../../sdk/base.config';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-objectivesmodal',
@@ -37,6 +39,7 @@ export class ObjectivesmodalComponent implements OnInit {
     private authService: AuthService,
     private projectsApi: ProjectsApi,
     private userApi: UserApi,
+    private modalService: BsModalService,
     private toasterService: ToasterService,
     private fb: FormBuilder
   ) {
@@ -44,10 +47,14 @@ export class ObjectivesmodalComponent implements OnInit {
   }
   @Input() formData;
   @Input() newInstance;
+  @ViewChild('deleteTemplate') deleteTemplate: TemplateRef<any>;
+
   @Output() output: EventEmitter<any> = new EventEmitter();
   @Output() outputAndReload: EventEmitter<any> = new EventEmitter();
   isLoading = false;
   result;
+  modalRef: BsModalRef;
+
   appInfoForm: FormGroup;
   appActivityForm: FormGroup;
   appObjectiveForm: FormGroup;
@@ -57,6 +64,9 @@ export class ObjectivesmodalComponent implements OnInit {
   categoriesList = [];
   role = 'User';
   usersList = [];
+  activityInfo;
+  deleteId;
+  control;
   departmentList = [];
   tabId = 1;
   githubUsers = [];
@@ -122,7 +132,32 @@ export class ObjectivesmodalComponent implements OnInit {
       activities: this.fb.array([])
     });
   }
+  deleteActivity(id, item) {
+    // if (id !== 0) {
+    console.log('item--', item);
+    if (item.value._id && item.value._id != '') {
+      this.activityInfo = item;
+      const control = <FormArray>this.appInfoForm.get('activities');
+      this.control = control;
+      this.deleteId = id;
+      this.openDeleteModal(this.deleteTemplate);
 
+      // control.removeAt(id);
+      //open delete modal;
+    } else {
+      const control = <FormArray>this.appInfoForm.get('activities');
+      control.removeAt(id);
+    }
+    // }
+  }
+
+  decline() {
+    this.modalRef.hide();
+  }
+
+  openDeleteModal(template) {
+    this.modalRef = this.modalService.show(template, { class: 'modal-xs' });
+  }
   resetActivities() {
     const control = <FormArray>this.appInfoForm.get('activities');
     this.clearFormArray(control);
@@ -154,6 +189,22 @@ export class ObjectivesmodalComponent implements OnInit {
   getProjectCoordinators() {
     const type = 'Project Coordinator';
     this.getUsersFromDB(type);
+  }
+  deleteActivityFromDB() {
+    console.log('this.objectiveInfo', this.activityInfo.value._id);
+    // this.activityApi.deleteActivity(this.activityInfo.value._id).subscribe(
+    //   async response => {
+    //     console.log('deleteActivityFromDB->', response);
+    //     this.control.removeAt(this.deleteId);
+    //     this.toasterService.pop('success', 'Objective deleted Successfully');
+    //     this.modalRef.hide();
+    //     // this.slimScroll.complete();
+    //   },
+    //   error => {
+    //     console.log('error', error);
+    //     this.slimScroll.complete();
+    //   }
+    // );
   }
 
   getUsersFromDB(type = 'Project Coordinator') {
