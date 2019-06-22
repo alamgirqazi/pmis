@@ -43,7 +43,8 @@ const Projects = new Schema({
         type: String
     },
     status: {
-        type: String
+        type: String,
+        default: 'pending'
     },
   
     is_deleted: {
