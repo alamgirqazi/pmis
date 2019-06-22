@@ -1,11 +1,11 @@
 const activitiesController = {};
-const Objectives = require('../models/objectives.model');
 const Projects = require("../models/projects.model");
+const Activities = require("../models/activities.model");
 
 activitiesController.getAll = async (req, res) => {
-  let objectives;
+  // let activities;
   try {
-    const { start, length, search, user_id, project_id } = req.query;
+    const { start, length, search, user_id, project_id,objective_id } = req.query;
 
     // const {
     //     value
@@ -15,6 +15,7 @@ activitiesController.getAll = async (req, res) => {
     let merged = {};
     let user_query = {};
     let project_query = {};
+    let objective_query = {};
     // if (value != '') {
 
     //     obj = {
@@ -33,24 +34,29 @@ activitiesController.getAll = async (req, res) => {
         project_id: project_id
       };
     }
+    if (objective_id != '' && objective_id!==undefined) {
+      objective_query = {
+        objective_id: objective_id
+      };
+    }
 
-    merged = { ...obj, ...user_query, ...project_query };
+    merged = { ...obj, ...user_query, ...project_query,...objective_query };
     console.log('get all');
 
-   let objectives = await Objectives.paginate(merged, {
+   let activities = await Activities.paginate(merged, {
       offset: parseInt(start),
       limit: parseInt(length)
     });
 
 
-    let response_object = JSON.parse(JSON.stringify(objectives));
+    let response_object = JSON.parse(JSON.stringify(activities));
 
-    for (let[index, iterator] of response_object.docs.entries()) {
+    // for (let[index, iterator] of response_object.docs.entries()) {
    
-     const res = await Projects.findOne({"_id": iterator.project_id })
-      console.log('res',res);
-      response_object.docs[index].project_detail = res;
-    }
+    //  const res = await Projects.findOne({"_id": iterator.project_id })
+    //   console.log('res',res);
+    //   response_object.docs[index].project_detail = res;
+    // }
 
 
     res.status(200).send({
@@ -63,8 +69,8 @@ activitiesController.getAll = async (req, res) => {
     return res.status(500).send(error);
   }
 };
-activitiesController.addObjective = async (req, res) => {
-  // const max_result = await objectives.aggregate([
+activitiesController.addActivity = async (req, res) => {
+  // const max_result = await Activitys.aggregate([
   //     { $group: { _id: null, max: { $max: { $toInt: '$id' } } } }
   //   ]);
   //   let body = req.body;
@@ -74,7 +80,7 @@ activitiesController.addObjective = async (req, res) => {
   //     body['id'] = 1;
   //   }
 
-  Objectives.create(req.body, function(err, result) {
+  Activities.create(req.body, function(err, result) {
     if (err) {
       res.status(500).send(err);
     } else {
@@ -87,23 +93,25 @@ activitiesController.addObjective = async (req, res) => {
     }
   });
 };
-activitiesController.addManyObjectives = async (req, res) => {
+activitiesController.addManyActivities = async (req, res) => {
   try {
     console.log('body');
     console.log(req.body);
-    const objectives = req.body.objectives;
+    const activities = req.body.activities;
     const project_id = req.body.project_id;
-    objectives.forEach(async (element, index) => {
+    const objective_id = req.body.objective_id;
+    activities.forEach(async (element, index) => {
       element.project_id = project_id;
+      element.objective_id = objective_id;
       if (element._id == '') {
         delete element._id;
 
         // save single
-        await Objectives.create(element);
+        await Activities.create(element);
       } else {
         console.log('else');
 
-        await Objectives.updateOne(
+        await Activities.updateOne(
           {
             _id: element._id
           },
@@ -117,7 +125,7 @@ activitiesController.addManyObjectives = async (req, res) => {
         );
       }
 
-      if (index == objectives.length - 1) {
+      if (index == activities.length - 1) {
         var data = {
           code: 200,
           message: 'Data inserted successfully'
@@ -129,7 +137,7 @@ activitiesController.addManyObjectives = async (req, res) => {
     res.status(500).send(ex);
   }
 
-  // Objectives.create(req.body, function (err, result) {
+  // Activitys.create(req.body, function (err, result) {
   //     if (err) {
   //         res.status(500).send(err);
   //     } else {
@@ -143,7 +151,7 @@ activitiesController.addManyObjectives = async (req, res) => {
   // });
 };
 
-activitiesController.deleteObjective = async (req, res) => {
+activitiesController.deleteActivity = async (req, res) => {
   if (!req.params._id) {
     res.status(500).send({
       message: 'ID missing'
@@ -152,7 +160,7 @@ activitiesController.deleteObjective = async (req, res) => {
   try {
     const _id = req.params._id;
 
-    const result = await Objectives.findOneAndDelete({
+    const result = await Activities.findOneAndDelete({
       _id: _id
     });
     //   const result = await Inventory.updateOne({
@@ -173,7 +181,7 @@ activitiesController.deleteObjective = async (req, res) => {
   }
 };
 
-activitiesController.updateObjective = async (req, res) => {
+activitiesController.updateActivity = async (req, res) => {
   if (!req.params._id) {
     res.status(500).send({
       message: 'ID missing'
@@ -194,7 +202,7 @@ async function runUpdate(_id, updates, res) {
   console.log('updates');
   console.log(updates);
   try {
-    const result = await Objectives.updateOne(
+    const result = await Activities.updateOne(
       {
         _id: _id
       },

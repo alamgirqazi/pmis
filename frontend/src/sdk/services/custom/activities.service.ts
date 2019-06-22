@@ -11,11 +11,7 @@ import { Observable } from 'rxjs/Observable';
 export class ActivitiesApi {
   constructor(protected http: HttpClient, private authService: AuthService) {}
 
-  public getActivitiesByIds(
-    project_id,
-    objective_id,
-    user_id?
-  ): Observable<any> {
+  public getActivitiesByIds(objective_id, user_id?): Observable<any> {
     const url = Baseconfig.getPath() + `/activities`;
 
     let params = new HttpParams();
@@ -23,9 +19,7 @@ export class ActivitiesApi {
     if (user_id) {
       params = params.append('user_id', user_id);
     }
-    if (project_id) {
-      params = params.append('project_id', project_id);
-    }
+
     if (objective_id) {
       params = params.append('objective_id', objective_id);
     }
@@ -44,9 +38,10 @@ export class ActivitiesApi {
       });
   }
 
-  public insertActivities(data, project_id): Observable<any> {
+  public insertActivities(data, project_id, objective_id): Observable<any> {
     const url = Baseconfig.getPath() + '/activities/insertmany';
     data['project_id'] = project_id;
+    data['objective_id'] = objective_id;
 
     return this.http
       .post(url, data, {
@@ -74,8 +69,8 @@ export class ActivitiesApi {
       });
   }
 
-  public deleteObjective(_id: any): Observable<any> {
-    const url = Baseconfig.getPath() + '/Activities/' + _id;
+  public deleteActivity(_id: any): Observable<any> {
+    const url = Baseconfig.getPath() + '/activities/' + _id;
     return this.http.delete(url, {
       headers: new HttpHeaders().set(
         'Authorization',

@@ -26,6 +26,7 @@
       <nav class="scroll nav-stacked nav-stacked-rounded nav-color">
         <ul class="nav" data-ui-nkav="">
           <li
+            *ngIf="role == 'Executive Director' || role == 'Managing Director'"
             routerLinkActive="active"
             data-toggle="tooltip"
             data-placement="right"
@@ -38,6 +39,7 @@
             </a>
           </li>
           <li
+            *ngIf="role == 'Project Manager'"
             routerLinkActive="active"
             data-toggle="tooltip"
             data-placement="right"
@@ -63,6 +65,7 @@
           </li> -->
 
           <li
+            *ngIf="role == 'Project Coordinator'"
             class=""
             routerLinkActive="active"
             data-toggle="tooltip"
@@ -76,6 +79,7 @@
             </a>
           </li>
           <li
+            *ngIf="role == 'Officials'"
             class=""
             routerLinkActive="active"
             data-toggle="tooltip"
@@ -102,6 +106,7 @@
             </a>
           </li>
           <li
+            *ngIf="role == 'Executive Director'"
             class=""
             routerLinkActive="active"
             data-toggle="tooltip"
@@ -122,20 +127,6 @@
               <span class="nav-text">Reporting</span>
             </a>
           </li> -->
-          <li
-            class=""
-            *ngIf="role == 'Admin'"
-            routerLinkActive="active"
-            data-toggle="tooltip"
-            data-placement="right"
-          >
-            <a routerLink="/admin/reports" title="Reports">
-              <span class="nav-icon">
-                <i class="material-icons">insert_chart</i>
-              </span>
-              <span class="nav-text">Reports</span>
-            </a>
-          </li>
         </ul>
       </nav>
     </div>

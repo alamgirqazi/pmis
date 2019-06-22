@@ -1,3 +1,4 @@
+import { ActivitiesApi } from './../../../../sdk/services/custom/activities.service';
 import { UserApi } from './../../../../sdk/services/custom/user.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import {
@@ -25,7 +26,7 @@ import { MiscHelperService } from '../../../../sdk/services/custom/misc.service'
 import { AuthService } from '../../../../sdk/services/core/auth.service';
 import { ProjectsApi } from '../../../../sdk/services/custom/projects.service';
 import { Baseconfig } from '../../../../sdk/base.config';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { ObjectivesApi } from '../../../../sdk/services/custom/objectives.service';
 
 @Component({
   selector: 'app-objectivesmodal',
@@ -38,6 +39,8 @@ export class ObjectivesmodalComponent implements OnInit {
     private miscHelperService: MiscHelperService,
     private authService: AuthService,
     private projectsApi: ProjectsApi,
+    private activitiesApi: ActivitiesApi,
+    private objectivesApi: ObjectivesApi,
     private userApi: UserApi,
     private modalService: BsModalService,
     private toasterService: ToasterService,
@@ -77,11 +80,9 @@ export class ObjectivesmodalComponent implements OnInit {
     this.getProjectCoordinators();
     this.formInitializer();
 
-    this.addActivities();
-
-    if (this.newInstance) {
-      this.addActivities();
-    }
+    // if (this.newInstance) {
+    //   this.addActivities();
+    // }
     if (!this.newInstance) {
       this.appInfoForm.patchValue(this.formData);
       this.getActivitiesFromDB();
@@ -92,31 +93,31 @@ export class ObjectivesmodalComponent implements OnInit {
     // this.getAll();
   }
   getActivitiesFromDB() {
-    // const project_id = this.appInfoForm.controls['_id'].value;
-    console.log('project_id');
-    // this.objectivesApi.getObjectivesByIds(project_id, '').subscribe(
-    //   async response => {
-    //     console.log('my projects objectives->', response);
-    //     if (response.data && response.data.docs.length > 0) {
-    //       // patch Rooms here
-    //       this.resetObjectives();
-    //       const control = <FormArray>this.appObjectiveForm.get('objectives');
+    const objective_id = this.formData._id;
+    console.log('objective_id');
+    this.activitiesApi.getActivitiesByIds(objective_id, '').subscribe(
+      async response => {
+        console.log('my projects activities->', response);
+        if (response.data && response.data.docs.length > 0) {
+          // patch Rooms here
+          this.resetActivities();
+          const control = <FormArray>this.appInfoForm.get('activities');
 
-    //       for (const obj of response.data.docs) {
-    //         const addrCtrl = this.createObjectives();
-    //         addrCtrl.patchValue(obj);
-    //         control.push(addrCtrl);
-    //       }
-    //     } else {
-    //       this.addObjectives();
-    //     }
-    //     // this.slimScroll.complete();
-    //   },
-    //   error => {
-    //     console.log('error', error);
-    //     this.slimScroll.complete();
-    //   }
-    // );
+          for (const obj of response.data.docs) {
+            const addrCtrl = this.createActivities();
+            addrCtrl.patchValue(obj);
+            control.push(addrCtrl);
+          }
+        } else {
+          this.addActivities();
+        }
+        // this.slimScroll.complete();
+      },
+      error => {
+        console.log('error', error);
+        this.slimScroll.complete();
+      }
+    );
   }
   // getAll() {}
 
@@ -134,7 +135,6 @@ export class ObjectivesmodalComponent implements OnInit {
   }
   deleteActivity(id, item) {
     // if (id !== 0) {
-    console.log('item--', item);
     if (item.value._id && item.value._id != '') {
       this.activityInfo = item;
       const control = <FormArray>this.appInfoForm.get('activities');
@@ -192,19 +192,19 @@ export class ObjectivesmodalComponent implements OnInit {
   }
   deleteActivityFromDB() {
     console.log('this.objectiveInfo', this.activityInfo.value._id);
-    // this.activityApi.deleteActivity(this.activityInfo.value._id).subscribe(
-    //   async response => {
-    //     console.log('deleteActivityFromDB->', response);
-    //     this.control.removeAt(this.deleteId);
-    //     this.toasterService.pop('success', 'Objective deleted Successfully');
-    //     this.modalRef.hide();
-    //     // this.slimScroll.complete();
-    //   },
-    //   error => {
-    //     console.log('error', error);
-    //     this.slimScroll.complete();
-    //   }
-    // );
+    this.activitiesApi.deleteActivity(this.activityInfo.value._id).subscribe(
+      async response => {
+        console.log('deleteActivityFromDB->', response);
+        this.control.removeAt(this.deleteId);
+        this.toasterService.pop('success', 'Activity deleted Successfully');
+        this.modalRef.hide();
+        // this.slimScroll.complete();
+      },
+      error => {
+        console.log('error', error);
+        this.slimScroll.complete();
+      }
+    );
   }
 
   getUsersFromDB(type = 'Project Coordinator') {
@@ -233,30 +233,31 @@ export class ObjectivesmodalComponent implements OnInit {
   saveAppInfo() {
     this.submitForm = true;
     if (this.appInfoForm.valid) {
-      if (this.newInstance) {
-        this.insertData();
-      } else {
-        this.updateData(this.appInfoForm.value);
+      this.isLoading = true;
+      this.activitiesApi
+        .insertActivities(
+          this.appInfoForm.value,
+          this.formData.project_id,
+          this.formData._id
+        )
+        .subscribe(
+          async response => {
+            console.log('response->', response);
+            this.outputAndReload.emit(null);
+            this.isLoading = false;
 
-        // if (this.tabId === 1) {
-        //   this.updateData(this.appInfoForm.value);
-        // } else if (this.tabId === 2) {
-        //   this.updateData(this.appInfoForm.value);
-        // }
-        // //   let objectives = this.appInfoForm.controls['objectives'].value;
-        // //   objectives.forEach(element => {
-        // //     if (element._id == '') {
-        // //       delete element._id;
-        // //     }
-        // //   });
+            // this.slimScroll.complete();
+          },
+          error => {
+            console.log('error', error);
+            // this.modalRef.hide();
+            this.isLoading = false;
 
-        // //   this.updateData({
-        // //     objectives: objectives
-        // //   });
-        // // }
-      }
+            this.toasterService.pop('error', 'There are some error inserting');
+            this.slimScroll.complete();
+          }
+        );
     }
-    // console.log('save against this ID', this.formData._id);
   }
 
   updateData(data_to_save) {
