@@ -42,6 +42,10 @@ export const routes: Routes = [
         loadChildren:
           'app/admin/activitiesmodule/activities.module#ActivitiesmoduleModule'
       },
+      {
+        path: 'tasks',
+        loadChildren: 'app/admin/tasksmodule/tasks.module#TasksmoduleModule'
+      },
       // {
       //   path: 'reports',
       //   loadChildren:

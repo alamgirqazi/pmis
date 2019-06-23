@@ -21,7 +21,8 @@ const Tasks = new Schema({
         type: String
     },
     status: {
-        type: String
+        type: String,
+        default: 'pending'
     },
     users_assigned: {
         type: Array
