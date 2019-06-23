@@ -1,3 +1,4 @@
+import { ActivitiesApi } from './../../../sdk/services/custom/activities.service';
 import { ObjectivesApi } from './../../../sdk/services/custom/objectives.service';
 // import '../../../mainassets/plugins/datatables/css/dataTables.bootstrap.css';
 
@@ -38,6 +39,7 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
     private excelService: ExcelService,
     private projectsApi: ProjectsApi,
     private objectivesApi: ObjectivesApi,
+    private activitiesApi: ActivitiesApi,
     private modalService: BsModalService,
     private toasterService: ToasterService,
     private _asideNavigationService: AsideNavigationService
@@ -189,9 +191,9 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
     this.slimScroll.progress = 20;
     this.slimScroll.start();
 
-    const displayMsg = `${data.objective_name} is now ${status}`;
+    const displayMsg = `${data.activity_name} is now ${status}`;
 
-    this.objectivesApi.updateObjectivesStatus(data._id, { status }).subscribe(
+    this.activitiesApi.updateActivitiesStatus(data._id, { status }).subscribe(
       async response => {
         console.log('response', response);
         this.configDatatable(true);
