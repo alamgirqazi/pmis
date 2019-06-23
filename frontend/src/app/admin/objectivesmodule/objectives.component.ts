@@ -1,3 +1,4 @@
+import { ObjectivesApi } from './../../../sdk/services/custom/objectives.service';
 // import '../../../mainassets/plugins/datatables/css/dataTables.bootstrap.css';
 
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
@@ -36,6 +37,7 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
     private miscHelperService: MiscHelperService,
     private excelService: ExcelService,
     private projectsApi: ProjectsApi,
+    private objectivesApi: ObjectivesApi,
     private modalService: BsModalService,
     private toasterService: ToasterService,
     private _asideNavigationService: AsideNavigationService
@@ -183,30 +185,26 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
     this.modalRef = this.modalService.show(template, config);
   }
 
-  updateAppStatus() {
+  updateAppStatus(status, data) {
     this.slimScroll.progress = 20;
     this.slimScroll.start();
-    const status = {
-      status: this.mystatus
-    };
-    const displayMsg = `${this.changedApp.name} is now ${this.mystatus}`;
 
-    // this.assetsApi.updateprojectsStatus(this.changedApp._id, status).subscribe(
-    //   async response => {
-    //     console.log('response', response);
-    //     this.configDatatable(true);
-    //     this.modalRef.hide();
-    //     this.toasterService.pop('success', displayMsg);
-    //     // Toaster MSG
-    //     this.slimScroll.complete();
-    //   },
-    //   error => {
-    //     console.log('error', error);
-    //     this.modalRef.hide();
-    //     this.toasterService.pop('error', 'There are some error updating');
-    //     this.slimScroll.complete();
-    //   }
-    // );
+    const displayMsg = `${data.objective_name} is now ${status}`;
+
+    this.objectivesApi.updateObjectivesStatus(data._id, { status }).subscribe(
+      async response => {
+        console.log('response', response);
+        this.configDatatable(true);
+        this.toasterService.pop('success', displayMsg);
+        // Toaster MSG
+        this.slimScroll.complete();
+      },
+      error => {
+        console.log('error', error);
+        this.toasterService.pop('error', 'There are some error updating');
+        this.slimScroll.complete();
+      }
+    );
   }
 
   decline() {

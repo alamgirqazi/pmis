@@ -189,19 +189,19 @@
                                   
                                   
                                                         <li>
-                                                          <a class="dropdown-items" id="" title="View Detail">
+                                                          <a (click)="updateAppStatus('pending',data)" class="dropdown-items" id="" title="View Detail">
                                                             <!-- <i class="material-icons">do_not_disturb</i> -->
                                                             <label>Pending</label>
                                                           </a>
-                                                          <a class="dropdown-items" id="" title="View Detail">
+                                                          <a  (click)="updateAppStatus('complete',data)" class="dropdown-items" id="" title="View Detail">
                                                             <!-- <i class="material-icons">do_not_disturb</i> -->
                                                             <label>Complete</label>
                                                           </a>
-                                                          <a class="dropdown-items" id="" title="View Detail">
+                                                          <a  (click)="updateAppStatus('hold',data)" class="dropdown-items" id="" title="View Detail">
                                                             <!-- <i class="material-icons">do_not_disturb</i> -->
                                                             <label>Hold</label>
                                                           </a>
-                                                          <a class="dropdown-items" id="" title="View Detail">
+                                                          <a  (click)="updateAppStatus('cancelled',data)" class="dropdown-items" id="" title="View Detail">
                                                             <!-- <i class="material-icons">do_not_disturb</i> -->
                                                             <label>Cancelled</label>
                                                           </a>

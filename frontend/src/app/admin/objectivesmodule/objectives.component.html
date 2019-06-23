@@ -184,20 +184,16 @@
                                 
                                 
                                                       <li>
-                                                        <a class="dropdown-items" id="" title="View Detail">
-                                                          <!-- <i class="material-icons">do_not_disturb</i> -->
+                                                        <a (click)="updateAppStatus('pending',data)" class="dropdown-items" id="" title="Pending">
                                                           <label>Pending</label>
                                                         </a>
-                                                        <a class="dropdown-items" id="" title="View Detail">
-                                                          <!-- <i class="material-icons">do_not_disturb</i> -->
+                                                        <a (click)="updateAppStatus('complete',data)" class="dropdown-items" id="" title="Complete">
                                                           <label>Complete</label>
                                                         </a>
-                                                        <a class="dropdown-items" id="" title="View Detail">
-                                                          <!-- <i class="material-icons">do_not_disturb</i> -->
+                                                        <a (click)="updateAppStatus('hold',data)" class="dropdown-items" id="" title="Hold">
                                                           <label>Hold</label>
                                                         </a>
-                                                        <a class="dropdown-items" id="" title="View Detail">
-                                                          <!-- <i class="material-icons">do_not_disturb</i> -->
+                                                        <a (click)="updateAppStatus('cancelled',data)" class="dropdown-items" id="" title="Cancelled">
                                                           <label>Cancelled</label>
                                                         </a>
                                                       </li>
