@@ -42,7 +42,6 @@ activitiesController.getAll = async (req, res) => {
     }
 
     merged = { ...obj, ...user_query, ...project_query,...objective_query };
-    console.log('get all');
 
    let activities = await Activities.paginate(merged, {
       offset: parseInt(start),
@@ -55,9 +54,7 @@ activitiesController.getAll = async (req, res) => {
     for (let[index, iterator] of response_object.docs.entries()) {
    
      const res = await Projects.findOne({"_id": iterator.project_id })
-      console.log('res',res);
      const res2 = await Objectives.findOne({"_id": iterator.objective_id })
-      console.log('res2',res);
       response_object.docs[index].project_detail = res;
       response_object.docs[index].objective_detail = res2;
     }
@@ -99,8 +96,6 @@ activitiesController.addActivity = async (req, res) => {
 };
 activitiesController.addManyActivities = async (req, res) => {
   try {
-    console.log('body');
-    console.log(req.body);
     const activities = req.body.activities;
     const project_id = req.body.project_id;
     const objective_id = req.body.objective_id;
@@ -113,7 +108,6 @@ activitiesController.addManyActivities = async (req, res) => {
         // save single
         await Activities.create(element);
       } else {
-        console.log('else');
 
         await Activities.updateOne(
           {
@@ -203,8 +197,6 @@ activitiesController.updateActivity = async (req, res) => {
 };
 
 async function runUpdate(_id, updates, res) {
-  console.log('updates');
-  console.log(updates);
   try {
     const result = await Activities.updateOne(
       {

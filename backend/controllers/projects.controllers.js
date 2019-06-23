@@ -133,7 +133,6 @@ projectsController.getObjectivesOfUser = async (req, res) => {
             "users._id": _id
         });
         // this query workedd
-        console.log('result',result);
     //   const result = await Inventory.updateOne({
     //         _id: _id
     //     }, {
@@ -205,8 +204,6 @@ projectsController.updateProject = async (req, res) => {
 };
 
 async function runUpdate(_id, updates, res) {
-    console.log('updates')
-    console.log(updates)
     try {
         const result = await Projects.updateOne({
             _id: _id

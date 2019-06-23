@@ -35,7 +35,6 @@ objectivesController.getAll = async (req, res) => {
     }
 
     merged = { ...obj, ...user_query, ...project_query };
-    console.log('get all');
 
    let objectives = await Objectives.paginate(merged, {
       offset: parseInt(start),
@@ -48,7 +47,6 @@ objectivesController.getAll = async (req, res) => {
     for (let[index, iterator] of response_object.docs.entries()) {
    
      const res = await Projects.findOne({"_id": iterator.project_id })
-      console.log('res',res);
       response_object.docs[index].project_detail = res;
     }
 
@@ -89,8 +87,6 @@ objectivesController.addObjective = async (req, res) => {
 };
 objectivesController.addManyObjectives = async (req, res) => {
   try {
-    console.log('body');
-    console.log(req.body);
     const objectives = req.body.objectives;
     const project_id = req.body.project_id;
     objectives.forEach(async (element, index) => {
@@ -101,7 +97,6 @@ objectivesController.addManyObjectives = async (req, res) => {
         // save single
         await Objectives.create(element);
       } else {
-        console.log('else');
 
         await Objectives.updateOne(
           {
@@ -128,19 +123,6 @@ objectivesController.addManyObjectives = async (req, res) => {
   } catch (ex) {
     res.status(500).send(ex);
   }
-
-  // Objectives.create(req.body, function (err, result) {
-  //     if (err) {
-  //         res.status(500).send(err);
-  //     } else {
-  //         var data = {
-  //             code: 200,
-  //             message: 'Data inserted successfully',
-  //             data: result
-  //         };
-  //         res.status(200).send(data);
-  //     }
-  // });
 };
 
 objectivesController.deleteObjective = async (req, res) => {
@@ -155,14 +137,7 @@ objectivesController.deleteObjective = async (req, res) => {
     const result = await Objectives.findOneAndDelete({
       _id: _id
     });
-    //   const result = await Inventory.updateOne({
-    //         _id: _id
-    //     }, {
-    //         $set: {is_deleted: 1}
-    //     }, {
-    //         upsert: true,
-    //         runValidators: true
-    //     });
+  
     res.status(200).send({
       code: 200,
       message: 'Deleted Successfully'
@@ -191,8 +166,6 @@ objectivesController.updateObjective = async (req, res) => {
 };
 
 async function runUpdate(_id, updates, res) {
-  console.log('updates');
-  console.log(updates);
   try {
     const result = await Objectives.updateOne(
       {

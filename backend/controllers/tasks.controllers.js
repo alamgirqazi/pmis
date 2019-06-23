@@ -93,8 +93,6 @@ tasksController.addTask = async (req, res) => {
 };
 tasksController.addManyTasks= async (req, res) => {
   try {
-    console.log('body');
-    console.log(req.body);
     const tasks = req.body.tasks;
     const project_id = req.body.project_id;
     const objective_id = req.body.objective_id;
@@ -109,7 +107,6 @@ tasksController.addManyTasks= async (req, res) => {
         // save single
         await Tasks.create(element);
       } else {
-        console.log('else');
 
         await Tasks.updateOne(
           {
@@ -199,8 +196,6 @@ tasksController.updateTasks = async (req, res) => {
 };
 
 async function runUpdate(_id, updates, res) {
-  console.log('updates');
-  console.log(updates);
   try {
     const result = await Tasks.updateOne(
       {
