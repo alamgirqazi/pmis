@@ -134,7 +134,7 @@ export class ActivitiesmodalComponent implements OnInit {
       tasks: this.fb.array([])
     });
   }
-  deleteTasks(id, item) {
+  deleteTask(id, item) {
     // if (id !== 0) {
     if (item.value._id && item.value._id != '') {
       this.taskInfo = item;
@@ -190,13 +190,13 @@ export class ActivitiesmodalComponent implements OnInit {
     const type = 'Official';
     this.getUsersFromDB(type);
   }
-  deleteActivityFromDB() {
+  deleteTaskFromDB() {
     console.log('this.objectiveInfo', this.taskInfo.value._id);
     this.tasksApi.deleteTask(this.taskInfo.value._id).subscribe(
       async response => {
         console.log('deletetaskInfoFromDB->', response);
         this.control.removeAt(this.deleteId);
-        this.toasterService.pop('success', 'Activity deleted Successfully');
+        this.toasterService.pop('success', 'Task deleted Successfully');
         this.modalRef.hide();
         // this.slimScroll.complete();
       },
