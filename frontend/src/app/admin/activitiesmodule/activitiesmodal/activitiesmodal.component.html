@@ -14,9 +14,9 @@
       </ul>
 
       <div>
-        <div id="tab-3" formArrayName="activities">
+        <div id="tab-3" formArrayName="tasks">
           <div
-            *ngFor="let item of formDataActivities.controls; let i = index"
+            *ngFor="let item of formDataTasks.controls; let i = index"
             [formGroupName]="i"
           >
             <div class="row">
@@ -24,7 +24,7 @@
                 <div *ngIf="i != -1" class="pull-right add-btn">
                   <button
                     _ngcontent-c13=""
-                    (click)="deleteActivity(i, item)"
+                    (click)="deleteTask(i, item)"
                     class="btn btn-sm btn-block btn-line"
                     type="button"
                   >
@@ -34,7 +34,7 @@
                 <div *ngIf="i == 0" class="pull-right add-btn">
                   <button
                     class="btn btn-sm customclass btn-block btn-green"
-                    (click)="addActivities()"
+                    (click)="addTasks()"
                     type="button"
                   >
                     <i _ngcontent-c8="" class="material-icons">add</i>
@@ -46,7 +46,7 @@
               <div class="col-lg-5">
                 <div class="form-group row">
                   <label class="col-lg-3 form-control-label l-label"
-                    >Activity Name:</label
+                    >Task Name:</label
                   >
 
                   <div class="col-lg-9">
@@ -55,11 +55,10 @@
                       [ngClass]="{
                         'error-input':
                           submitObjectives &&
-                          formDataActivities.controls[i].controls[
-                            'activity_name'
-                          ].invalid
+                          formDataTasks.controls[i].controls['activity_name']
+                            .invalid
                       }"
-                      formControlName="activity_name"
+                      formControlName="task_name"
                       class="form-control"
                     />
                   </div>
@@ -94,7 +93,7 @@
                       [multiple]="true"
                       bindLabel="name"
                       formControlName="users_assigned"
-                      placeholder="Select project coordinators"
+                      placeholder="Select Officials"
                     >
                       <ng-template
                         ng-multi-label-tmp
@@ -167,13 +166,9 @@
   <div class="modal-body text-center">
     <p>
       Are you sure you want to remove
-      {{ activityInfo?.value?.activity_name }} Activity?
+      {{ taskInfo?.value?.task_name }} Task?
     </p>
-    <button
-      type="button"
-      class="btn btn-green"
-      (click)="deleteActivityFromDB()"
-    >
+    <button type="button" class="btn btn-green" (click)="deleteTaskFromDB()">
       Yes
     </button>
     <button type="button" class="btn btn-default" (click)="decline()">

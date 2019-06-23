@@ -1,3 +1,4 @@
+import { TasksApi } from './../../../../sdk/services/custom/tasks.service';
 import { ActivitiesApi } from './../../../../sdk/services/custom/activities.service';
 import { UserApi } from './../../../../sdk/services/custom/user.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
@@ -41,6 +42,7 @@ export class ActivitiesmodalComponent implements OnInit {
     private activitiesApi: ActivitiesApi,
     private objectivesApi: ObjectivesApi,
     private userApi: UserApi,
+    private tasksApi: TasksApi,
     private modalService: BsModalService,
     private toasterService: ToasterService,
     private fb: FormBuilder
@@ -66,7 +68,7 @@ export class ActivitiesmodalComponent implements OnInit {
   categoriesList = [];
   role = 'User';
   usersList = [];
-  activityInfo;
+  taskInfo;
   deleteId;
   control;
   departmentList = [];
@@ -84,31 +86,31 @@ export class ActivitiesmodalComponent implements OnInit {
     // }
     if (!this.newInstance) {
       this.appInfoForm.patchValue(this.formData);
-      this.getActivitiesFromDB();
+      this.getTasksFromDB();
       // create new activities
     }
 
     this.role = role;
     // this.getAll();
   }
-  getActivitiesFromDB() {
-    const objective_id = this.formData._id;
-    console.log('objective_id');
-    this.activitiesApi.getActivitiesByIds(objective_id, '').subscribe(
+  getTasksFromDB() {
+    const activity_id = this.formData._id;
+    console.log('activity_id');
+    this.tasksApi.getTasksByIds(activity_id, '').subscribe(
       async response => {
-        console.log('my projects activities->', response);
+        console.log('my projects tasks ->', response);
         if (response.data && response.data.docs.length > 0) {
           // patch Rooms here
-          this.resetActivities();
-          const control = <FormArray>this.appInfoForm.get('activities');
+          this.resetTasks();
+          const control = <FormArray>this.appInfoForm.get('tasks');
 
           for (const obj of response.data.docs) {
-            const addrCtrl = this.createActivities();
+            const addrCtrl = this.createTasks();
             addrCtrl.patchValue(obj);
             control.push(addrCtrl);
           }
         } else {
-          this.addActivities();
+          this.addTasks();
         }
         // this.slimScroll.complete();
       },
@@ -129,14 +131,14 @@ export class ActivitiesmodalComponent implements OnInit {
   }
   formInitializer() {
     this.appInfoForm = this.fb.group({
-      activities: this.fb.array([])
+      tasks: this.fb.array([])
     });
   }
-  deleteActivity(id, item) {
+  deleteTasks(id, item) {
     // if (id !== 0) {
     if (item.value._id && item.value._id != '') {
-      this.activityInfo = item;
-      const control = <FormArray>this.appInfoForm.get('activities');
+      this.taskInfo = item;
+      const control = <FormArray>this.appInfoForm.get('tasks');
       this.control = control;
       this.deleteId = id;
       this.openDeleteModal(this.deleteTemplate);
@@ -144,7 +146,7 @@ export class ActivitiesmodalComponent implements OnInit {
       // control.removeAt(id);
       //open delete modal;
     } else {
-      const control = <FormArray>this.appInfoForm.get('activities');
+      const control = <FormArray>this.appInfoForm.get('tasks');
       control.removeAt(id);
     }
     // }
@@ -157,8 +159,8 @@ export class ActivitiesmodalComponent implements OnInit {
   openDeleteModal(template) {
     this.modalRef = this.modalService.show(template, { class: 'modal-xs' });
   }
-  resetActivities() {
-    const control = <FormArray>this.appInfoForm.get('activities');
+  resetTasks() {
+    const control = <FormArray>this.appInfoForm.get('tasks');
     this.clearFormArray(control);
   }
   clearFormArray = (formArray: FormArray) => {
@@ -167,33 +169,32 @@ export class ActivitiesmodalComponent implements OnInit {
     }
   };
 
-  get formDataActivities() {
-    return <FormArray>this.appInfoForm.get('activities');
+  get formDataTasks() {
+    return <FormArray>this.appInfoForm.get('tasks');
   }
 
-  addActivities() {
-    (<FormArray>this.appInfoForm.get('activities')).push(
-      this.createActivities()
-    );
+  addTasks() {
+    (<FormArray>this.appInfoForm.get('tasks')).push(this.createTasks());
   }
-  createActivities() {
+  createTasks() {
     return this.fb.group({
       _id: [''],
-      activity_name: [''],
+      task_name: [''],
       project_id: [''],
       objective_id: [''],
+      activity_id: [''],
       users_assigned: [null]
     });
   }
   getProjectCoordinators() {
-    const type = 'Project Coordinator';
+    const type = 'Official';
     this.getUsersFromDB(type);
   }
   deleteActivityFromDB() {
-    console.log('this.objectiveInfo', this.activityInfo.value._id);
-    this.activitiesApi.deleteActivity(this.activityInfo.value._id).subscribe(
+    console.log('this.objectiveInfo', this.taskInfo.value._id);
+    this.tasksApi.deleteTask(this.taskInfo.value._id).subscribe(
       async response => {
-        console.log('deleteActivityFromDB->', response);
+        console.log('deletetaskInfoFromDB->', response);
         this.control.removeAt(this.deleteId);
         this.toasterService.pop('success', 'Activity deleted Successfully');
         this.modalRef.hide();
@@ -206,7 +207,7 @@ export class ActivitiesmodalComponent implements OnInit {
     );
   }
 
-  getUsersFromDB(type = 'Project Coordinator') {
+  getUsersFromDB(type = 'Official') {
     // const user_type = null;
     this.userApi.getUsers(type).subscribe(
       async response => {
@@ -233,11 +234,12 @@ export class ActivitiesmodalComponent implements OnInit {
     this.submitForm = true;
     if (this.appInfoForm.valid) {
       this.isLoading = true;
-      this.activitiesApi
-        .insertActivities(
+      this.tasksApi
+        .insertTasks(
           this.appInfoForm.value,
           this.formData.project_id,
-          this.formData._id
+          this.formData.objective_id,
+          this.formData._id // activity id
         )
         .subscribe(
           async response => {
@@ -258,41 +260,4 @@ export class ActivitiesmodalComponent implements OnInit {
         );
     }
   }
-
-  updateData(data_to_save) {
-    this.isLoading = true;
-    this.projectsApi
-      .updateProjectsStatus(this.formData._id, data_to_save)
-      .subscribe(
-        async response => {
-          console.log('response->', response);
-          this.outputAndReload.emit(null);
-          // this.slimScroll.complete();
-        },
-        error => {
-          console.log('error', error);
-          // this.modalRef.hide();
-          this.toasterService.pop('error', 'There are some error updating');
-          this.slimScroll.complete();
-        }
-      );
-  }
-  insertData() {
-    this.isLoading = true;
-    this.projectsApi.insertProjects(this.appInfoForm.value).subscribe(
-      async response => {
-        console.log('response->', response);
-        this.outputAndReload.emit(null);
-        // this.slimScroll.complete();
-      },
-      error => {
-        console.log('error', error);
-        // this.modalRef.hide();
-        this.toasterService.pop('error', 'There are some error inserting');
-        this.slimScroll.complete();
-      }
-    );
-  }
-
-  assignedToChanged(event) {}
 }

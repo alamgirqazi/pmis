@@ -1,3 +1,4 @@
+import { TasksApi } from './../sdk/services/custom/tasks.service';
 import { ObjectivesApi } from './../sdk/services/custom/objectives.service';
 import {
   BrowserXhr,
@@ -65,6 +66,7 @@ import { ActivitiesApi } from '../sdk/services/custom/activities.service';
     ProjectsApi,
     ObjectivesApi,
     ActivitiesApi,
+    TasksApi,
     AuthService,
     UserApi,
     AsideNavigationService,

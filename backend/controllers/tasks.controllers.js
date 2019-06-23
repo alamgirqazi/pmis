@@ -1,6 +1,8 @@
 const tasksController = {};
 const Objectives = require('../models/tasks.model');
 const Projects = require("../models/projects.model");
+const Activities = require("../models/activities.model");
+const Tasks = require("../models/tasks.model");
 
 tasksController.getAll = async (req, res) => {
   let objectives;
@@ -35,9 +37,8 @@ tasksController.getAll = async (req, res) => {
     }
 
     merged = { ...obj, ...user_query, ...project_query };
-    console.log('get all');
 
-   let objectives = await Objectives.paginate(merged, {
+   let objectives = await Tasks.paginate(merged, {
       offset: parseInt(start),
       limit: parseInt(length)
     });
@@ -48,8 +49,11 @@ tasksController.getAll = async (req, res) => {
     for (let[index, iterator] of response_object.docs.entries()) {
    
      const res = await Projects.findOne({"_id": iterator.project_id })
-      console.log('res',res);
+     const res1 = await Objectives.findOne({"_id": iterator.objective_id })
+     const res2 = await Activities.findOne({"_id": iterator.activity_id })
       response_object.docs[index].project_detail = res;
+      response_object.docs[index].objective_detail = res1;
+      response_object.docs[index].activity_detail = res2;
     }
 
 
@@ -63,7 +67,7 @@ tasksController.getAll = async (req, res) => {
     return res.status(500).send(error);
   }
 };
-tasksController.addObjective = async (req, res) => {
+tasksController.addTask = async (req, res) => {
   // const max_result = await objectives.aggregate([
   //     { $group: { _id: null, max: { $max: { $toInt: '$id' } } } }
   //   ]);
@@ -74,7 +78,7 @@ tasksController.addObjective = async (req, res) => {
   //     body['id'] = 1;
   //   }
 
-  Objectives.create(req.body, function(err, result) {
+  Tasks.create(req.body, function(err, result) {
     if (err) {
       res.status(500).send(err);
     } else {
@@ -87,23 +91,27 @@ tasksController.addObjective = async (req, res) => {
     }
   });
 };
-tasksController.addManyObjectives = async (req, res) => {
+tasksController.addManyTasks= async (req, res) => {
   try {
     console.log('body');
     console.log(req.body);
-    const objectives = req.body.objectives;
+    const tasks = req.body.tasks;
     const project_id = req.body.project_id;
-    objectives.forEach(async (element, index) => {
+    const objective_id = req.body.objective_id;
+    const activity_id = req.body.activity_id;
+    tasks.forEach(async (element, index) => {
       element.project_id = project_id;
+      element.objective_id = objective_id;
+      element.activity_id = activity_id;
       if (element._id == '') {
         delete element._id;
 
         // save single
-        await Objectives.create(element);
+        await Tasks.create(element);
       } else {
         console.log('else');
 
-        await Objectives.updateOne(
+        await Tasks.updateOne(
           {
             _id: element._id
           },
@@ -117,7 +125,7 @@ tasksController.addManyObjectives = async (req, res) => {
         );
       }
 
-      if (index == objectives.length - 1) {
+      if (index == tasks.length - 1) {
         var data = {
           code: 200,
           message: 'Data inserted successfully'
@@ -143,7 +151,7 @@ tasksController.addManyObjectives = async (req, res) => {
   // });
 };
 
-tasksController.deleteObjective = async (req, res) => {
+tasksController.deleteTask = async (req, res) => {
   if (!req.params._id) {
     res.status(500).send({
       message: 'ID missing'
@@ -152,7 +160,7 @@ tasksController.deleteObjective = async (req, res) => {
   try {
     const _id = req.params._id;
 
-    const result = await Objectives.findOneAndDelete({
+    const result = await Tasks.findOneAndDelete({
       _id: _id
     });
     //   const result = await Inventory.updateOne({
@@ -173,7 +181,7 @@ tasksController.deleteObjective = async (req, res) => {
   }
 };
 
-tasksController.updateObjective = async (req, res) => {
+tasksController.updateTasks = async (req, res) => {
   if (!req.params._id) {
     res.status(500).send({
       message: 'ID missing'
@@ -194,7 +202,7 @@ async function runUpdate(_id, updates, res) {
   console.log('updates');
   console.log(updates);
   try {
-    const result = await Objectives.updateOne(
+    const result = await Tasks.updateOne(
       {
         _id: _id
       },
