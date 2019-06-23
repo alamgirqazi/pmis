@@ -24,6 +24,7 @@ import { AuthService } from '../../../sdk/services/core/auth.service';
 import * as moment from 'moment';
 import { Baseconfig } from '../../../sdk/base.config';
 import { ProjectsApi } from '../../../sdk/services/custom/projects.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-activities',
@@ -38,6 +39,7 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
     private miscHelperService: MiscHelperService,
     private excelService: ExcelService,
     private projectsApi: ProjectsApi,
+    private router: Router,
     private objectivesApi: ObjectivesApi,
     private activitiesApi: ActivitiesApi,
     private modalService: BsModalService,
@@ -80,9 +82,12 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
   _id;
   // @TODO
   ngOnInit() {
-    const { id, _id } = this.authService.getAccessTokenInfo();
+    const { id, _id, role } = this.authService.getAccessTokenInfo();
     console.log('TCL: ObjectivesComponent -> ngOnInit -> id', _id);
     this._id = _id;
+    if (role != 'Project Coordinator') {
+      this.router.navigate(['/admin/tasks']);
+    }
     this._asideNavigationService.currentMessage.subscribe(message => {
       this.navOpened = message;
       // console.log('message: ', message);

@@ -25,6 +25,7 @@ import { AuthService } from '../../../sdk/services/core/auth.service';
 import * as moment from 'moment';
 import { Baseconfig } from '../../../sdk/base.config';
 import { ProjectsApi } from '../../../sdk/services/custom/projects.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tasks',
@@ -42,6 +43,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
     private objectivesApi: ObjectivesApi,
     private activitiesApi: ActivitiesApi,
     private tasksApi: TasksApi,
+    private router: Router,
     private modalService: BsModalService,
     private toasterService: ToasterService,
     private _asideNavigationService: AsideNavigationService
@@ -82,8 +84,12 @@ export class TasksComponent implements OnInit, AfterViewInit {
   _id;
   // @TODO
   ngOnInit() {
-    const { id, _id } = this.authService.getAccessTokenInfo();
+    const { id, _id, role } = this.authService.getAccessTokenInfo();
     this._id = _id;
+
+    if (role != 'Official') {
+      this.router.navigate(['/admin/projects']);
+    }
     this._asideNavigationService.currentMessage.subscribe(message => {
       this.navOpened = message;
       // console.log('message: ', message);

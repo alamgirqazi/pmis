@@ -1,3 +1,4 @@
+import { StatisticsApi } from './../../../sdk/services/custom/statistics.service';
 import * as Highcharts from 'highcharts';
 
 import {
@@ -32,6 +33,7 @@ export class DashboardmoduleComponent implements OnInit {
     private modalService: BsModalService,
     private slimScroll: SlimLoadingBarService,
     private authService: AuthService,
+    private statisticsApi: StatisticsApi,
     private router: Router,
     private _asideNavigationService: AsideNavigationService
   ) {}
@@ -42,7 +44,7 @@ export class DashboardmoduleComponent implements OnInit {
   navOpened;
 
   ngOnInit() {
-    const { Role } = this.authService.getAccessTokenInfo();
+    const { role } = this.authService.getAccessTokenInfo();
     // if (Role == 'User') {
     //   this.router.navigate(['/admin/assets']);
     // }

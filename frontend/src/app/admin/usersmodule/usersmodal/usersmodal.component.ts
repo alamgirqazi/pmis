@@ -95,14 +95,6 @@ export class UsersmodalComponent implements OnInit {
     };
     this.filePresent = true;
   }
-  roleChanged(e) {
-    console.log(e);
-    if (e == 'Admin') {
-      this.AdminSelected = true;
-    } else {
-      this.AdminSelected = false;
-    }
-  }
 
   formInitializer() {
     this.appInfoForm = this.fb.group({
@@ -147,6 +139,7 @@ export class UsersmodalComponent implements OnInit {
         );
     }
   }
+
   getUserNextId() {
     this.userApi.getUserNextId().subscribe(
       async response => {

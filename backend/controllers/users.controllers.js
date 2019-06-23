@@ -48,6 +48,22 @@ usersController.getAll = async (req, res) => {
         return res.status(500).send(error);
     }
 };
+usersController.getSingleUser = async (req, res) => {
+    let user;
+    try {
+        const _id = req.params._id
+        user = await Users.findOne({"_id":_id });
+        res.status(200).send({
+            code: 200,
+            message: 'Successful',
+            data: user
+        });
+
+    } catch (error) {
+        console.log('error', error);
+        return res.status(500).send(error);
+    }
+};
 usersController.addUser = async (req, res) => {
 
     Users.create(req.body, function (err, result) {

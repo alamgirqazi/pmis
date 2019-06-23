@@ -46,6 +46,21 @@ export class UserApi {
         return response;
       });
   }
+  public getSingleUser(_id): Observable<any> {
+    const url = Baseconfig.getPath() + `/users/${_id}`;
+
+    return this.http
+      .get(url, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
+
   public getUsers(user_type?): Observable<any> {
     const url = Baseconfig.getPath() + `/users`;
 
@@ -73,6 +88,7 @@ export class UserApi {
         return response;
       });
   }
+
   public updateUser(_id: any, data?: any): Observable<any> {
     const url = Baseconfig.getPath() + '/users/' + _id;
     return this.http

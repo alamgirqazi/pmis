@@ -27,6 +27,7 @@ const projectsRoutes = require('./routes/projects.routes');
 const objectivesRoutes = require('./routes/objectives.routes');
 const activitiesRoutes = require('./routes/activities.routes');
 const tasksRoutes = require('./routes/tasks.routes');
+const statisticsRoutes = require('./routes/statistics.routes');
 // const inventoryRoutes = require('./routes/inventory.routes');
 
 // config mongodb
@@ -62,6 +63,7 @@ app.use("/projects",projectsRoutes);
 app.use("/objectives",objectivesRoutes);
 app.use("/activities",activitiesRoutes);
 app.use("/tasks",tasksRoutes);
+app.use("/statistics",statisticsRoutes);
 // checkAuth
 // app.use("/inventory",inventoryRoutes);
 app.use("/auth",authRoutes);

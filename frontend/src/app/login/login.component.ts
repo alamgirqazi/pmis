@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
+    private authService: AuthService,
     private slimLoadingBarService: SlimLoadingBarService,
     private toasterService: ToasterService,
     private userApi: UserApi // private userApi: UserApi
@@ -47,7 +48,21 @@ export class LoginComponent implements OnInit {
       this.userApi.login(this.loginForm.value).subscribe(
         data => {
           localStorage.setItem('token', data.data);
-          this.router.navigate(['/admin']);
+          console.log('data', data.data);
+          const { role } = this.authService.getAccessTokenInfo();
+          console.log(role);
+          let routeUrl = '/admin/projects';
+          if (role.includes('Director')) {
+          } else if (role == 'Project Manager') {
+            routeUrl = '/admin/objectives';
+          } else if (role == 'Project Coordinator') {
+            routeUrl = '/admin/activities';
+          } else if (role == 'Official') {
+            routeUrl = '/admin/tasks';
+          } else {
+            routeUrl = '/admin';
+          }
+          this.router.navigate([routeUrl]);
           this.isLoading = false;
         },
         error => {

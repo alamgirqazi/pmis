@@ -1,0 +1,72 @@
+/* .list-top-navbar .nav-item > .nav-link {
+  line-height: 25px;
+  padding: 4px 15px;
+} */
+
+app-sidenav {
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+}
+
+.float-right {
+    float: right;
+
+}
+
+.navbar-item-title {
+    margin: 0px;
+    line-height: 35px;
+    font-size: 16px;
+}
+
+.dropdown-list-menu a:hover {
+    background: rgba(0, 0, 0, 0.1);
+    opacity: 1;
+    padding: 2px 8px;
+}
+
+.dropdown-list-menu a {
+    padding: 2px 8px;
+}
+
+.text-align {
+    text-align: center
+}
+
+textarea {
+    height: 80px;
+    resize: none;
+}
+
+.form-check-inline {
+    display: inline-block;
+    margin-right: 15px;
+    margin-top: 2px;
+}
+
+.form-check-inline .form-check-label {
+    vertical-align: middle;
+    line-height: 20px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+}
+
+.form-group p {
+    margin-bottom: 0px;
+    color: #777;
+    font-weight: 500;
+}
+
+span.required {
+    color: red;
+}
+
+.form-control {
+    width: 50% !important;
+}
+
+.fixed-size {
+    height: 180px;
+    width: 180px;
+}

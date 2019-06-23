@@ -1,0 +1,268 @@
+<div
+  id="content"
+  class="app-content box-shadow-z2"
+  [class.app-aside-open]="navOpened"
+  [class.app-aside-closed]="!navOpened"
+  role="main"
+>
+  <div class="app-body">
+    <div class="app-body-inner">
+      <div class="row-col">
+        <div class="row-row">
+          <div class="row-body scrollable hover">
+            <div class="row-inner">
+              <div class="row-col">
+                <!-- Aside End -->
+                <!--Rightside -->
+                <div class="col-xs hidden-lg-up show" id="detail">
+                  <div class="row-col">
+                    <div class="col-lg col-md col-sm col-xs b-r">
+                      <div class="row-col">
+                        <div class="b-b white bg">
+                          <div class="navbar no-radius">
+                            <ul class="nav navbar-nav list-top-navbar">
+                              <li class="nav-item">
+                                <h5 class="navbar-item-title">Profile</h5>
+                              </li>
+                              <!-- <li class="nav-item">
+                                <a
+                                  class="nav-link btn btn-green"
+                                  data-toggle="modal"
+                                  (click)="openModal(appinfomodal, null, true)"
+                                >
+                                  <i class="material-icons">add</i> Add
+                                  Activities
+                                </a>
+                              </li> -->
+                            </ul>
+                          </div>
+                        </div>
+
+                        <div class="row-row">
+                          <div class="row-body scrollable">
+                            <div class="row-inner">
+                              <div class="p-a">
+                                <div class="row">
+                                  <div class="col-xs-12">
+                                    <form
+                                      class="form-horizontal"
+                                      [formGroup]="appInfoForm"
+                                    >
+                                      <div class="form-group row">
+                                        <label
+                                          class="col-lg-2 form-control-label"
+                                          >ID:</label
+                                        >
+                                        <div class="col-lg-10">
+                                          <input
+                                            disabled
+                                            formControlName="id"
+                                            [ngClass]="{
+                                              'error-input':
+                                                submitForm &&
+                                                appInfoForm.controls['id']
+                                                  .invalid
+                                            }"
+                                            class="form-control"
+                                            type="text"
+                                          />
+                                        </div>
+                                      </div>
+                                      <div class="form-group row">
+                                        <label
+                                          class="col-lg-2 form-control-label"
+                                          >Name:</label
+                                        >
+                                        <div class="col-lg-10">
+                                          <input
+                                            formControlName="name"
+                                            [ngClass]="{
+                                              'error-input':
+                                                submitForm &&
+                                                appInfoForm.controls['name']
+                                                  .invalid
+                                            }"
+                                            class="form-control"
+                                            type="text"
+                                          />
+                                        </div>
+                                      </div>
+                                      <div class="form-group row">
+                                        <label
+                                          class="col-lg-2 form-control-label"
+                                          >Email:</label
+                                        >
+                                        <div class="col-lg-10">
+                                          <input
+                                            formControlName="email"
+                                            [ngClass]="{
+                                              'error-input':
+                                                submitForm &&
+                                                appInfoForm.controls['email']
+                                                  .invalid
+                                            }"
+                                            class="form-control"
+                                            type="text"
+                                          />
+                                        </div>
+                                      </div>
+                                      <div class="form-group row">
+                                        <label
+                                          class="col-lg-2 form-control-label"
+                                          >Password:</label
+                                        >
+                                        <div class="col-lg-10">
+                                          <input
+                                            formControlName="password"
+                                            [ngClass]="{
+                                              'error-input':
+                                                submitForm &&
+                                                appInfoForm.controls['password']
+                                                  .invalid
+                                            }"
+                                            class="form-control"
+                                            type="text"
+                                          />
+                                        </div>
+                                      </div>
+                                      <div class="form-group row">
+                                        <label
+                                          class="col-lg-2 form-control-label"
+                                          >Profile Pic:</label
+                                        >
+                                        <div class="col-lg-10">
+                                          <label>
+                                            <input
+                                              type="file"
+                                              #inputFile
+                                              style="display:none"
+                                              (change)="onFileChange($event)"
+                                            />
+                                            <img
+                                              [src]="userInfo?.avatar"
+                                              class="fixed-size"
+                                              onError="this.src='assets/images/placeholder.jpg'"
+                                            />
+                                          </label>
+                                          <button
+                                            *ngIf="userInfo?.touched"
+                                            type="button"
+                                            (click)="uploadImage()"
+                                            class="btn btn-green round"
+                                            [disabled]="isLoadingImgUpload"
+                                          >
+                                            <i
+                                              *ngIf="isLoadingImgUpload"
+                                              class="fa fa-circle-o-notch fa-spin btn-spinner"
+                                            ></i>
+                                            <span *ngIf="!isLoadingImgUpload"
+                                              >Upload Image
+                                            </span>
+                                          </button>
+                                        </div>
+                                      </div>
+                                      <div class="form-group row">
+                                        <div class="col-lg-8 offset-lg-2">
+                                          <button
+                                            *ngIf="!isLoading"
+                                            type="submit"
+                                            (click)="save()"
+                                            class="btn btn-green"
+                                          >
+                                            <i
+                                              *ngIf="isLoading"
+                                              class="fa fa-circle-o-notch fa-spin btn-spinner"
+                                            ></i>
+                                            <span *ngIf="!isLoading">Save</span>
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Right End -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation  Modal -->
+  <ng-template #confirmation>
+    <div class="modal-body text-center">
+      <p>
+        Are you sure you want to <strong>{{ msgstatus }}</strong>
+        {{ changedApp?.name }}?
+      </p>
+      <button type="button" class="btn btn-green" (click)="updateAppStatus()">
+        Yes
+      </button>
+      <button type="button" class="btn btn-default" (click)="decline()">
+        No
+      </button>
+    </div>
+  </ng-template>
+  <!-- Confirmation  Modal -->
+  <ng-template #deleteconfirmation>
+    <div class="modal-body text-center">
+      <p>Are you sure you want to remove {{ changedApp?.name }}?</p>
+      <button type="button" class="btn btn-green" (click)="deleteApplication()">
+        Yes
+      </button>
+      <button type="button" class="btn btn-default" (click)="decline()">
+        No
+      </button>
+    </div>
+  </ng-template>
+
+  <!-- App Info  Modal -->
+  <ng-template #appinfomodal>
+    <!-- <app-activitiesmodal
+      [formData]="formData"
+      [newInstance]="newInstance"
+      (outputAndReload)="outputAndReload()"
+      (output)="decline()"
+    ></app-activitiesmodal> -->
+  </ng-template>
+
+  <!-- Report  Modal
+  <ng-template #report>
+    <div class="modal-header _600">
+      <button type="button" class="close" (click)="closeReportsModal()">
+        <span aria-hidden="true">×</span>
+      </button>
+      Reports
+    </div>
+    <div class="modal-body text-center">
+      <div style="display:inline">
+        <button
+          (click)="generateReport('csv')"
+          class="btn btn-green round"
+          type="button"
+          title="Excel"
+        >
+          Generate CSV Report
+        </button>
+        <button
+          (click)="generateReport('pdf')"
+          class="btn btn-green round"
+          type="button"
+          title="Excel"
+        >
+          Generate PDF Report
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</div> -->
+</div>

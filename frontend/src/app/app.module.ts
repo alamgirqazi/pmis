@@ -34,6 +34,7 @@ import { ExcelService } from '../sdk/services/custom/excel.service';
 import { ProjectsApi } from '../sdk/services/custom/projects.service';
 import { UserApi } from '../sdk/services/custom/user.service';
 import { ActivitiesApi } from '../sdk/services/custom/activities.service';
+import { StatisticsApi } from '../sdk/services/custom/statistics.service';
 
 // import { SidebarService } from './shared/sidebar.service';
 
@@ -67,6 +68,7 @@ import { ActivitiesApi } from '../sdk/services/custom/activities.service';
     ObjectivesApi,
     ActivitiesApi,
     TasksApi,
+    StatisticsApi,
     AuthService,
     UserApi,
     AsideNavigationService,

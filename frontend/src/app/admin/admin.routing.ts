@@ -8,12 +8,12 @@ export const routes: Routes = [
     path: '',
     component: AdminComponent,
     children: [
-      { path: '', redirectTo: 'users', pathMatch: 'full' },
-      // {
-      //   path: 'dashboard',
-      //   loadChildren:
-      //     'app/admin/dashboardmodule/dashboardmodule.module#DashboardmoduleModule'
-      // },
+      { path: '', redirectTo: 'profile', pathMatch: 'full' },
+      {
+        path: 'dashboard',
+        loadChildren:
+          'app/admin/dashboardmodule/dashboardmodule.module#DashboardmoduleModule'
+      },
       // {
       //   path: 'assets',
       //   loadChildren: 'app/admin/assetsmodule/assets.module#AssetsmoduleModule'
@@ -46,6 +46,11 @@ export const routes: Routes = [
         path: 'tasks',
         loadChildren: 'app/admin/tasksmodule/tasks.module#TasksmoduleModule'
       },
+      {
+        path: 'profile',
+        loadChildren:
+          'app/admin/profilemodule/profile.module#ProfilemoduleModule'
+      },
       // {
       //   path: 'reports',
       //   loadChildren:
@@ -53,7 +58,7 @@ export const routes: Routes = [
       // },
 
       // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: '**', redirectTo: '/admin/users' }
+      { path: '**', redirectTo: '/admin/profile' }
     ]
   }
 ];
