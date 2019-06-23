@@ -32,7 +32,9 @@ export class LeftsidemenuComponent implements OnInit {
   role = 'User';
   isClosedNav: boolean;
   settingIconOpen: boolean;
-  user;
+  user = {
+    src: ''
+  };
   constructor(
     // private user: UserApi,
     public router: Router,
@@ -57,7 +59,7 @@ export class LeftsidemenuComponent implements OnInit {
     this.name = name;
     this.role = role;
     if (avatar) {
-      this.user = {};
+      // this.user = {};
       this.user.src = Baseconfig.getPath() + '/' + avatar + avatar_ext;
     }
   }

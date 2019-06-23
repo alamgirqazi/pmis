@@ -43,11 +43,11 @@ else{
 authController.setupAdmin = async (req, res) => {
    
 const body = {
-    name : "PMIS Admin",
+    name : "PMIS Executive Director",
     id : 00001,
     password : "123456",
     email : "admin@admin.com",
-    role : "Admin",
+    role : "Executive Director",
 }
         Users.create(body, function (err, result) {
             if (err) {

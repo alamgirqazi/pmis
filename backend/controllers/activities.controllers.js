@@ -1,6 +1,7 @@
 const activitiesController = {};
 const Projects = require("../models/projects.model");
 const Activities = require("../models/activities.model");
+const Objectives = require("../models/objectives.model");
 
 activitiesController.getAll = async (req, res) => {
   // let activities;
@@ -51,12 +52,15 @@ activitiesController.getAll = async (req, res) => {
 
     let response_object = JSON.parse(JSON.stringify(activities));
 
-    // for (let[index, iterator] of response_object.docs.entries()) {
+    for (let[index, iterator] of response_object.docs.entries()) {
    
-    //  const res = await Projects.findOne({"_id": iterator.project_id })
-    //   console.log('res',res);
-    //   response_object.docs[index].project_detail = res;
-    // }
+     const res = await Projects.findOne({"_id": iterator.project_id })
+      console.log('res',res);
+     const res2 = await Objectives.findOne({"_id": iterator.objective_id })
+      console.log('res2',res);
+      response_object.docs[index].project_detail = res;
+      response_object.docs[index].objective_detail = res2;
+    }
 
 
     res.status(200).send({
