@@ -7,7 +7,7 @@ const checkAuth = require('../middleware/check-auth');
 // router.get("/",ProjectsController.sampleProjects);
 router.get('/', ProjectsController.getAll);
 router.get('/getnextid', ProjectsController.getNextId);
-router.get('/detail', ProjectsController.getProjectDetail);
+router.get('/detail/:_id', ProjectsController.getProjectDetail);
 router.get('/objectives/_id/:_id', ProjectsController.getObjectivesOfUser);
 router.post('/', ProjectsController.addProject);
 router.put('/:_id', ProjectsController.updateProject);

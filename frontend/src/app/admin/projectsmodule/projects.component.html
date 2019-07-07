@@ -123,6 +123,7 @@
                                               <th>End Date</th>
                                               <th>Notes</th>
                                               <th>Add Objectives To Project</th>
+                                              <th>Display Project Tree</th>
                                               <th>Status</th>
                                               <th>Change Status</th>
 
@@ -168,6 +169,17 @@
                                                       "
                                                       ><i class="material-icons"
                                                         >add</i
+                                                      >
+                                                    </a></td>
+                                                
+                                                <td>   <a
+                                                      (click)="
+                                                        openTreeModal(
+                                                          tree,data
+                                                        )
+                                                      "
+                                                      ><i class="material-icons"
+                                                        >more</i
                                                       >
                                                     </a></td>
                                                 <td>
@@ -349,6 +361,24 @@
       (output)="decline()"
       [tabId]="tabId"
     ></app-projectsmodal>
+  </ng-template>
+
+
+  <!-- App Info  Modal -->
+  <ng-template #tree>
+    <div class="modal-content">
+  <!--  -->
+  <form class="form-horizontal">
+    <div class="modal-header _600">
+      <button type="button" class="close" (click)="closeModal()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    displaying project tree
+
+    </form>
+
+    </div>
   </ng-template>
 
   <!-- Report  Modal

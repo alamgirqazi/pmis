@@ -1,5 +1,5 @@
 const projectsController = {};
-const Objectives = require('../models/tasks.model');
+const Objectives = require('../models/objectives.model');
 const Projects = require('../models/projects.model');
 const Activities = require('../models/activities.model');
 const Tasks = require('../models/tasks.model');
@@ -38,45 +38,50 @@ projectsController.getAll = async (req, res) => {
   }
 };
 projectsController.getProjectDetail = async (req, res) => {
-  let projects;
   try {
-    projects = await Projects.findOne({ _id: '5d084ce3898c17424c4fdb61' });
 
+    let project_id = req.params._id;
     let objectives = await Objectives.find({
-      project_id: '5d084ce3898c17424c4fdb61'
+      project_id: project_id
     });
 
-    let myobjectives = JSON.parse(JSON.stringify(objectives));
-    myobjectives.forEach(element => {
-      element.activities = [];
-      element.asd = 'asdasd';
-      console.log('got gere');
-      console.log(element);
-    });
-    for (let iterator of myobjectives) {
+    let result = JSON.parse(JSON.stringify(objectives));
+    // result.forEach(element => {
+    //   element.activities = null;
+    // });
+    for (let iterator of result) {
       let obj_activity = await Activities.find({
-        project_id: '5d084ce3898c17424c4fdb61',
-        objective_id: iterator.objective_id
+        project_id: project_id,
+        objective_id: iterator._id
       });
-      // console.log('obj_activity', obj_activity);
-      iterator.activities.push(obj_activity);
+
+      let res_activity = JSON.parse(JSON.stringify(obj_activity));
+
+      iterator.activities = res_activity;
+
+      for (let iterator2 of res_activity) {
+        let obj_task = await Tasks.find({
+          project_id: project_id,
+          objective_id: iterator._id,
+          activity_id: iterator2._id
+        });
+
+        let res_tasks = JSON.parse(JSON.stringify(obj_task));
+
+        iterator2.tasks = res_tasks;
+      }
+      // res_activity.forEach(element => {
+      //   element.tasks = [];
+      // });
     }
 
-    let activities = await Activities.find({
-      project_id: '5d084ce3898c17424c4fdb61'
-    });
-    let tasks = await Tasks.find({ project_id: '5d084ce3898c17424c4fdb61' });
+    // now we iterate again for tasks
 
-    const response = {
-      // projects,
-      myobjectives
-      // activities,
-      // tasks,
-    };
+   
     res.status(200).send({
       code: 200,
       message: 'Successful',
-      data: response
+      data: result
     });
   } catch (error) {
     console.log('error', error);

@@ -197,7 +197,29 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
     };
     this.modalRef = this.modalService.show(template, config);
   }
+  openTreeModal(template: TemplateRef<any>, data) {
+    console.log('data', data);
+    const config = {
+      backdrop: true,
+      ignoreBackdropClick: false,
+      class: 'gray modal-lg'
+    };
+    this.projectsApi.getProjectDetail(data._id).subscribe(
+      async response => {
+        console.log('response', response);
+        this.modalRef = this.modalService.show(template, config);
 
+        this.slimScroll.complete();
+      },
+      error => {
+        console.log('error', error);
+        this.slimScroll.complete();
+      }
+    );
+  }
+  closeModal() {
+    this.modalRef.hide();
+  }
   updateAppStatus(status, data) {
     this.slimScroll.progress = 20;
     this.slimScroll.start();
