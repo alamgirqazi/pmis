@@ -25,7 +25,7 @@
             >Objectives</a
           >
         </li>
-        <li class="wizard-item">
+        <!-- <li class="wizard-item">
           <a
             class="wizard-link"
             [class.active]="tabId == 3"
@@ -40,7 +40,7 @@
             (click)="changeTab(4)"
             >Tasks</a
           >
-        </li>
+        </li> -->
       </ul>
 
       <div [hidden]="tabId !== 1" [formGroup]="appInfoForm">
@@ -367,12 +367,7 @@
           </div>
         </div>
       </div>
-      <div [hidden]="tabId !== 3">
-        here are all the Activities
-      </div>
-      <div [hidden]="tabId !== 4">
-        here are all the Tasks
-      </div>
+ 
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-line" (click)="closeModal()">

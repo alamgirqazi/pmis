@@ -95,6 +95,7 @@ export class ActivitiesmodalComponent implements OnInit {
   }
   getTasksFromDB() {
     const activity_id = this.formData._id;
+    console.log('formData', this.formData);
     console.log('activity_id');
     this.tasksApi.getTasksByIds(activity_id, '').subscribe(
       async response => {

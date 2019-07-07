@@ -73,7 +73,7 @@ export class ProjectsmodalComponent implements OnInit {
   usersList = [];
   departmentList = [];
   projectManagersList = [];
-  tabId = 1;
+  @Input() tabId = 1;
   githubUsers = [];
   ngOnInit() {
     // this.locationListing = [...this.miscHelperService.locationList];
@@ -164,7 +164,7 @@ export class ProjectsmodalComponent implements OnInit {
       end_date: [null, []],
       notes: [null, []],
       attachments: [null, []],
-      status: [null, []],
+      status: ['pending', []],
       users: [],
       objectives: this.fb.array([])
     });

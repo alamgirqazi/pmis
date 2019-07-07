@@ -1,11 +1,11 @@
 const objectivesController = {};
 const Objectives = require('../models/objectives.model');
-const Projects = require("../models/projects.model");
+const Projects = require('../models/projects.model');
 
 objectivesController.getAll = async (req, res) => {
   let objectives;
   try {
-    const { start, length, search, user_id, project_id } = req.query;
+    const { start, length, user_id, project_id } = req.query;
 
     // const {
     //     value
@@ -23,33 +23,32 @@ objectivesController.getAll = async (req, res) => {
     //         },
     //     }
     // }
-    if (user_id != '' && user_id!==undefined) {
+    if (user_id != '' && user_id !== undefined) {
       user_query = {
         'users_assigned._id': user_id
       };
     }
-    if (project_id != '' && project_id!==undefined) {
+    if (project_id != '' && project_id !== undefined) {
       project_query = {
         project_id: project_id
       };
     }
 
     merged = { ...obj, ...user_query, ...project_query };
+    console.log('merged');
+    console.log(merged);
 
-   let objectives = await Objectives.paginate(merged, {
+    let objectives = await Objectives.paginate(merged, {
       offset: parseInt(start),
       limit: parseInt(length)
     });
 
-
     let response_object = JSON.parse(JSON.stringify(objectives));
 
-    for (let[index, iterator] of response_object.docs.entries()) {
-   
-     const res = await Projects.findOne({"_id": iterator.project_id })
+    for (let [index, iterator] of response_object.docs.entries()) {
+      const res = await Projects.findOne({ _id: iterator.project_id });
       response_object.docs[index].project_detail = res;
     }
-
 
     res.status(200).send({
       code: 200,
@@ -97,7 +96,6 @@ objectivesController.addManyObjectives = async (req, res) => {
         // save single
         await Objectives.create(element);
       } else {
-
         await Objectives.updateOne(
           {
             _id: element._id
@@ -137,7 +135,7 @@ objectivesController.deleteObjective = async (req, res) => {
     const result = await Objectives.findOneAndDelete({
       _id: _id
     });
-  
+
     res.status(200).send({
       code: 200,
       message: 'Deleted Successfully'

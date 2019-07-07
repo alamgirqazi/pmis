@@ -55,7 +55,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   result = [];
   hiddenTblresult = [];
   showTempTable = false;
-
+  tabId = 1;
   queryStatus = null;
   queryType = null;
   queryPriority = null;
@@ -185,7 +185,8 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
     this.changedApp = data;
     this.modalRef = this.modalService.show(template, { class: 'modal-xs' });
   }
-  openModal(template: TemplateRef<any>, data, newInstance) {
+  openModal(template: TemplateRef<any>, data, newInstance, tabId) {
+    this.tabId = tabId;
     console.log('data', data);
     this.newInstance = newInstance;
     this.formData = data;

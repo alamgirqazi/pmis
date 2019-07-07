@@ -72,7 +72,7 @@
                                 <a
                                   class="nav-link btn btn-green"
                                   data-toggle="modal"
-                                  (click)="openModal(appinfomodal, null, true)"
+                                  (click)="openModal(appinfomodal, null, true,1)"
                                 >
                                   <i class="material-icons">add</i> Add Projects
                                 </a>
@@ -122,7 +122,7 @@
                                               <th>Start Date</th>
                                               <th>End Date</th>
                                               <th>Notes</th>
-                                              <th>Attachments</th>
+                                              <th>Add Objectives To Project</th>
                                               <th>Status</th>
                                               <th>Change Status</th>
 
@@ -157,7 +157,19 @@
                                                   }}
                                                 </td>
                                                 <td>{{ data.notes }}</td>
-                                                <td>{{ data.attachments }}</td>
+                                                <td>   <a
+                                                      (click)="
+                                                        openModal(
+                                                          appinfomodal,
+                                                          data,
+                                                          false,
+                                                          2
+                                                        )
+                                                      "
+                                                      ><i class="material-icons"
+                                                        >add</i
+                                                      >
+                                                    </a></td>
                                                 <td>
                                                     <span
                                                     class="label label-sm"
@@ -229,18 +241,15 @@
 
                                                 <td class="text-align">
                                                   <span
-                                                    *ngIf="
-                                                      data.Location ==
-                                                        location ||
-                                                      role == 'Admin'
-                                                    "
+                                                  
                                                   >
                                                     <a
                                                       (click)="
                                                         openModal(
                                                           appinfomodal,
                                                           data,
-                                                          false
+                                                          false,
+                                                          1
                                                         )
                                                       "
                                                       ><i class="material-icons"
@@ -338,6 +347,7 @@
       [newInstance]="newInstance"
       (outputAndReload)="outputAndReload()"
       (output)="decline()"
+      [tabId]="tabId"
     ></app-projectsmodal>
   </ng-template>
 
