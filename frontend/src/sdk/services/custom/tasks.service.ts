@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Observable';
 export class TasksApi {
   constructor(protected http: HttpClient, private authService: AuthService) {}
 
-  public getTasksByIds(objective_id, user_id?): Observable<any> {
+  public getTasksByIds(activity_id, user_id?): Observable<any> {
     const url = Baseconfig.getPath() + `/tasks`;
 
     let params = new HttpParams();
@@ -20,8 +20,8 @@ export class TasksApi {
       params = params.append('user_id', user_id);
     }
 
-    if (objective_id) {
-      params = params.append('objective_id', objective_id);
+    if (activity_id) {
+      params = params.append('activity_id', activity_id);
     }
     params = params.append('start', '0');
     params = params.append('length', '100');

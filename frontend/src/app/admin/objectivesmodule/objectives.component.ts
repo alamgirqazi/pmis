@@ -128,16 +128,17 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
       // buttons: ['csv', 'excel'],
 
       ajax: (dataTablesParameters: any, callback) => {
+        const { _id } = this.authService.getAccessTokenInfo();
+        dataTablesParameters.user_id = _id;
         const params = this.miscHelperService.objectToHttpParams(
           dataTablesParameters
         );
-        const { _id } = this.authService.getAccessTokenInfo();
 
+        console.log('_od', _id);
         //      let filter = this.selectedLocation;
         // if (this.selectedLocation == 'All') {
         //   filter = '';
         // }
-        dataTablesParameters.user_id = _id;
         const url = Baseconfig.getPath() + `/objectives`;
         // const url =
         //   Baseconfig.getPath() + `/projects/objectives/_id/${this._id}`;

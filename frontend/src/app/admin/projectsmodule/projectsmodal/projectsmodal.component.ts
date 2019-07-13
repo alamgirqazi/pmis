@@ -74,7 +74,7 @@ export class ProjectsmodalComponent implements OnInit {
   usersList = [];
   departmentList = [];
   projectManagersList = [];
-  tabId = 1;
+  @Input() tabId = 1;
   githubUsers = [];
 
   priorityList = [
@@ -180,7 +180,6 @@ export class ProjectsmodalComponent implements OnInit {
       end_date: [null, []],
       notes: [null, []],
       attachments: [null, []],
-      // status: [null, []],
       users: [],
       objectives: this.fb.array([])
     });

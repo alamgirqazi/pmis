@@ -31,6 +31,20 @@ export class ProjectsApi {
         return response;
       });
   }
+  public getProjectDetail(project_id): Observable<any> {
+    const url = Baseconfig.getPath() + `/projects/detail/${project_id}`;
+
+    return this.http
+      .get(url, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
   // public uploadDocument(image: any): Observable<any> {
   //   const url = Baseconfig.getPath() + `/assets/fileimport`;
 

@@ -1,13 +1,20 @@
 const tasksController = {};
-const Objectives = require('../models/tasks.model');
-const Projects = require("../models/projects.model");
-const Activities = require("../models/activities.model");
-const Tasks = require("../models/tasks.model");
+const Objectives = require('../models/objectives.model');
+const Projects = require('../models/projects.model');
+const Activities = require('../models/activities.model');
+const Tasks = require('../models/tasks.model');
 
 tasksController.getAll = async (req, res) => {
   let objectives;
   try {
-    const { start, length, search, user_id, project_id } = req.query;
+    const {
+      start,
+      length,
+      activity_id,
+      user_id,
+      objective_id,
+      project_id
+    } = req.query;
 
     // const {
     //     value
@@ -17,6 +24,8 @@ tasksController.getAll = async (req, res) => {
     let merged = {};
     let user_query = {};
     let project_query = {};
+    let activity_query = {};
+    let objective_query = {};
     // if (value != '') {
 
     //     obj = {
@@ -25,37 +34,52 @@ tasksController.getAll = async (req, res) => {
     //         },
     //     }
     // }
-    if (user_id != '' && user_id!==undefined) {
+    if (user_id != '' && user_id !== undefined) {
       user_query = {
         'users_assigned._id': user_id
       };
     }
-    if (project_id != '' && project_id!==undefined) {
+    if (project_id != '' && project_id !== undefined) {
       project_query = {
         project_id: project_id
       };
     }
+    if (activity_id != '' && activity_id !== undefined) {
+      activity_query = {
+        activity_id: activity_id
+      };
+    }
+    if (objective_id != '' && objective_id !== undefined) {
+      objective_query = {
+        objective_id: objective_id
+      };
+    }
 
-    merged = { ...obj, ...user_query, ...project_query };
+    merged = {
+      ...obj,
+      ...user_query,
+      ...project_query,
+      ...activity_query,
+      ...objective_query
+    };
 
-   let objectives = await Tasks.paginate(merged, {
+    let objectives = await Tasks.paginate(merged, {
       offset: parseInt(start),
       limit: parseInt(length)
     });
 
-
     let response_object = JSON.parse(JSON.stringify(objectives));
 
-    for (let[index, iterator] of response_object.docs.entries()) {
-   
-     const res = await Projects.findOne({"_id": iterator.project_id })
-     const res1 = await Objectives.findOne({"_id": iterator.objective_id })
-     const res2 = await Activities.findOne({"_id": iterator.activity_id })
+    for (let [index, iterator] of response_object.docs.entries()) {
+      console.log('iterator', iterator.objective_id);
+      const res = await Projects.findOne({ _id: iterator.project_id });
+      const res1 = await Objectives.findOne({ _id: iterator.objective_id });
+      console.log('res1', res1);
+      const res2 = await Activities.findOne({ _id: iterator.activity_id });
       response_object.docs[index].project_detail = res;
       response_object.docs[index].objective_detail = res1;
       response_object.docs[index].activity_detail = res2;
     }
-
 
     res.status(200).send({
       code: 200,
@@ -91,7 +115,7 @@ tasksController.addTask = async (req, res) => {
     }
   });
 };
-tasksController.addManyTasks= async (req, res) => {
+tasksController.addManyTasks = async (req, res) => {
   try {
     const tasks = req.body.tasks;
     const project_id = req.body.project_id;
@@ -107,7 +131,6 @@ tasksController.addManyTasks= async (req, res) => {
         // save single
         await Tasks.create(element);
       } else {
-
         await Tasks.updateOne(
           {
             _id: element._id
