@@ -12,10 +12,11 @@ import { CustomdirectivesModule } from '../../shared/directives/customdirectives
 import { CustompipesModule } from '../../shared/custompipes/custompipes.module';
 import { DataTablesModule } from 'angular-datatables';
 import { NgModule } from '@angular/core';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { ProjectsComponent } from './projects.component';
 import { ProjectsModuleRoutes } from './projects.routing';
 import { ProjectsmodalComponent } from './projectsmodal/projectsmodal.component';
-import { ProjectsComponent } from './projects.component';
-import { NgSelectModule } from '@ng-select/ng-select';
 
 // import { SelectModule } from 'ng2-select';
 
@@ -27,6 +28,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     DataTablesModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxJsonViewerModule,
     NgSelectModule,
     ProjectsModuleRoutes,
     BsDatepickerModule.forRoot(),

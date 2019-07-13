@@ -1,5 +1,3 @@
-import { TasksApi } from './../sdk/services/custom/tasks.service';
-import { ObjectivesApi } from './../sdk/services/custom/objectives.service';
 import {
   BrowserXhr,
   Http,
@@ -14,6 +12,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { NgProgressBrowserXhr, NgProgressModule } from 'ngx-progressbar';
 import { ToasterModule, ToasterService } from 'angular2-toaster';
 
+import { ActivitiesApi } from '../sdk/services/custom/activities.service';
 import { AppComponent } from './app.component';
 import { AppRouting } from './app.routing';
 import { AsideNavigationService } from './services/asideNavigation.Service';
@@ -22,19 +21,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CustomdirectivesModule } from './shared/directives/customdirectives/customdirectives.module';
 import { ErrorInterceptor } from '../sdk/services/core/httpinterceptor.service';
+import { ExcelService } from '../sdk/services/custom/excel.service';
 import { LoginComponent } from './login/login.component';
 import { MiscHelperService } from '../sdk/services/custom/misc.service';
 import { NgModule } from '@angular/core';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { ObjectivesApi } from './../sdk/services/custom/objectives.service';
+import { ProjectsApi } from '../sdk/services/custom/projects.service';
 import { RedirectLoginGuard } from './guard/redirectlogin.service';
 import { Router } from '@angular/router';
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
-
-import { isLoginGuard } from './guard/islogin.service';
-import { ExcelService } from '../sdk/services/custom/excel.service';
-import { ProjectsApi } from '../sdk/services/custom/projects.service';
-import { UserApi } from '../sdk/services/custom/user.service';
-import { ActivitiesApi } from '../sdk/services/custom/activities.service';
 import { StatisticsApi } from '../sdk/services/custom/statistics.service';
+import { TasksApi } from './../sdk/services/custom/tasks.service';
+import { TreeviewModule } from 'ngx-treeview';
+import { UserApi } from '../sdk/services/custom/user.service';
+import { isLoginGuard } from './guard/islogin.service';
 
 // import { SidebarService } from './shared/sidebar.service';
 
@@ -49,6 +50,7 @@ import { StatisticsApi } from '../sdk/services/custom/statistics.service';
     BrowserAnimationsModule,
     ToasterModule,
     ModalModule.forRoot(),
+    NgxJsonViewerModule,
     HttpModule,
     HttpClientModule,
     NgProgressModule,

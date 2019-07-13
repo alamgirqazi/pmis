@@ -1,30 +1,32 @@
 // import '../../../mainassets/plugins/datatables/css/dataTables.bootstrap.css';
 
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import * as html2canvas from 'html2canvas';
+import * as jsPDF from 'jsPDF';
+import * as moment from 'moment';
+
 import {
+  AfterViewInit,
   Component,
   OnInit,
   QueryList,
   TemplateRef,
-  ViewChildren,
-  AfterViewInit
+  ViewChildren
 } from '@angular/core';
-import * as jsPDF from 'jsPDF';
-import * as html2canvas from 'html2canvas';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { TreeviewConfig, TreeviewItem } from 'ngx-treeview';
 
 import { AsideNavigationService } from '../../services/asideNavigation.Service';
+import { AuthService } from '../../../sdk/services/core/auth.service';
+import { Baseconfig } from '../../../sdk/base.config';
 import { DataTableDirective } from 'angular-datatables';
+import { ExcelService } from '../../../sdk/services/custom/excel.service';
 import { MiscHelperService } from '../../../sdk/services/custom/misc.service';
+import { ProjectsApi } from '../../../sdk/services/custom/projects.service';
+import { Router } from '@angular/router';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import { Subject } from 'rxjs/Subject';
 import { ToasterService } from 'angular2-toaster';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ExcelService } from '../../../sdk/services/custom/excel.service';
-import { AuthService } from '../../../sdk/services/core/auth.service';
-import * as moment from 'moment';
-import { Baseconfig } from '../../../sdk/base.config';
-import { ProjectsApi } from '../../../sdk/services/custom/projects.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projects',
@@ -46,6 +48,49 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   ) {
     this.toasterService = toasterService;
   }
+  items;
+  // items: TreeviewItem[];
+
+  itCategory = [
+    {
+      text: 'Programming',
+      value: 91,
+      children: [
+        {
+          text: 'Frontend',
+          value: 911,
+          children: [
+            { text: 'Angular 1', value: 9111 },
+            { text: 'Angular 2', value: 9112 },
+            { text: 'ReactJS', value: 9113 }
+          ]
+        },
+        {
+          text: 'Backend',
+          value: 912,
+          children: [
+            { text: 'C#', value: 9121 },
+            { text: 'Java', value: 9122 },
+            { text: 'Python', value: 9123, checked: false }
+          ]
+        }
+      ]
+    },
+    {
+      text: 'Networking',
+      value: 92,
+      children: [
+        { text: 'Internet', value: 921 },
+        { text: 'Security', value: 922 }
+      ]
+    }
+  ];
+  config = TreeviewConfig.create({
+    hasAllCheckBox: false,
+    hasFilter: true,
+    hasCollapseExpand: false,
+    maxHeight: 500
+  });
   selectedAppStatus: any = null;
   allStatuses;
   dtOptions: DataTables.Settings = {};
@@ -87,6 +132,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
     } else {
       this.router.navigate(['/admin/objectives']);
     }
+
     // if (role != 'Executive Director' || role != 'Managing Director') {
     //   this.router.navigate(['/admin/objectives']);
     // }
@@ -97,6 +143,10 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
       // console.log('message: ', message);
       // console.log('this.navOpened: ', this.navOpened);
     });
+  }
+
+  onSelectedChange(e) {
+    console.log('e');
   }
   ngAfterViewInit() {
     this.configDatatable();

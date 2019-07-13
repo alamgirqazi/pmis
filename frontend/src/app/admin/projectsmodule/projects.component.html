@@ -1,10 +1,5 @@
-<div
-  id="content"
-  class="app-content box-shadow-z2"
-  [class.app-aside-open]="navOpened"
-  [class.app-aside-closed]="!navOpened"
-  role="main"
->
+<div id="content" class="app-content box-shadow-z2" [class.app-aside-open]="navOpened"
+  [class.app-aside-closed]="!navOpened" role="main">
   <div class="app-body">
     <div class="app-body-inner">
       <div class="row-col">
@@ -65,15 +60,9 @@
                           <div class="navbar no-radius">
                             <ul class="nav navbar-nav list-top-navbar">
                               <li class="nav-item"></li>
-                              <li
-                                class="nav-item"
-                                *ngIf="role === 'Executive Director'"
-                              >
-                                <a
-                                  class="nav-link btn btn-green"
-                                  data-toggle="modal"
-                                  (click)="openModal(appinfomodal, null, true,1)"
-                                >
+                              <li class="nav-item" *ngIf="role === 'Executive Director'">
+                                <a class="nav-link btn btn-green" data-toggle="modal"
+                                  (click)="openModal(appinfomodal, null, true,1)">
                                   <i class="material-icons">add</i> Add Projects
                                 </a>
                               </li>
@@ -95,29 +84,19 @@
                                               Projects
                                             </h2>
                                           </div>
-                                          <div
-                                            class="col-md-11 text-right"
-                                          ></div>
+                                          <div class="col-md-11 text-right"></div>
                                         </div>
                                       </div>
-                                      <div
-                                        class="table-box-body"
-                                        id="datatable"
-                                        [hidden]="!isFetchingData"
-                                      >
-                                        <table
-                                          datatable
-                                          [dtOptions]="dtOptions"
-                                          [dtTrigger]="dtTrigger"
+                                      <div class="table-box-body" id="datatable" [hidden]="!isFetchingData">
+                                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
                                           class="table b-l-0 route-table m-b-0 table-hover table-striped table-bordered"
-                                          id="angulardatatable"
-                                        >
+                                          id="angulardatatable">
                                           <thead class="thead-light">
                                             <tr>
                                               <!-- class="loadfreeth" -->
                                               <th>ID</th>
                                               <th>Name</th>
-                                             <th>Department</th>
+                                              <th>Department</th>
                                               <th>Priority</th>
                                               <th>Start Date</th>
                                               <th>End Date</th>
@@ -132,17 +111,12 @@
                                             </tr>
                                           </thead>
                                           <tbody>
-                                            <ng-template
-                                              ngFor
-                                              let-data
-                                              [ngForOf]="result"
-                                              let-i="index"
-                                            >
+                                            <ng-template ngFor let-data [ngForOf]="result" let-i="index">
                                               <!-- [class.odd]="" -->
                                               <tr role="row" class="">
                                                 <td>{{ data.id }}</td>
                                                 <td>{{ data.name }}</td>
-                                               
+
                                                 <td>{{ data.department }}</td>
                                                 <td>{{ data.priority }}</td>
                                                 <td>
@@ -158,90 +132,83 @@
                                                   }}
                                                 </td>
                                                 <td>{{ data.notes }}</td>
-                                                <td>   <a
-                                                      (click)="
+                                                <td> <a (click)="
                                                         openModal(
                                                           appinfomodal,
                                                           data,
                                                           false,
                                                           2
                                                         )
-                                                      "
-                                                      ><i class="material-icons"
-                                                        >add</i
-                                                      >
-                                                    </a></td>
-                                                
-                                                <td>   <a
-                                                      (click)="
+                                                      "><i class="material-icons">add</i>
+                                                  </a></td>
+
+                                                <td> <a (click)="
                                                         openTreeModal(
                                                           tree,data
                                                         )
-                                                      "
-                                                      ><i class="material-icons"
-                                                        >more</i
-                                                      >
-                                                    </a></td>
+                                                      "><i class="material-icons">more</i>
+                                                  </a></td>
                                                 <td>
-                                                    <span
-                                                    class="label label-sm"
-                                                    [class.green]="
+                                                  <span class="label label-sm" [class.green]="
                                                       data.status == 'complete'
-                                                    "
-                                                    [class.blue]="
+                                                    " [class.blue]="
                                                       data.status == 'pending'
-                                                    "
-                                                    [class.orange]="
+                                                    " [class.orange]="
                                                       data.status == 'hold'
-                                                    "
-                                                    [class.red]="
+                                                    " [class.red]="
                                                       data.status == 'cancelled'
-                                                    "
-                                                  >
-                                                  {{ data.status }}
+                                                    ">
+                                                    {{ data.status }}
                                                   </span>
-                                                 </td>  <td>
-                                                    <div class="btn-group inline" dropdown>
-                                                      <span class="nav-item inline dropdown">
-                                                        <a class="text-muted p-x-xs" aria-expanded="true" dropdownToggle>
-                                                          <i class="material-icons dropdown-icon">
-                                                            more_vert
-                                                          </i>
+                                                </td>
+                                                <td>
+                                                  <div class="btn-group inline" dropdown>
+                                                    <span class="nav-item inline dropdown">
+                                                      <a class="text-muted p-x-xs" aria-expanded="true" dropdownToggle>
+                                                        <i class="material-icons dropdown-icon">
+                                                          more_vert
+                                                        </i>
+                                                      </a>
+                                                    </span>
+                                                    <ul *dropdownMenu
+                                                      class="dropdown-menu custom-dropdown dropdown-menu-left  pull-right"
+                                                      role="menu">
+
+
+                                                      <li>
+                                                        <a (click)="updateAppStatus('pending',data)"
+                                                          class="dropdown-items" id="" title="View Detail">
+                                                          <!-- <i class="material-icons">do_not_disturb</i> -->
+                                                          <label>Pending</label>
                                                         </a>
-                                                      </span>
-                                                      <ul *dropdownMenu class="dropdown-menu custom-dropdown dropdown-menu-left  pull-right" role="menu">
-                                  
-                                  
-                                                        <li>
-                                                          <a (click)="updateAppStatus('pending',data)" class="dropdown-items" id="" title="View Detail">
-                                                            <!-- <i class="material-icons">do_not_disturb</i> -->
-                                                            <label>Pending</label>
-                                                          </a>
-                                                          <a  (click)="updateAppStatus('complete',data)" class="dropdown-items" id="" title="View Detail">
-                                                            <!-- <i class="material-icons">do_not_disturb</i> -->
-                                                            <label>Complete</label>
-                                                          </a>
-                                                          <a  (click)="updateAppStatus('hold',data)" class="dropdown-items" id="" title="View Detail">
-                                                            <!-- <i class="material-icons">do_not_disturb</i> -->
-                                                            <label>Hold</label>
-                                                          </a>
-                                                          <a  (click)="updateAppStatus('cancelled',data)" class="dropdown-items" id="" title="View Detail">
-                                                            <!-- <i class="material-icons">do_not_disturb</i> -->
-                                                            <label>Cancelled</label>
-                                                          </a>
-                                                        </li>
-                                                        <!-- <li>
+                                                        <a (click)="updateAppStatus('complete',data)"
+                                                          class="dropdown-items" id="" title="View Detail">
+                                                          <!-- <i class="material-icons">do_not_disturb</i> -->
+                                                          <label>Complete</label>
+                                                        </a>
+                                                        <a (click)="updateAppStatus('hold',data)" class="dropdown-items"
+                                                          id="" title="View Detail">
+                                                          <!-- <i class="material-icons">do_not_disturb</i> -->
+                                                          <label>Hold</label>
+                                                        </a>
+                                                        <a (click)="updateAppStatus('cancelled',data)"
+                                                          class="dropdown-items" id="" title="View Detail">
+                                                          <!-- <i class="material-icons">do_not_disturb</i> -->
+                                                          <label>Cancelled</label>
+                                                        </a>
+                                                      </li>
+                                                      <!-- <li>
                                                             <a class="dropdown-item" id="" title="View Detail">
                                                               <i class="material-icons">delete</i>
                                                               <label>Delete</label>
                                                             </a>
                                                           </li> -->
-                                  
-                                                      </ul>
-                                  
-                                                    </div>
-                                                    <!-- <a><i class="material-icons">more_vert</i></a> -->
-                                                  </td>
+
+                                                    </ul>
+
+                                                  </div>
+                                                  <!-- <a><i class="material-icons">more_vert</i></a> -->
+                                                </td>
 
                                                 <!-- <td class="text-align">
                                                   <span class="label label-sm" [class.green]="
@@ -252,54 +219,38 @@
                                                 </td> -->
 
                                                 <td class="text-align">
-                                                  <span
-                                                  
-                                                  >
-                                                    <a
-                                                      (click)="
+                                                  <span>
+                                                    <a (click)="
                                                         openModal(
                                                           appinfomodal,
                                                           data,
                                                           false,
                                                           1
                                                         )
-                                                      "
-                                                      ><i class="material-icons"
-                                                        >edit</i
-                                                      >
+                                                      "><i class="material-icons">edit</i>
                                                     </a>
                                                   </span>
                                                 </td>
                                                 <td class="text-align">
-                                                  <span
-                                                    *ngIf="
+                                                  <span *ngIf="
                                                       data.Location ==
                                                         location ||
                                                       role == 'Admin'
-                                                    "
-                                                  >
+                                                    ">
                                                     <!-- (click)="openModal(appinfomodal,data,false)" -->
-                                                    <a
-                                                      (click)="
+                                                    <a (click)="
                                                         openConfirmationTab(
                                                           deleteconfirmation,
                                                           data
                                                         )
-                                                      "
-                                                      ><i class="material-icons"
-                                                        >delete</i
-                                                      >
+                                                      "><i class="material-icons">delete</i>
                                                     </a>
                                                   </span>
                                                 </td>
                                               </tr>
                                             </ng-template>
                                           </tbody>
-                                          <td
-                                            *ngIf="result?.length === 0"
-                                            colspan="12"
-                                            class="no-data-available"
-                                          >
+                                          <td *ngIf="result?.length === 0" colspan="12" class="no-data-available">
                                             Data is not Available.
                                           </td>
                                         </table>
@@ -354,30 +305,27 @@
 
   <!-- App Info  Modal -->
   <ng-template #appinfomodal>
-    <app-projectsmodal
-      [formData]="formData"
-      [newInstance]="newInstance"
-      (outputAndReload)="outputAndReload()"
-      (output)="decline()"
-      [tabId]="tabId"
-    ></app-projectsmodal>
+    <app-projectsmodal [formData]="formData" [newInstance]="newInstance" (outputAndReload)="outputAndReload()"
+      (output)="decline()" [tabId]="tabId"></app-projectsmodal>
   </ng-template>
 
 
   <!-- App Info  Modal -->
   <ng-template #tree>
     <div class="modal-content">
-  <!--  -->
-  <form class="form-horizontal">
-    <div class="modal-header _600">
-      <button type="button" class="close" (click)="closeModal()">
-        <span aria-hidden="true">×</span>
-      </button>
-    </div>
-    displaying project tree
+      <!--  -->
+      <form class="form-horizontal">
+        <div class="modal-header _600">
+          <button type="button" class="close" (click)="closeModal()">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        displaying project tree
 
-    </form>
+      </form>
 
+
+      <ngx-json-viewer [json]="itCategory"></ngx-json-viewer>
     </div>
   </ng-template>
 
