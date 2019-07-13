@@ -1,7 +1,7 @@
-import { UserApi } from './../../../../sdk/services/custom/user.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import {
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnChanges,
@@ -9,24 +9,25 @@ import {
   Output,
   QueryList,
   TemplateRef,
-  ViewChildren,
-  ElementRef,
-  ViewChild
+  ViewChild,
+  ViewChildren
 } from '@angular/core';
+import { FormArray, FormBuilder } from '@angular/forms';
 
-// import { ApplicationApi } from '../../../../sdk/services/custom/assets.service';
+import { AuthService } from '../../../../sdk/services/core/auth.service';
+import { Baseconfig } from '../../../../sdk/base.config';
 import { DataTableDirective } from 'angular-datatables';
-import { FormBuilder, FormArray } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
+import { MiscHelperService } from '../../../../sdk/services/custom/misc.service';
+import { ObjectivesApi } from '../../../../sdk/services/custom/objectives.service';
+import { ProjectsApi } from '../../../../sdk/services/custom/projects.service';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import { Subject } from 'rxjs/Subject';
 import { ToasterService } from 'angular2-toaster';
+import { UserApi } from './../../../../sdk/services/custom/user.service';
 import { Validators } from '@angular/forms';
-import { MiscHelperService } from '../../../../sdk/services/custom/misc.service';
-import { AuthService } from '../../../../sdk/services/core/auth.service';
-import { ProjectsApi } from '../../../../sdk/services/custom/projects.service';
-import { Baseconfig } from '../../../../sdk/base.config';
-import { ObjectivesApi } from '../../../../sdk/services/custom/objectives.service';
+
+// import { ApplicationApi } from '../../../../sdk/services/custom/assets.service';
 
 @Component({
   selector: 'app-projectsmodal',
@@ -75,6 +76,21 @@ export class ProjectsmodalComponent implements OnInit {
   projectManagersList = [];
   tabId = 1;
   githubUsers = [];
+
+  priorityList = [
+    {
+      id: 1,
+      name: 'low'
+    },
+    {
+      id: 2,
+      name: 'medium'
+    },
+    {
+      id: 3,
+      name: 'high'
+    }
+  ];
   ngOnInit() {
     // this.locationListing = [...this.miscHelperService.locationList];
     this.departmentList = this.miscHelperService.departmentList;
@@ -159,12 +175,12 @@ export class ProjectsmodalComponent implements OnInit {
       // assigned_to: ['', []],
       // task: ['', []],
       department: ['', []],
-      priority: ['', []],
+      priority: ['medium', []],
       start_date: [null, []],
       end_date: [null, []],
       notes: [null, []],
       attachments: [null, []],
-      status: [null, []],
+      // status: [null, []],
       users: [],
       objectives: this.fb.array([])
     });

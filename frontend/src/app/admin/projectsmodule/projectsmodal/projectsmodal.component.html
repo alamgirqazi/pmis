@@ -9,37 +9,17 @@
     <div class="modal-body">
       <ul class="wizard-nav max">
         <li class="wizard-item">
-          <a
-            class="wizard-link"
-            [class.active]="tabId == 1"
-            (click)="changeTab(1)"
-          >
-            Projects Info</a
-          >
+          <a class="wizard-link" [class.active]="tabId == 1" (click)="changeTab(1)">
+            Projects Info</a>
         </li>
         <li class="wizard-item">
-          <a
-            class="wizard-link"
-            [class.active]="tabId == 2"
-            (click)="changeTab(2)"
-            >Objectives</a
-          >
+          <a class="wizard-link" [class.active]="tabId == 2" (click)="changeTab(2)">Objectives</a>
         </li>
         <li class="wizard-item">
-          <a
-            class="wizard-link"
-            [class.active]="tabId == 3"
-            (click)="changeTab(3)"
-            >Activities</a
-          >
+          <a class="wizard-link" [class.active]="tabId == 3" (click)="changeTab(3)">Activities</a>
         </li>
         <li class="wizard-item">
-          <a
-            class="wizard-link"
-            [class.active]="tabId == 4"
-            (click)="changeTab(4)"
-            >Tasks</a
-          >
+          <a class="wizard-link" [class.active]="tabId == 4" (click)="changeTab(4)">Tasks</a>
         </li>
       </ul>
 
@@ -47,30 +27,19 @@
         <div class="form-group row">
           <label class="col-lg-3 form-control-label">Id:</label>
           <div class="col-lg-9">
-            <input
-              formControlName="id"
-              [ngClass]="{
+            <input formControlName="id" [ngClass]="{
                 'error-input': submitForm && appInfoForm.controls['id'].invalid
-              }"
-              class="form-control"
-              type="text"
-              disabled
-            />
+              }" class="form-control" type="text" disabled />
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-lg-3 form-control-label">name:</label>
           <div class="col-lg-9">
-            <input
-              formControlName="name"
-              [ngClass]="{
+            <input formControlName="name" [ngClass]="{
                 'error-input':
                   submitForm && appInfoForm.controls['name'].invalid
-              }"
-              class="form-control"
-              type="text"
-            />
+              }" class="form-control" type="text" />
           </div>
         </div>
         <!--
@@ -102,37 +71,16 @@
         <div class="form-group row">
           <label class="col-lg-3 form-control-label">Managing Directors:</label>
           <div class="col-lg-9">
-            <ng-select
-              [items]="usersList"
-              formControlName="users"
-              [multiple]="true"
-              bindLabel="name"
-              placeholder="Select users"
-            >
-              <ng-template
-                ng-multi-label-tmp
-                let-items="items"
-                let-clear="clear"
-              >
-                <div
-                  class="ng-value"
-                  *ngFor="let item of items ? items.slice(0, 2) : []"
-                >
-                  <span class="ng-value-label"
-                    ><img [src]="item.src" width="20px" height="20px" />
-                    {{ item.name }}</span
-                  >
-                  <span
-                    class="ng-value-icon right"
-                    (click)="clear(item)"
-                    aria-hidden="true"
-                    >×</span
-                  >
+            <ng-select [items]="usersList" formControlName="users" [multiple]="true" bindLabel="name"
+              placeholder="Select users">
+              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                <div class="ng-value" *ngFor="let item of items ? items.slice(0, 2) : []">
+                  <span class="ng-value-label"><img [src]="item.src" width="20px" height="20px" />
+                    {{ item.name }}</span>
+                  <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
                 </div>
                 <div class="ng-value" *ngIf="items.length > 2">
-                  <span class="ng-value-label"
-                    >{{ items.length - 2 }} more...</span
-                  >
+                  <span class="ng-value-label">{{ items.length - 2 }} more...</span>
                 </div>
               </ng-template>
             </ng-select>
@@ -143,22 +91,24 @@
         <div class="form-group row">
           <label class="col-lg-3 form-control-label">department:</label>
           <div class="col-lg-9">
-            <select
-              formControlName="department"
-              (change)="assignedToChanged($event.target.value)"
-              [ngClass]="{
+            <select formControlName="department" (change)="assignedToChanged($event.target.value)" [ngClass]="{
                 'error-input':
                   submitForm && appInfoForm.controls['department'].invalid
-              }"
-              name="name"
-              class="form-control valid"
-            >
-              <ng-template
-                ngFor
-                let-item
-                [ngForOf]="departmentList"
-                let-i="index"
-              >
+              }" name="name" class="form-control valid">
+              <ng-template ngFor let-item [ngForOf]="departmentList" let-i="index">
+                <option value="{{ item.name }}">{{ item.name }} </option>
+              </ng-template>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-lg-3 form-control-label">priority:</label>
+          <div class="col-lg-9">
+            <select formControlName="priority" [ngClass]="{
+                'error-input':
+                  submitForm && appInfoForm.controls['priority'].invalid
+              }" name="name" class="form-control valid">
+              <ng-template ngFor let-item [ngForOf]="priorityList" let-i="index">
                 <option value="{{ item.name }}">{{ item.name }} </option>
               </ng-template>
             </select>
@@ -168,48 +118,29 @@
         <div class="form-group row">
           <label class="col-lg-3 form-control-label">start_date:</label>
           <div class="col-lg-9">
-            <input
-              formControlName="start_date"
-              placement="bottom"
-              bsDatepicker
-              [ngClass]="{
+            <input formControlName="start_date" placement="bottom" bsDatepicker [ngClass]="{
                 'error-input':
                   submitForm && appInfoForm.controls['start_date'].invalid
-              }"
-              class="form-control"
-              type="text"
-            />
+              }" class="form-control" type="text" />
           </div>
         </div>
         <div class="form-group row">
           <label class="col-lg-3 form-control-label">end_date:</label>
           <div class="col-lg-9">
-            <input
-              formControlName="end_date"
-              placement="bottom"
-              bsDatepicker
-              [ngClass]="{
+            <input formControlName="end_date" placement="bottom" bsDatepicker [ngClass]="{
                 'error-input':
                   submitForm && appInfoForm.controls['end_date'].invalid
-              }"
-              class="form-control"
-              type="text"
-            />
+              }" class="form-control" type="text" />
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-lg-3 form-control-label">notes:</label>
           <div class="col-lg-9">
-            <input
-              formControlName="notes"
-              [ngClass]="{
+            <input formControlName="notes" [ngClass]="{
                 'error-input':
                   submitForm && appInfoForm.controls['notes'].invalid
-              }"
-              class="form-control"
-              type="text"
-            />
+              }" class="form-control" type="text" />
           </div>
         </div>
         <!-- <div class="form-group row">
@@ -226,7 +157,7 @@
             />
           </div>
         </div> -->
-        <div class="form-group row">
+        <!-- <div class="form-group row">
           <label class="col-lg-3 form-control-label">status:</label>
           <div class="col-lg-9">
             <input
@@ -239,32 +170,21 @@
               type="text"
             />
           </div>
-        </div>
+        </div> -->
       </div>
       <div [hidden]="tabId !== 2" [formGroup]="appObjectiveForm">
         <div id="tab-3" formArrayName="objectives">
-          <div
-            *ngFor="let item of formDataObjectives.controls; let i = index"
-            [formGroupName]="i"
-          >
+          <div *ngFor="let item of formDataObjectives.controls; let i = index" [formGroupName]="i">
             <div class="row">
               <div class="col-lg-12">
                 <div *ngIf="i != -1" class="pull-right add-btn">
-                  <button
-                    _ngcontent-c13=""
-                    (click)="deleteObjective(i, item)"
-                    class="btn btn-sm btn-block btn-line"
-                    type="button"
-                  >
+                  <button _ngcontent-c13="" (click)="deleteObjective(i, item)" class="btn btn-sm btn-block btn-line"
+                    type="button">
                     <i class="material-icons">delete</i>
                   </button>
                 </div>
                 <div *ngIf="i == 0" class="pull-right add-btn">
-                  <button
-                    class="btn btn-sm btn-block customclass btn-green"
-                    (click)="addObjectives()"
-                    type="button"
-                  >
+                  <button class="btn btn-sm btn-block customclass btn-green" (click)="addObjectives()" type="button">
                     <i _ngcontent-c8="" class="material-icons">add</i>
                   </button>
                 </div>
@@ -274,23 +194,16 @@
             <div class="row">
               <div class="col-lg-5">
                 <div class="form-group row">
-                  <label class="col-lg-3 form-control-label l-label"
-                    >Objective:</label
-                  >
+                  <label class="col-lg-3 form-control-label l-label">Objective:</label>
 
                   <div class="col-lg-9">
-                    <input
-                      type="text"
-                      [ngClass]="{
+                    <input type="text" [ngClass]="{
                         'error-input':
                           submitObjectives &&
                           formDataObjectives.controls[i].controls[
                             'objective_name'
                           ].invalid
-                      }"
-                      formControlName="objective_name"
-                      class="form-control"
-                    />
+                      }" formControlName="objective_name" class="form-control" />
                   </div>
                 </div>
               </div>
@@ -320,37 +233,16 @@
 
                     <!-- [items]="formDataUsersArray" -->
 
-                    <ng-select
-                      [items]="projectManagersList"
-                      [multiple]="true"
-                      bindLabel="name"
-                      formControlName="users_assigned"
-                      placeholder="Select project managers"
-                    >
-                      <ng-template
-                        ng-multi-label-tmp
-                        let-items="items"
-                        let-clear="clear"
-                      >
-                        <div
-                          class="ng-value"
-                          *ngFor="let item of items ? items.slice(0, 2) : []"
-                        >
-                          <span class="ng-value-label"
-                            ><img [src]="item.src" width="20px" height="20px" />
-                            {{ item.name }}</span
-                          >
-                          <span
-                            class="ng-value-icon right"
-                            (click)="clear(item)"
-                            aria-hidden="true"
-                            >×</span
-                          >
+                    <ng-select [items]="projectManagersList" [multiple]="true" bindLabel="name"
+                      formControlName="users_assigned" placeholder="Select project managers">
+                      <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                        <div class="ng-value" *ngFor="let item of items ? items.slice(0, 2) : []">
+                          <span class="ng-value-label"><img [src]="item.src" width="20px" height="20px" />
+                            {{ item.name }}</span>
+                          <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
                         </div>
                         <div class="ng-value" *ngIf="items.length > 2">
-                          <span class="ng-value-label"
-                            >{{ items.length - 2 }} more...</span
-                          >
+                          <span class="ng-value-label">{{ items.length - 2 }} more...</span>
                         </div>
                       </ng-template>
                     </ng-select>
@@ -378,16 +270,8 @@
       <button type="button" class="btn btn-line" (click)="closeModal()">
         Cancel
       </button>
-      <button
-        type="button"
-        (click)="saveAppInfo()"
-        class="btn btn-green round"
-        [disabled]="isLoading"
-      >
-        <i
-          *ngIf="isLoading"
-          class="fa fa-circle-o-notch fa-spin btn-spinner"
-        ></i>
+      <button type="button" (click)="saveAppInfo()" class="btn btn-green round" [disabled]="isLoading">
+        <i *ngIf="isLoading" class="fa fa-circle-o-notch fa-spin btn-spinner"></i>
         <span *ngIf="!isLoading">Save </span>
       </button>
 
@@ -406,11 +290,7 @@
       Are you sure you want to remove
       {{ objectiveInfo?.objective_name }} Objective?
     </p>
-    <button
-      type="button"
-      class="btn btn-green"
-      (click)="deleteObjectiveFromDB()"
-    >
+    <button type="button" class="btn btn-green" (click)="deleteObjectiveFromDB()">
       Yes
     </button>
     <button type="button" class="btn btn-default" (click)="decline()">
