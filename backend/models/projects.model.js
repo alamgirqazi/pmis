@@ -36,15 +36,16 @@ const Projects = new Schema({
     users: {
         type: Array
     },
-    objectives: {
-        type: Array
-    },
     attachments: {
         type: String
     },
     status: {
         type: String,
         default: 'pending'
+    },
+    severity: {
+        type: String,
+        default: 'normal'
     },
   
     is_deleted: {

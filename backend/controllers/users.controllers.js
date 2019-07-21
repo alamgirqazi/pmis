@@ -83,7 +83,6 @@ usersController.addUser = async (req, res) => {
 
 usersController.getNextId = async (req, res) => {
     try {
-  
       const max_result = await Users.aggregate([
         { $group: { _id: null, max: { $max: { $toInt: '$id' } } } }
       ]);

@@ -1,10 +1,5 @@
-<div
-  id="content"
-  class="app-content box-shadow-z2"
-  [class.app-aside-open]="navOpened"
-  [class.app-aside-closed]="!navOpened"
-  role="main"
->
+<div id="content" class="app-content box-shadow-z2" [class.app-aside-open]="navOpened"
+  [class.app-aside-closed]="!navOpened" role="main">
   <div class="app-body">
     <div class="app-body-inner">
       <div class="row-col">
@@ -60,23 +55,13 @@
                                               Objectives
                                             </h2>
                                           </div>
-                                          <div
-                                            class="col-md-11 text-right"
-                                          ></div>
+                                          <div class="col-md-11 text-right"></div>
                                         </div>
                                       </div>
-                                      <div
-                                        class="table-box-body"
-                                        id="datatable"
-                                        [hidden]="!isFetchingData"
-                                      >
-                                        <table
-                                          datatable
-                                          [dtOptions]="dtOptions"
-                                          [dtTrigger]="dtTrigger"
+                                      <div class="table-box-body" id="datatable" [hidden]="!isFetchingData">
+                                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
                                           class="table b-l-0 route-table m-b-0 table-hover table-striped table-bordered"
-                                          id="angulardatatable"
-                                        >
+                                          id="angulardatatable">
                                           <thead class="thead-light">
                                             <tr>
                                               <!-- class="loadfreeth" -->
@@ -95,12 +80,7 @@
                                             </tr>
                                           </thead>
                                           <tbody>
-                                            <ng-template
-                                              ngFor
-                                              let-data
-                                              [ngForOf]="result"
-                                              let-i="index"
-                                            >
+                                            <ng-template ngFor let-data [ngForOf]="result" let-i="index">
                                               <!-- [class.odd]="" -->
                                               <tr role="row" class="">
                                                 <td>
@@ -117,21 +97,17 @@
                                                     data?.project_detail?.name
                                                   }}
                                                 </td>
-                                              
+
 
                                                 <td>
                                                   <span>
-                                                    <a
-                                                      (click)="
+                                                    <a (click)="
                                                         openModal(
                                                           appinfomodal,
                                                           data,
                                                           false
                                                         )
-                                                      "
-                                                      ><i class="material-icons"
-                                                        >add</i
-                                                      >
+                                                      "><i class="material-icons">add</i>
                                                     </a>
 
                                                     <!-- <ng-template
@@ -145,24 +121,18 @@
                                                   </span>
                                                 </td>
                                                 <td>
-                                                    <span
-                                                    class="label label-sm"
-                                                    [class.green]="
-                                                      data.status == 'complete'
-                                                    "
-                                                    [class.blue]="
-                                                      data.status == 'pending'
-                                                    "
-                                                    [class.orange]="
-                                                      data.status == 'hold'
-                                                    "
-                                                    [class.red]="
-                                                      data.status == 'cancelled'
-                                                    "
-                                                  >
-                                                  {{ data.status }}
+                                                  <span class="label label-sm" [class.green]="
+                                                      data?.selected_user_assigned?.status == 'complete'
+                                                    " [class.blue]="
+                                                      data?.selected_user_assigned?.status == 'pending'
+                                                    " [class.orange]="
+                                                      data?.selected_user_assigned?.status == 'hold'
+                                                    " [class.red]="
+                                                      data?.selected_user_assigned?.status == 'cancelled'
+                                                    ">
+                                                    {{ data?.selected_user_assigned?.status }}
                                                   </span>
-                                                 </td>
+                                                </td>
 
                                                 <!-- <td class="text-align">
                                                   <span class="label label-sm" [class.green]="
@@ -180,22 +150,26 @@
                                                         </i>
                                                       </a>
                                                     </span>
-                                                    <ul *dropdownMenu class="dropdown-menu custom-dropdown dropdown-menu-left  pull-right" role="menu">
-                                
-                                
+                                                    <ul *dropdownMenu
+                                                      class="dropdown-menu custom-dropdown dropdown-menu-left  pull-right"
+                                                      role="menu">
+
+
                                                       <li>
-                                                        <a (click)="updateAppStatus('pending',data)" class="dropdown-items" id="" title="Pending">
+                                                        <a (click)="updateAppStatus('pending',data)"
+                                                          class="dropdown-items" id="" title="Pending">
                                                           <label>Pending</label>
                                                         </a>
-                                                        <a (click)="updateAppStatus('complete',data)" class="dropdown-items" id="" title="Complete">
+                                                        <a (click)="updateAppStatus('complete',data)"
+                                                          class="dropdown-items" id="" title="Complete">
                                                           <label>Complete</label>
                                                         </a>
-                                                        <a (click)="updateAppStatus('hold',data)" class="dropdown-items" id="" title="Hold">
+                                                        <!-- <a (click)="updateAppStatus('hold',data)" class="dropdown-items" id="" title="Hold">
                                                           <label>Hold</label>
                                                         </a>
                                                         <a (click)="updateAppStatus('cancelled',data)" class="dropdown-items" id="" title="Cancelled">
                                                           <label>Cancelled</label>
-                                                        </a>
+                                                        </a> -->
                                                       </li>
                                                       <!-- <li>
                                                           <a class="dropdown-item" id="" title="View Detail">
@@ -203,64 +177,48 @@
                                                             <label>Delete</label>
                                                           </a>
                                                         </li> -->
-                                
+
                                                     </ul>
-                                
+
                                                   </div>
                                                   <!-- <a><i class="material-icons">more_vert</i></a> -->
                                                 </td>
                                                 <td class="text-align">
-                                                  <span
-                                                    *ngIf="
+                                                  <span *ngIf="
                                                       data.Location ==
                                                         location ||
                                                       role == 'Admin'
-                                                    "
-                                                  >
-                                                    <a
-                                                      (click)="
+                                                    ">
+                                                    <a (click)="
                                                         openModal(
                                                           appinfomodal,
                                                           data,
                                                           false
                                                         )
-                                                      "
-                                                      ><i class="material-icons"
-                                                        >edit</i
-                                                      >
+                                                      "><i class="material-icons">edit</i>
                                                     </a>
                                                   </span>
                                                 </td>
                                                 <td class="text-align">
-                                                  <span
-                                                    *ngIf="
+                                                  <span *ngIf="
                                                       data.Location ==
                                                         location ||
                                                       role == 'Admin'
-                                                    "
-                                                  >
+                                                    ">
                                                     <!-- (click)="openModal(appinfomodal,data,false)" -->
-                                                    <a
-                                                      (click)="
+                                                    <a (click)="
                                                         openConfirmationTab(
                                                           deleteconfirmation,
                                                           data
                                                         )
-                                                      "
-                                                      ><i class="material-icons"
-                                                        >delete</i
-                                                      >
+                                                      "><i class="material-icons">delete</i>
                                                     </a>
                                                   </span>
                                                 </td>
                                               </tr>
                                             </ng-template>
                                           </tbody>
-                                          <td
-                                            *ngIf="result?.length === 0"
-                                            colspan="12"
-                                            class="no-data-available"
-                                          >
+                                          <td *ngIf="result?.length === 0" colspan="12" class="no-data-available">
                                             Data is not Available.
                                           </td>
                                         </table>
@@ -315,12 +273,8 @@
 
   <!-- App Info  Modal -->
   <ng-template #appinfomodal>
-    <app-objectivesmodal
-      [formData]="formData"
-      [newInstance]="newInstance"
-      (outputAndReload)="outputAndReload()"
-      (output)="decline()"
-    ></app-objectivesmodal>
+    <app-objectivesmodal [formData]="formData" [newInstance]="newInstance" (outputAndReload)="outputAndReload()"
+      (output)="decline()"></app-objectivesmodal>
   </ng-template>
 
   <!-- Report  Modal

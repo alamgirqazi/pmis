@@ -102,7 +102,7 @@
                                               <th>End Date</th>
                                               <th>Notes</th>
                                               <th>Add Objectives To Project</th>
-                                              <th>Display Project Tree</th>
+                                              <th>Display Objectives </th>
                                               <th>Status</th>
                                               <th>Change Status</th>
 
@@ -186,16 +186,14 @@
                                                           <!-- <i class="material-icons">do_not_disturb</i> -->
                                                           <label>Complete</label>
                                                         </a>
-                                                        <a (click)="updateAppStatus('hold',data)" class="dropdown-items"
+                                                        <!-- <a (click)="updateAppStatus('hold',data)" class="dropdown-items"
                                                           id="" title="View Detail">
-                                                          <!-- <i class="material-icons">do_not_disturb</i> -->
                                                           <label>Hold</label>
                                                         </a>
                                                         <a (click)="updateAppStatus('cancelled',data)"
                                                           class="dropdown-items" id="" title="View Detail">
-                                                          <!-- <i class="material-icons">do_not_disturb</i> -->
                                                           <label>Cancelled</label>
-                                                        </a>
+                                                        </a> -->
                                                       </li>
                                                       <!-- <li>
                                                             <a class="dropdown-item" id="" title="View Detail">
@@ -219,7 +217,7 @@
                                                 </td> -->
 
                                                 <td class="text-align">
-                                                  <span>
+                                                  <span *ngIf="role === 'Executive Director'">
                                                     <a (click)="
                                                         openModal(
                                                           appinfomodal,
@@ -232,11 +230,7 @@
                                                   </span>
                                                 </td>
                                                 <td class="text-align">
-                                                  <span *ngIf="
-                                                      data.Location ==
-                                                        location ||
-                                                      role == 'Admin'
-                                                    ">
+                                                  <span *ngIf="role === 'Executive Director'">
                                                     <!-- (click)="openModal(appinfomodal,data,false)" -->
                                                     <a (click)="
                                                         openConfirmationTab(
@@ -325,7 +319,7 @@
       </form>
 
 
-      <ngx-json-viewer [json]="itCategory"></ngx-json-viewer>
+      <!-- <ngx-json-viewer [json]="itCategory"></ngx-json-viewer> -->
     </div>
   </ng-template>
 

@@ -8,7 +8,7 @@
     </div>
     <div class="modal-body">
       <ul class="wizard-nav max">
-        <li class="wizard-item">
+        <li class="wizard-item" *ngIf="role === 'Executive Director'">
           <a class="wizard-link" [class.active]="tabId == 1" (click)="changeTab(1)">
             Projects Info</a>
         </li>
@@ -103,6 +103,19 @@
                   submitForm && appInfoForm.controls['priority'].invalid
               }" name="name" class="form-control valid">
               <ng-template ngFor let-item [ngForOf]="priorityList" let-i="index">
+                <option value="{{ item.name }}">{{ item.name }} </option>
+              </ng-template>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-lg-3 form-control-label">severity:</label>
+          <div class="col-lg-9">
+            <select formControlName="severity" [ngClass]="{
+                'error-input':
+                  submitForm && appInfoForm.controls['severity'].invalid
+              }" name="name" class="form-control valid">
+              <ng-template ngFor let-item [ngForOf]="severityList" let-i="index">
                 <option value="{{ item.name }}">{{ item.name }} </option>
               </ng-template>
             </select>
@@ -203,11 +216,10 @@
               </div>
               <div class="col-lg-7">
                 <div class="form-group row">
-                  <!-- <label class="col-lg-2 form-control-label l-label"
-                    >Users Assigned:</label
-                  > -->
-
-                  <div class="col-lg-12">
+                  <div class="col-lg-3">
+                    <label class=" form-control-label l-label">Project Managers:</label>
+                  </div>
+                  <div class="col-lg-9">
                     <!-- <input
                       class="form-control"
                       [ngClass]="{
@@ -243,6 +255,54 @@
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-group row">
+                  <label class="col-lg-3 form-control-label l-label">Start Date:</label>
+
+                  <div class="col-lg-9">
+                    <input type="text" bsDatepicker [ngClass]="{
+                        'error-input':
+                          submitObjectives &&
+                          formDataObjectives.controls[i].controls[
+                            'start_date'
+                          ].invalid
+                      }" formControlName="start_date" class="form-control" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group row">
+                  <label class="col-lg-3 form-control-label l-label">End Date:</label>
+
+                  <div class="col-lg-9">
+                    <input type="text" bsDatepicker [ngClass]="{
+                        'error-input':
+                          submitObjectives &&
+                          formDataObjectives.controls[i].controls[
+                            'end_date'
+                          ].invalid
+                      }" formControlName="end_date" class="form-control" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group row">
+                  <label class="col-lg-3 form-control-label">severity:</label>
+                  <div class="col-lg-9">
+                    <select formControlName="severity" [ngClass]="{
+                'error-input':
+                submitObjectives &&formDataObjectives.controls[i].controls['severity'].invalid
+              }" name="name" class="form-control valid">
+                      <ng-template ngFor let-item [ngForOf]="severityList" let-i="index">
+                        <option value="{{ item.name }}">{{ item.name }} </option>
+                      </ng-template>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
             <div class="row">

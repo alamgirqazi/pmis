@@ -1,7 +1,7 @@
+import { AbstractControl } from '@angular/forms';
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { isObjectLike } from 'lodash';
-import { AbstractControl } from '@angular/forms';
 
 /**
  * Helper Services and Functions
@@ -43,11 +43,46 @@ export class MiscHelperService {
     }
   ];
 
+  prioritylist = [
+    {
+      id: 1,
+      name: 'low'
+    },
+    {
+      id: 2,
+      name: 'medium'
+    },
+    {
+      id: 3,
+      name: 'high'
+    }
+  ];
+  severitylist = [
+    {
+      id: 1,
+      name: 'low'
+    },
+    {
+      id: 2,
+      name: 'normal'
+    },
+    {
+      id: 3,
+      name: 'critical'
+    }
+  ];
+
   get userTypeList() {
     return this.userList;
   }
   get departmentList() {
     return this.depList;
+  }
+  get priorityList() {
+    return this.prioritylist;
+  }
+  get severityList() {
+    return this.severitylist;
   }
 
   async destroyDataTable(tableId, dtElement) {

@@ -14,6 +14,15 @@ const Objectives = new Schema({
     objective_name: {
         type: String
     },
+    start_date: {
+        type: Date
+    },
+    end_date: {
+        type: Date
+    },
+    severity: {
+        type: String
+    },
     status: {
         type: String,
         default: 'pending'

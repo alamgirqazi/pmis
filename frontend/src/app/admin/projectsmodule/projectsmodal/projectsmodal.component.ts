@@ -77,23 +77,29 @@ export class ProjectsmodalComponent implements OnInit {
   @Input() tabId = 1;
   githubUsers = [];
 
-  priorityList = [
-    {
-      id: 1,
-      name: 'low'
-    },
-    {
-      id: 2,
-      name: 'medium'
-    },
-    {
-      id: 3,
-      name: 'high'
-    }
-  ];
+  // priorityList = [
+  //   {
+  //     id: 1,
+  //     name: 'low'
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'medium'
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'high'
+  //   }
+  // ];
+
+  priorityList = [];
+  severityList = [];
+
   ngOnInit() {
     // this.locationListing = [...this.miscHelperService.locationList];
     this.departmentList = this.miscHelperService.departmentList;
+    this.severityList = this.miscHelperService.severityList;
+    this.priorityList = this.miscHelperService.priorityList;
     const { role } = this.authService.getAccessTokenInfo();
     this.getUsersFromDB();
     this.getProjectManagers();
@@ -177,6 +183,7 @@ export class ProjectsmodalComponent implements OnInit {
       department: ['', []],
       priority: ['medium', []],
       start_date: [null, []],
+      severity: ['normal', []],
       end_date: [null, []],
       notes: [null, []],
       attachments: [null, []],
@@ -193,6 +200,9 @@ export class ProjectsmodalComponent implements OnInit {
       _id: [''],
       objective_name: [''],
       project_id: [''],
+      severity: ['normal'],
+      start_date: [''],
+      end_date: [''],
       users_assigned: [null]
     });
   }

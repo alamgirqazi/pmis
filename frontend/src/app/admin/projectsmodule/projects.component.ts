@@ -243,7 +243,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
     const config = {
       backdrop: true,
       ignoreBackdropClick: true,
-      class: 'gray modal-lg'
+      class: 'gray modal-xlg'
     };
     this.modalRef = this.modalService.show(template, config);
   }
@@ -297,7 +297,6 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   }
   getNameLetters(name: string) {
     let letter = '';
-    name;
     name
       .trim()
       .split(' ')

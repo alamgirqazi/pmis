@@ -33,7 +33,7 @@ export class UserApi {
       });
   }
   public getUserNextId(): Observable<any> {
-    const url = Baseconfig.getPath() + `/users/getnextid`;
+    const url = Baseconfig.getPath() + `/users/getnextid/next`;
 
     return this.http
       .get(url, {

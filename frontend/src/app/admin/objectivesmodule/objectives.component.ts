@@ -1,29 +1,30 @@
-import { ObjectivesApi } from './../../../sdk/services/custom/objectives.service';
-// import '../../../mainassets/plugins/datatables/css/dataTables.bootstrap.css';
+import * as moment from 'moment';
 
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import {
+  AfterViewInit,
   Component,
   OnInit,
   QueryList,
   TemplateRef,
-  ViewChildren,
-  AfterViewInit
+  ViewChildren
 } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { AsideNavigationService } from '../../services/asideNavigation.Service';
+import { AuthService } from '../../../sdk/services/core/auth.service';
+import { Baseconfig } from '../../../sdk/base.config';
 import { DataTableDirective } from 'angular-datatables';
+import { ExcelService } from '../../../sdk/services/custom/excel.service';
 import { MiscHelperService } from '../../../sdk/services/custom/misc.service';
+import { ObjectivesApi } from './../../../sdk/services/custom/objectives.service';
+import { ProjectsApi } from '../../../sdk/services/custom/projects.service';
+import { Router } from '@angular/router';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import { Subject } from 'rxjs/Subject';
 import { ToasterService } from 'angular2-toaster';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ExcelService } from '../../../sdk/services/custom/excel.service';
-import { AuthService } from '../../../sdk/services/core/auth.service';
-import * as moment from 'moment';
-import { Baseconfig } from '../../../sdk/base.config';
-import { ProjectsApi } from '../../../sdk/services/custom/projects.service';
-import { Router } from '@angular/router';
+
+// import '../../../mainassets/plugins/datatables/css/dataTables.bootstrap.css';
 
 @Component({
   selector: 'app-objectives',
@@ -83,9 +84,9 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
     const { id, _id, role } = this.authService.getAccessTokenInfo();
     console.log('TCL: ObjectivesComponent -> ngOnInit -> id', _id);
     this._id = _id;
-    if (role != 'Project Manager') {
-      this.router.navigate(['/admin/activities']);
-    }
+    // if (role != 'Project Manager') {
+    //   this.router.navigate(['/admin/activities']);
+    // }
     this._asideNavigationService.currentMessage.subscribe(message => {
       this.navOpened = message;
       // console.log('message: ', message);
@@ -152,9 +153,23 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
             )
           })
           .subscribe(resp => {
-            console.log('res', resp);
+            console.log('res', resp['data']);
             const { docs, limit, total, offset } = resp['data'];
             this.result = docs;
+
+            if (this.result && this.result.length > 0) {
+              this.result.forEach(element => {
+                const filter = element.users_assigned.filter(
+                  e => e._id === this._id
+                );
+                if (filter && filter.length > 0) {
+                  element.selected_user_assigned = filter[0];
+                }
+              });
+            }
+            console.log('my Id = ', this._id);
+            console.log('filter', this.result);
+
             setTimeout(() => {
               this.dtTrigger.next();
               setTimeout(() => {
@@ -195,22 +210,36 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
     this.slimScroll.progress = 20;
     this.slimScroll.start();
 
+    const selected_user_assigned = data.selected_user_assigned;
+
+    selected_user_assigned.status = status;
+
+    const array = data.users_assigned;
     const displayMsg = `${data.objective_name} is now ${status}`;
 
-    this.objectivesApi.updateObjectivesStatus(data._id, { status }).subscribe(
-      async response => {
-        console.log('response', response);
-        this.configDatatable(true);
-        this.toasterService.pop('success', displayMsg);
-        // Toaster MSG
-        this.slimScroll.complete();
-      },
-      error => {
-        console.log('error', error);
-        this.toasterService.pop('error', 'There are some error updating');
-        this.slimScroll.complete();
-      }
-    );
+    const filter = array.filter(e => e._id !== this._id);
+
+    const merged = [...filter, ...selected_user_assigned];
+
+    console.log('merged', merged);
+    // update status based on users_assigned
+
+    this.objectivesApi
+      .updateObjectivesStatus(data._id, { users_assigned: merged })
+      .subscribe(
+        async response => {
+          console.log('response', response);
+          this.configDatatable(true);
+          this.toasterService.pop('success', displayMsg);
+          // Toaster MSG
+          this.slimScroll.complete();
+        },
+        error => {
+          console.log('error', error);
+          this.toasterService.pop('error', 'There are some error updating');
+          this.slimScroll.complete();
+        }
+      );
   }
 
   decline() {
