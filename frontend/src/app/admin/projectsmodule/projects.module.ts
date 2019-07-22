@@ -14,6 +14,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { NgModule } from '@angular/core';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { ProjectsComponent } from './projects.component';
 import { ProjectsModuleRoutes } from './projects.routing';
 import { ProjectsmodalComponent } from './projectsmodal/projectsmodal.component';
@@ -33,7 +34,8 @@ import { ProjectsmodalComponent } from './projectsmodal/projectsmodal.component'
     ProjectsModuleRoutes,
     BsDatepickerModule.forRoot(),
     CustompipesModule.forRoot(),
-    CustomdirectivesModule
+    CustomdirectivesModule,
+    ProgressbarModule.forRoot()
   ],
   declarations: [ProjectsComponent, ProjectsmodalComponent],
   providers: []

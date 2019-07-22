@@ -97,6 +97,47 @@ export class MiscHelperService {
     });
   }
 
+  calculateStatusPercentage(arr: Array<any>) {
+    if (!arr || (arr && arr.length === 0)) {
+      return 0;
+    }
+    let success = 0;
+    let total_users = 0;
+    for (const iterator of arr) {
+      for (const iterator2 of iterator.users_assigned) {
+        total_users++;
+        if (iterator2.status && iterator2.status === 'complete') {
+          success++;
+        }
+      }
+    }
+
+    if (success === 0) {
+      return 0;
+    } else {
+      return Math.round((success / total_users) * 100);
+    }
+  }
+  calculateStatusPercentageObject(obj: any) {
+    if (!obj) {
+      return 0;
+    }
+    let success = 0;
+    let total_users = 0;
+
+    for (const iterator2 of obj.users_assigned) {
+      total_users++;
+      if (iterator2.status && iterator2.status === 'complete') {
+        success++;
+      }
+    }
+
+    if (success === 0) {
+      return 0;
+    } else {
+      return Math.round((success / total_users) * 100);
+    }
+  }
   removeSpaces(control: AbstractControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;

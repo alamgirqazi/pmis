@@ -27,10 +27,17 @@ projectsController.getAll = async (req, res) => {
       offset: parseInt(start),
       limit: parseInt(length)
     });
+    let response_object = JSON.parse(JSON.stringify(projects));
+
+    for (let [index, iterator] of response_object.docs.entries()) {
+      const res = await Objectives.find({ project_id: iterator._id });
+      response_object.docs[index].objective_detail = res;
+    }
+
     res.status(200).send({
       code: 200,
       message: 'Successful',
-      data: projects
+      data: response_object
     });
   } catch (error) {
     console.log('error', error);

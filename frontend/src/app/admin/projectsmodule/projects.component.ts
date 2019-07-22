@@ -49,6 +49,8 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
     this.toasterService = toasterService;
   }
   items;
+  treeData;
+  selectedProject;
   // items: TreeviewItem[];
 
   itCategory = [
@@ -211,6 +213,13 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
             console.log('res', resp);
             const { docs, limit, total, offset } = resp['data'];
             this.result = docs;
+
+            for (const iterator of this.result) {
+              iterator.percentage = this.miscHelperService.calculateStatusPercentage(
+                iterator.objective_detail
+              );
+            }
+
             setTimeout(() => {
               this.dtTrigger.next();
               setTimeout(() => {
@@ -249,16 +258,25 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   }
   openTreeModal(template: TemplateRef<any>, data) {
     console.log('data', data);
+    this.selectedProject = data;
     const config = {
       backdrop: true,
       ignoreBackdropClick: false,
-      class: 'gray modal-lg'
+      class: 'gray modal-xlg'
     };
     this.projectsApi.getProjectDetail(data._id).subscribe(
       async response => {
         console.log('response', response);
         this.modalRef = this.modalService.show(template, config);
+        this.treeData = response.data;
 
+        for (const iterator of this.treeData) {
+          console.log('terator', iterator);
+          iterator.percentage = this.miscHelperService.calculateStatusPercentageObject(
+            iterator
+          );
+        }
+        console.log('this.treedata', this.treeData);
         this.slimScroll.complete();
       },
       error => {

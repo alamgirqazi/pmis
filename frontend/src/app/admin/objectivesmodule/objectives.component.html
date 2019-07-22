@@ -123,14 +123,14 @@
                                                 <td>
                                                   <span class="label label-sm" [class.green]="
                                                       data?.selected_user_assigned?.status == 'complete'
-                                                    " [class.blue]="
-                                                      data?.selected_user_assigned?.status == 'pending'
                                                     " [class.orange]="
-                                                      data?.selected_user_assigned?.status == 'hold'
-                                                    " [class.red]="
-                                                      data?.selected_user_assigned?.status == 'cancelled'
-                                                    ">
+                                                      data?.selected_user_assigned?.status == 'pending'
+                                                      || !data.selected_user_assigned?.status
+                                                    "
+                                                    >
                                                     {{ data?.selected_user_assigned?.status }}
+
+                                                    <span *ngIf="!data.selected_user_assigned?.status"> pending</span>
                                                   </span>
                                                 </td>
 
