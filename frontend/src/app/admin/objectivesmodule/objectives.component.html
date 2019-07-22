@@ -71,7 +71,9 @@
                                               <th>Project ID</th>
                                               <th>Project Name</th>
 
-                                              <th>Add Activities</th>
+                                              <th>Add Activities to Objective</th>
+                                              <th>Display Activities </th>
+                                              <th>Percentage</th>
                                               <th>Status</th>
 
                                               <th class="text-align">Change Status</th>
@@ -119,6 +121,23 @@
                                                     {{}}
                                                   </ng-template> -->
                                                   </span>
+                                                  {{data?.activity_detail?.length}}
+
+                                                </td>
+
+                                                <td> <a (click)="
+                                                  openTreeModal(
+                                                    tree,data
+                                                  )
+                                                "><i class="material-icons">more</i>
+                                                  </a></td>
+
+                                                <td>
+
+                                                  <progressbar class="progress" [value]="data.percentage"
+                                                    type="success">
+                                                    {{data.percentage}}%</progressbar>
+
                                                 </td>
                                                 <td>
                                                   <span class="label label-sm" [class.green]="
@@ -126,8 +145,7 @@
                                                     " [class.orange]="
                                                       data?.selected_user_assigned?.status == 'pending'
                                                       || !data.selected_user_assigned?.status
-                                                    "
-                                                    >
+                                                    ">
                                                     {{ data?.selected_user_assigned?.status }}
 
                                                     <span *ngIf="!data.selected_user_assigned?.status"> pending</span>
@@ -308,3 +326,146 @@
   </ng-template>
 </div> -->
 </div>
+
+<ng-template #tree>
+  <div class="modal-content">
+    <!--  -->
+    <form class="form-horizontal">
+      <div class="modal-header _600">
+        <button type="button" class="close" (click)="closeModal()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h3> Objective Name: {{selectedObjective?.objective_name}}</h3>
+        <h5> % complete: {{selectedObjective?.percentage}}%
+        </h5>
+
+      </div>
+
+      <div *ngFor="let data of treeData; let i = index">
+        <h4> #{{i +1}}</h4>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="form-group row">
+              <label class="col-lg-3 form-control-label l-label">Activity:</label>
+
+              <div class="col-lg-9">
+                <input [value]="data?.activity_name" type="text" class="form-control" disabled />
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group row">
+              <label class="col-lg-3 form-control-label l-label">Status:</label>
+
+              <div class="col-lg-9">
+                <!-- <input [value]="data?.severity" type="text"
+                    class="form-control" disabled /> -->
+
+                <span class="label label-sm" [class.orange]="
+                    data.status == 'pending'
+                  " [class.green]="
+                    data.status == 'complete'
+
+                  " [class.red]="
+                    data.status == 'critical'
+                  ">
+                  {{ data.status }}
+                </span>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group row">
+              <label class="col-lg-3 form-control-label">% complete:</label>
+              <div class="col-lg-9">
+                <progressbar class="progress" [value]="data.percentage" type="success">
+                  {{data.percentage}}%</progressbar>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="form-group row">
+              <label class="col-lg-3 form-control-label l-label">Start Date:</label>
+
+              <div class="col-lg-9">
+                <input [value]="data?.start_date | date" type="text" class="form-control" disabled />
+
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group row">
+              <label class="col-lg-3 form-control-label l-label">End Date:</label>
+
+              <div class="col-lg-9">
+                <input [value]="data?.end_date | date" #datePicker type="text" class="form-control" disabled />
+
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group row">
+              <label class="col-lg-3 form-control-label">severity:</label>
+              <div class="col-lg-9">
+                <span class="label label-sm" [class.green]="
+                    data.severity == 'low'
+                  " [class.blue]="
+                    data.severity == 'medium'
+
+                  " [class.red]="
+                    data.severity == 'critical'
+                  ">
+                  {{ data.severity }}
+                </span>
+
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="row" *ngIf="data?.users_assigned.length > 0">
+          <div class="col-md-6 table-box-body">
+            <table class="table b-l-0 route-table m-b-0 table-hover table-striped table-bordered">
+              <tr>
+                <th>User</th>
+                <th>Status</th>
+              </tr>
+              <tr *ngFor="let item of data.users_assigned">
+                <td> {{item?.name}} </td>
+                <td> <span *ngIf="item.status" class="label label-sm" [class.orange]="
+                    item.status == 'pending'
+                  " [class.green]="
+                  item.status == 'complete'
+
+                  " [class.red]="
+                  item.status == 'critical'
+                  ">
+                    {{ item.status }}
+                  </span>
+                  <span class="orange label label-sm" *ngIf="!item.status"> pending</span>
+                </td>
+
+              </tr>
+            </table>
+
+
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <hr class="line" />
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</ng-template>

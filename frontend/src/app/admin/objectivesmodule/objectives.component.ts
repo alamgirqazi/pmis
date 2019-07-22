@@ -49,6 +49,8 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
   }
   selectedAppStatus: any = null;
   allStatuses;
+  selectedObjective;
+  treeData;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   tabList = [false, false, false];
@@ -165,10 +167,11 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
                 if (filter && filter.length > 0) {
                   element.selected_user_assigned = filter[0];
                 }
+                element.percentage = this.miscHelperService.calculateStatusPercentage(
+                  element.activity_detail
+                );
               });
             }
-            console.log('my Id = ', this._id);
-            console.log('filter', this.result);
 
             setTimeout(() => {
               this.dtTrigger.next();
@@ -206,6 +209,27 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
     this.modalRef = this.modalService.show(template, config);
   }
 
+  openTreeModal(template: TemplateRef<any>, data) {
+    console.log('data', data);
+    this.selectedObjective = data;
+    this.treeData = data.activity_detail;
+    const config = {
+      backdrop: true,
+      ignoreBackdropClick: false,
+      class: 'gray modal-xlg'
+    };
+
+    for (const iterator of this.treeData) {
+      console.log('terator', iterator);
+      iterator.percentage = this.miscHelperService.calculateStatusPercentageObject(
+        iterator
+      );
+    }
+    this.modalRef = this.modalService.show(template, config);
+  }
+  closeModal() {
+    this.modalRef.hide();
+  }
   updateAppStatus(status, data) {
     this.slimScroll.progress = 20;
     this.slimScroll.start();

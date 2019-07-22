@@ -1,6 +1,7 @@
 const objectivesController = {};
 const Objectives = require('../models/objectives.model');
 const Projects = require('../models/projects.model');
+const Activities = require('../models/activities.model');
 
 objectivesController.getAll = async (req, res) => {
   let objectives;
@@ -35,8 +36,7 @@ objectivesController.getAll = async (req, res) => {
     }
 
     merged = { ...obj, ...user_query, ...project_query };
-    console.log('merged');
-    console.log(merged);
+ 
 
     let objectives = await Objectives.paginate(merged, {
       offset: parseInt(start),
@@ -48,6 +48,9 @@ objectivesController.getAll = async (req, res) => {
     for (let [index, iterator] of response_object.docs.entries()) {
       const res = await Projects.findOne({ _id: iterator.project_id });
       response_object.docs[index].project_detail = res;
+      const res2 =  await Activities.find({ objective_id: iterator._id });
+      response_object.docs[index].activity_detail = res2;
+
     }
 
     res.status(200).send({

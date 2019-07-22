@@ -106,7 +106,10 @@ export class MiscHelperService {
     for (const iterator of arr) {
       for (const iterator2 of iterator.users_assigned) {
         total_users++;
+        console.log('sec1', iterator2);
         if (iterator2.status && iterator2.status === 'complete') {
+          console.log('sec2');
+
           success++;
         }
       }
