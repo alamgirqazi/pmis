@@ -1,6 +1,7 @@
 import {
   BsDropdownModule,
   ModalModule,
+  ProgressbarModule,
   TimepickerConfig,
   TimepickerModule
 } from 'ngx-bootstrap';
@@ -12,9 +13,9 @@ import { CustomdirectivesModule } from '../../shared/directives/customdirectives
 import { CustompipesModule } from '../../shared/custompipes/custompipes.module';
 import { DataTablesModule } from 'angular-datatables';
 import { NgModule } from '@angular/core';
-import { TasksModuleRoutes } from './tasks.routing';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TasksComponent } from './tasks.component';
+import { TasksModuleRoutes } from './tasks.routing';
 
 // import { SelectModule } from 'ng2-select';
 
@@ -30,7 +31,8 @@ import { TasksComponent } from './tasks.component';
     TasksModuleRoutes,
     BsDatepickerModule.forRoot(),
     CustompipesModule.forRoot(),
-    CustomdirectivesModule
+    CustomdirectivesModule,
+    ProgressbarModule.forRoot()
   ],
   declarations: [TasksComponent],
   providers: []

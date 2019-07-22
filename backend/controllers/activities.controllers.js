@@ -2,6 +2,7 @@ const activitiesController = {};
 const Projects = require("../models/projects.model");
 const Activities = require("../models/activities.model");
 const Objectives = require("../models/objectives.model");
+const Tasks = require("../models/tasks.model");
 
 activitiesController.getAll = async (req, res) => {
   // let activities;
@@ -55,8 +56,12 @@ activitiesController.getAll = async (req, res) => {
    
      const res = await Projects.findOne({"_id": iterator.project_id })
      const res2 = await Objectives.findOne({"_id": iterator.objective_id })
+     const res3 =  await Tasks.find({ activity_id: iterator._id });
+
       response_object.docs[index].project_detail = res;
       response_object.docs[index].objective_detail = res2;
+      response_object.docs[index].task_detail = res3;
+
     }
 
 

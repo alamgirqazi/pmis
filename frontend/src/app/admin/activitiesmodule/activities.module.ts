@@ -1,21 +1,22 @@
 import {
   BsDropdownModule,
   ModalModule,
+  ProgressbarModule,
   TimepickerConfig,
   TimepickerModule
 } from 'ngx-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { ActivitiesComponent } from './activities.component';
+import { ActivitiesModuleRoutes } from './activities.routing';
+import { ActivitiesmodalComponent } from './activitiesmodal/activitiesmodal.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { CommonModule } from '@angular/common';
 import { CustomdirectivesModule } from '../../shared/directives/customdirectives/customdirectives.module';
 import { CustompipesModule } from '../../shared/custompipes/custompipes.module';
 import { DataTablesModule } from 'angular-datatables';
 import { NgModule } from '@angular/core';
-import { ActivitiesModuleRoutes } from './activities.routing';
-import { ActivitiesmodalComponent } from './activitiesmodal/activitiesmodal.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { ActivitiesComponent } from './activities.component';
 
 // import { SelectModule } from 'ng2-select';
 
@@ -31,7 +32,8 @@ import { ActivitiesComponent } from './activities.component';
     ActivitiesModuleRoutes,
     BsDatepickerModule.forRoot(),
     CustompipesModule.forRoot(),
-    CustomdirectivesModule
+    CustomdirectivesModule,
+    ProgressbarModule.forRoot()
   ],
   declarations: [ActivitiesComponent, ActivitiesmodalComponent],
   providers: []

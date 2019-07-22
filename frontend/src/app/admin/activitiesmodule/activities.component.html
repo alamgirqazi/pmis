@@ -1,10 +1,5 @@
-<div
-  id="content"
-  class="app-content box-shadow-z2"
-  [class.app-aside-open]="navOpened"
-  [class.app-aside-closed]="!navOpened"
-  role="main"
->
+<div id="content" class="app-content box-shadow-z2" [class.app-aside-open]="navOpened"
+  [class.app-aside-closed]="!navOpened" role="main">
   <div class="app-body">
     <div class="app-body-inner">
       <div class="row-col">
@@ -60,23 +55,13 @@
                                               Activities
                                             </h2>
                                           </div>
-                                          <div
-                                            class="col-md-11 text-right"
-                                          ></div>
+                                          <div class="col-md-11 text-right"></div>
                                         </div>
                                       </div>
-                                      <div
-                                        class="table-box-body"
-                                        id="datatable"
-                                        [hidden]="!isFetchingData"
-                                      >
-                                        <table
-                                          datatable
-                                          [dtOptions]="dtOptions"
-                                          [dtTrigger]="dtTrigger"
+                                      <div class="table-box-body" id="datatable" [hidden]="!isFetchingData">
+                                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
                                           class="table b-l-0 route-table m-b-0 table-hover table-striped table-bordered"
-                                          id="angulardatatable"
-                                        >
+                                          id="angulardatatable">
                                           <thead class="thead-light">
                                             <tr>
                                               <!-- class="loadfreeth" -->
@@ -86,7 +71,9 @@
                                               <th>Objective Name</th>
                                               <th>Project Name</th>
 
-                                              <th>Add Tasks</th>
+                                              <th>Add Tasks to Activity</th>
+                                              <th>Display Tasks </th>
+                                              <th>Percentage</th>
                                               <th>Status</th>
 
                                               <th class="text-align">Change Status</th>
@@ -95,12 +82,7 @@
                                             </tr>
                                           </thead>
                                           <tbody>
-                                            <ng-template
-                                              ngFor
-                                              let-data
-                                              [ngForOf]="result"
-                                              let-i="index"
-                                            >
+                                            <ng-template ngFor let-data [ngForOf]="result" let-i="index">
                                               <!-- [class.odd]="" -->
                                               <tr role="row" class="">
                                                 <td>
@@ -112,27 +94,23 @@
                                                 <td>
                                                   {{ data.objective_detail?.objective_name }}
                                                 </td>
-                                             
+
                                                 <td>
                                                   {{
                                                     data?.project_detail?.name
                                                   }}
                                                 </td>
-                                              
+
 
                                                 <td>
                                                   <span>
-                                                    <a
-                                                      (click)="
+                                                    <a (click)="
                                                         openModal(
                                                           appinfomodal,
                                                           data,
                                                           false
                                                         )
-                                                      "
-                                                      ><i class="material-icons"
-                                                        >add</i
-                                                      >
+                                                      "><i class="material-icons">add</i>
                                                     </a>
 
                                                     <!-- <ng-template
@@ -144,26 +122,37 @@
                                                     {{}}
                                                   </ng-template> -->
                                                   </span>
+                                                  {{data?.task_detail?.length}}
+
                                                 </td>
+                                                <td> <a (click)="
+                                                  openTreeModal(
+                                                    tree,data
+                                                  )
+                                                "><i class="material-icons">more</i>
+                                                  </a></td>
+
                                                 <td>
-                                                    <span
-                                                    class="label label-sm"
-                                                    [class.green]="
+
+                                                  <progressbar class="progress" [value]="data.percentage"
+                                                    type="success">
+                                                    {{data.percentage}}%</progressbar>
+
+                                                </td>
+
+                                                <td>
+                                                  <span class="label label-sm" [class.green]="
                                                       data.status == 'complete'
-                                                    "
-                                                    [class.blue]="
+                                                    " [class.blue]="
                                                       data.status == 'pending'
-                                                    "
-                                                    [class.orange]="
+                                                    " [class.orange]="
                                                       data.status == 'hold'
-                                                    "
-                                                    [class.red]="
+                                                    " [class.red]="
                                                       data.status == 'cancelled'
-                                                    "
-                                                  >
-                                                  {{ data.status }}
+                                                    ">
+                                                    {{ data.status }}
                                                   </span>
-                                                 </td>
+                                                </td>
 
                                                 <!-- <td class="text-align">
                                                   <span class="label label-sm" [class.green]="
@@ -181,20 +170,26 @@
                                                         </i>
                                                       </a>
                                                     </span>
-                                                    <ul *dropdownMenu class="dropdown-menu custom-dropdown dropdown-menu-left  pull-right" role="menu">
-                                
-                                
+                                                    <ul *dropdownMenu
+                                                      class="dropdown-menu custom-dropdown dropdown-menu-left  pull-right"
+                                                      role="menu">
+
+
                                                       <li>
-                                                        <a (click)="updateAppStatus('pending',data)" class="dropdown-items" id="" title="Pending">
+                                                        <a (click)="updateAppStatus('pending',data)"
+                                                          class="dropdown-items" id="" title="Pending">
                                                           <label>Pending</label>
                                                         </a>
-                                                        <a (click)="updateAppStatus('complete',data)" class="dropdown-items" id="" title="Complete">
+                                                        <a (click)="updateAppStatus('complete',data)"
+                                                          class="dropdown-items" id="" title="Complete">
                                                           <label>Complete</label>
                                                         </a>
-                                                        <a (click)="updateAppStatus('hold',data)" class="dropdown-items" id="" title="Hold">
+                                                        <a (click)="updateAppStatus('hold',data)" class="dropdown-items"
+                                                          id="" title="Hold">
                                                           <label>Hold</label>
                                                         </a>
-                                                        <a (click)="updateAppStatus('cancelled',data)" class="dropdown-items" id="" title="Cancelled">
+                                                        <a (click)="updateAppStatus('cancelled',data)"
+                                                          class="dropdown-items" id="" title="Cancelled">
                                                           <label>Cancelled</label>
                                                         </a>
                                                       </li>
@@ -204,37 +199,31 @@
                                                             <label>Delete</label>
                                                           </a>
                                                         </li> -->
-                                
+
                                                     </ul>
-                                
+
                                                   </div>
                                                   <!-- <a><i class="material-icons">more_vert</i></a> -->
                                                 </td>
                                                 <td class="text-align">
-                                                  <span
-                                                    *ngIf="
+                                                  <span *ngIf="
                                                       data.Location ==
                                                         location ||
                                                       role == 'Admin'
-                                                    "
-                                                  >
-                                                    <a
-                                                      (click)="
+                                                    ">
+                                                    <a (click)="
                                                         openModal(
                                                           appinfomodal,
                                                           data,
                                                           false
                                                         )
-                                                      "
-                                                      ><i class="material-icons"
-                                                        >edit</i
-                                                      >
+                                                      "><i class="material-icons">edit</i>
                                                     </a>
                                                   </span>
                                                 </td>
                                                 <td class="text-align">
                                                   <!-- <span
-                                                  
+
                                                   >
                                                     <a
                                                       (click)="
@@ -252,11 +241,7 @@
                                               </tr>
                                             </ng-template>
                                           </tbody>
-                                          <td
-                                            *ngIf="result?.length === 0"
-                                            colspan="12"
-                                            class="no-data-available"
-                                          >
+                                          <td *ngIf="result?.length === 0" colspan="12" class="no-data-available">
                                             Data is not Available.
                                           </td>
                                         </table>
@@ -311,12 +296,8 @@
 
   <!-- App Info  Modal -->
   <ng-template #appinfomodal>
-    <app-activitiesmodal
-      [formData]="formData"
-      [newInstance]="newInstance"
-      (outputAndReload)="outputAndReload()"
-      (output)="decline()"
-    ></app-activitiesmodal>
+    <app-activitiesmodal [formData]="formData" [newInstance]="newInstance" (outputAndReload)="outputAndReload()"
+      (output)="decline()"></app-activitiesmodal>
   </ng-template>
 
   <!-- Report  Modal
@@ -350,3 +331,146 @@
   </ng-template>
 </div> -->
 </div>
+
+<ng-template #tree>
+  <div class="modal-content">
+    <!--  -->
+    <form class="form-horizontal">
+      <div class="modal-header _600">
+        <button type="button" class="close" (click)="closeModal()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h3> Activity Name: {{selectedActivity?.Activity_name}}</h3>
+        <h5> % complete: {{selectedActivity?.percentage}}%
+        </h5>
+
+      </div>
+
+      <div *ngFor="let data of treeData; let i = index">
+        <h4> #{{i +1}}</h4>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="form-group row">
+              <label class="col-lg-3 form-control-label l-label">Task:</label>
+
+              <div class="col-lg-9">
+                <input [value]="data?.task_name" type="text" class="form-control" disabled />
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group row">
+              <label class="col-lg-3 form-control-label l-label">Status:</label>
+
+              <div class="col-lg-9">
+                <!-- <input [value]="data?.severity" type="text"
+                      class="form-control" disabled /> -->
+
+                <span class="label label-sm" [class.orange]="
+                      data.status == 'pending'
+                    " [class.green]="
+                      data.status == 'complete'
+
+                    " [class.red]="
+                      data.status == 'critical'
+                    ">
+                  {{ data.status }}
+                </span>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group row">
+              <label class="col-lg-3 form-control-label">% complete:</label>
+              <div class="col-lg-9">
+                <progressbar class="progress" [value]="data.percentage" type="success">
+                  {{data.percentage}}%</progressbar>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="form-group row">
+              <label class="col-lg-3 form-control-label l-label">Start Date:</label>
+
+              <div class="col-lg-9">
+                <input [value]="data?.start_date | date" type="text" class="form-control" disabled />
+
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group row">
+              <label class="col-lg-3 form-control-label l-label">End Date:</label>
+
+              <div class="col-lg-9">
+                <input [value]="data?.end_date | date" #datePicker type="text" class="form-control" disabled />
+
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group row">
+              <label class="col-lg-3 form-control-label">severity:</label>
+              <div class="col-lg-9">
+                <span class="label label-sm" [class.green]="
+                      data.severity == 'low'
+                    " [class.blue]="
+                      data.severity == 'medium'
+
+                    " [class.red]="
+                      data.severity == 'critical'
+                    ">
+                  {{ data.severity }}
+                </span>
+
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="row" *ngIf="data?.users_assigned.length > 0">
+          <div class="col-md-6 table-box-body">
+            <table class="table b-l-0 route-table m-b-0 table-hover table-striped table-bordered">
+              <tr>
+                <th>User</th>
+                <th>Status</th>
+              </tr>
+              <tr *ngFor="let item of data.users_assigned">
+                <td> {{item?.name}} </td>
+                <td> <span *ngIf="item.status" class="label label-sm" [class.orange]="
+                      item.status == 'pending'
+                    " [class.green]="
+                    item.status == 'complete'
+
+                    " [class.red]="
+                    item.status == 'critical'
+                    ">
+                    {{ item.status }}
+                  </span>
+                  <span class="orange label label-sm" *ngIf="!item.status"> pending</span>
+                </td>
+
+              </tr>
+            </table>
+
+
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <hr class="line" />
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</ng-template>

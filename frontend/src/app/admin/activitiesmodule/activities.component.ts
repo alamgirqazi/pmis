@@ -51,6 +51,8 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
   }
   selectedAppStatus: any = null;
   allStatuses;
+  treeData;
+  selectedActivity;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   tabList = [false, false, false];
@@ -165,6 +167,10 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
               if (filter && filter.length > 0) {
                 iterator.selected_user_assigned = filter[0];
               }
+
+              iterator.percentage = this.miscHelperService.calculateStatusPercentage(
+                iterator.task_detail
+              );
               // iterator.percentage = this.miscHelperService.calculateStatusPercentage(
               //   iterator.task_detail
               // );
@@ -187,6 +193,26 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
     };
   }
 
+  openTreeModal(template: TemplateRef<any>, data) {
+    console.log('data', data);
+    this.selectedActivity = data;
+    this.treeData = data.task_detail;
+    const config = {
+      backdrop: true,
+      ignoreBackdropClick: false,
+      class: 'gray modal-xlg'
+    };
+    for (const iterator of this.treeData) {
+      console.log('terator', iterator);
+      iterator.percentage = this.miscHelperService.calculateStatusPercentageObject(
+        iterator
+      );
+    }
+    this.modalRef = this.modalService.show(template, config);
+  }
+  closeModal() {
+    this.modalRef.hide();
+  }
   openConfirmationTab(template: TemplateRef<any>, data, mystatus?, msgstatus?) {
     this.msgstatus = msgstatus;
     this.mystatus = mystatus;
