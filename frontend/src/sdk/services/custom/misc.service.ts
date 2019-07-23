@@ -141,6 +141,27 @@ export class MiscHelperService {
       return Math.round((success / total_users) * 100);
     }
   }
+  calculateStatusPercentageTasks(obj: any) {
+    if (!obj) {
+      return 0;
+    }
+    let success = 0;
+    let total_users = 0;
+
+    console.log('tasks', obj);
+    for (const iterator of obj) {
+      total_users++;
+      if (iterator.status && iterator.status === 'complete') {
+        success++;
+      }
+    }
+
+    if (success === 0) {
+      return 0;
+    } else {
+      return Math.round((success / total_users) * 100);
+    }
+  }
   removeSpaces(control: AbstractControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;

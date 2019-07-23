@@ -1,10 +1,5 @@
-<div
-  id="content"
-  class="app-content box-shadow-z2"
-  [class.app-aside-open]="navOpened"
-  [class.app-aside-closed]="!navOpened"
-  role="main"
->
+<div id="content" class="app-content box-shadow-z2" [class.app-aside-open]="navOpened"
+  [class.app-aside-closed]="!navOpened" role="main">
   <div class="app-body">
     <div class="app-body-inner">
       <div class="row-col">
@@ -57,26 +52,16 @@
                                         <div class="row">
                                           <div class="col-md-1">
                                             <h2 class="nowrap l-h">
-                                                Tasks
+                                              Tasks
                                             </h2>
                                           </div>
-                                          <div
-                                            class="col-md-11 text-right"
-                                          ></div>
+                                          <div class="col-md-11 text-right"></div>
                                         </div>
                                       </div>
-                                      <div
-                                        class="table-box-body"
-                                        id="datatable"
-                                        [hidden]="!isFetchingData"
-                                      >
-                                        <table
-                                          datatable
-                                          [dtOptions]="dtOptions"
-                                          [dtTrigger]="dtTrigger"
+                                      <div class="table-box-body" id="datatable" [hidden]="!isFetchingData">
+                                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
                                           class="table b-l-0 route-table m-b-0 table-hover table-striped table-bordered"
-                                          id="angulardatatable"
-                                        >
+                                          id="angulardatatable">
                                           <thead class="thead-light">
                                             <tr>
                                               <!-- class="loadfreeth" -->
@@ -87,6 +72,7 @@
                                               <th>Objective Name</th>
                                               <th>Project Name</th>
 
+                                              <th>Percentage</th>
                                               <th>Status</th>
 
                                               <th class="text-align">Change Status</th>
@@ -94,12 +80,7 @@
                                             </tr>
                                           </thead>
                                           <tbody>
-                                            <ng-template
-                                              ngFor
-                                              let-data
-                                              [ngForOf]="result"
-                                              let-i="index"
-                                            >
+                                            <ng-template ngFor let-data [ngForOf]="result" let-i="index">
                                               <!-- [class.odd]="" -->
                                               <tr role="row" class="">
                                                 <td>
@@ -114,34 +95,34 @@
                                                 <td>
                                                   {{ data.objective_detail?.objective_name }}
                                                 </td>
-                                             
+
                                                 <td>
                                                   {{
                                                     data?.project_detail?.name
                                                   }}
                                                 </td>
-                                              
 
-                                              
                                                 <td>
-                                                    <span
-                                                    class="label label-sm"
-                                                    [class.green]="
+
+                                                  <progressbar class="progress" [value]="data.percentage"
+                                                    type="success">
+                                                    {{data.percentage}}%</progressbar>
+
+                                                </td>
+
+                                                <td>
+                                                  <span class="label label-sm" [class.green]="
                                                       data.status == 'complete'
-                                                    "
-                                                    [class.blue]="
+                                                    " [class.blue]="
                                                       data.status == 'pending'
-                                                    "
-                                                    [class.orange]="
+                                                    " [class.orange]="
                                                       data.status == 'hold'
-                                                    "
-                                                    [class.red]="
+                                                    " [class.red]="
                                                       data.status == 'cancelled'
-                                                    "
-                                                  >
-                                                  {{ data.status }}
+                                                    ">
+                                                    {{ data.status }}
                                                   </span>
-                                                 </td>
+                                                </td>
 
                                                 <!-- <td class="text-align">
                                                   <span class="label label-sm" [class.green]="
@@ -159,22 +140,26 @@
                                                         </i>
                                                       </a>
                                                     </span>
-                                                    <ul *dropdownMenu class="dropdown-menu custom-dropdown dropdown-menu-left  pull-right" role="menu">
-                                
-                                
+                                                    <ul *dropdownMenu
+                                                      class="dropdown-menu custom-dropdown dropdown-menu-left  pull-right"
+                                                      role="menu">
+
+
                                                       <li>
-                                                        <a (click)="updateAppStatus('pending',data)" class="dropdown-items" id="" title="Pending">
+                                                        <a (click)="updateAppStatus('pending',data)"
+                                                          class="dropdown-items" id="" title="Pending">
                                                           <label>Pending</label>
                                                         </a>
-                                                        <a (click)="updateAppStatus('complete',data)" class="dropdown-items" id="" title="Complete">
+                                                        <a (click)="updateAppStatus('complete',data)"
+                                                          class="dropdown-items" id="" title="Complete">
                                                           <label>Complete</label>
                                                         </a>
-                                                        <a (click)="updateAppStatus('hold',data)" class="dropdown-items" id="" title="Hold">
+                                                        <!-- <a (click)="updateAppStatus('hold',data)" class="dropdown-items" id="" title="Hold">
                                                           <label>Hold</label>
                                                         </a>
                                                         <a (click)="updateAppStatus('cancelled',data)" class="dropdown-items" id="" title="Cancelled">
                                                           <label>Cancelled</label>
-                                                        </a>
+                                                        </a> -->
                                                       </li>
                                                       <!-- <li>
                                                           <a class="dropdown-item" id="" title="View Detail">
@@ -182,16 +167,16 @@
                                                             <label>Delete</label>
                                                           </a>
                                                         </li> -->
-                                
+
                                                     </ul>
-                                
+
                                                   </div>
                                                   <!-- <a><i class="material-icons">more_vert</i></a> -->
                                                 </td>
-                                                
+
                                                 <td class="text-align">
                                                   <!-- <span
-                                                  
+
                                                   >
                                                     <a
                                                       (click)="
@@ -209,11 +194,7 @@
                                               </tr>
                                             </ng-template>
                                           </tbody>
-                                          <td
-                                            *ngIf="result?.length === 0"
-                                            colspan="12"
-                                            class="no-data-available"
-                                          >
+                                          <td *ngIf="result?.length === 0" colspan="12" class="no-data-available">
                                             Data is not Available.
                                           </td>
                                         </table>

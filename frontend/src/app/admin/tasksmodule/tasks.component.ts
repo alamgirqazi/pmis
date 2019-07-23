@@ -1,31 +1,49 @@
-import { TasksApi } from './../../../sdk/services/custom/tasks.service';
-import { ActivitiesApi } from './../../../sdk/services/custom/activities.service';
-import { ObjectivesApi } from './../../../sdk/services/custom/objectives.service';
-// import '../../../mainassets/plugins/datatables/css/dataTables.bootstrap.css';
+import * as moment from 'moment';
 
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import {
+  AfterViewInit,
   Component,
   OnInit,
   QueryList,
   TemplateRef,
-  ViewChildren,
-  AfterViewInit
+  ViewChildren
 } from '@angular/core';
-
-import { AsideNavigationService } from '../../services/asideNavigation.Service';
-import { DataTableDirective } from 'angular-datatables';
-import { MiscHelperService } from '../../../sdk/services/custom/misc.service';
-import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
-import { Subject } from 'rxjs/Subject';
-import { ToasterService } from 'angular2-toaster';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ExcelService } from '../../../sdk/services/custom/excel.service';
+
+import { ActivitiesApi } from './../../../sdk/services/custom/activities.service';
+import { AsideNavigationService } from '../../services/asideNavigation.Service';
 import { AuthService } from '../../../sdk/services/core/auth.service';
-import * as moment from 'moment';
 import { Baseconfig } from '../../../sdk/base.config';
+import { DataTableDirective } from 'angular-datatables';
+import { ExcelService } from '../../../sdk/services/custom/excel.service';
+import { MiscHelperService } from '../../../sdk/services/custom/misc.service';
+import { ObjectivesApi } from './../../../sdk/services/custom/objectives.service';
 import { ProjectsApi } from '../../../sdk/services/custom/projects.service';
 import { Router } from '@angular/router';
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
+import { Subject } from 'rxjs/Subject';
+import { TasksApi } from './../../../sdk/services/custom/tasks.service';
+import { ToasterService } from 'angular2-toaster';
+
+// import '../../../mainassets/plugins/datatables/css/dataTables.bootstrap.css';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @Component({
   selector: 'app-tasks',
@@ -52,6 +70,8 @@ export class TasksComponent implements OnInit, AfterViewInit {
   }
   selectedAppStatus: any = null;
   allStatuses;
+  treeData;
+  selectedTask;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   tabList = [false, false, false];
@@ -156,6 +176,26 @@ export class TasksComponent implements OnInit, AfterViewInit {
             console.log('res', resp);
             const { docs, limit, total, offset } = resp['data'];
             this.result = docs;
+
+            for (const iterator of this.result) {
+              const filter = iterator.users_assigned.filter(
+                e => e._id === this._id
+              );
+              if (filter && filter.length > 0) {
+                iterator.selected_user_assigned = filter[0];
+              }
+              console.log('iterator', iterator);
+              console.log('stats', iterator.status);
+              if (iterator.status === 'complete') {
+                iterator.percentage = 100;
+              } else {
+                iterator.percentage = 0;
+              }
+              // iterator.percentage = this.miscHelperService.calculateStatusPercentage(
+              //   iterator.task_detail
+              // );
+            }
+
             setTimeout(() => {
               this.dtTrigger.next();
               setTimeout(() => {
@@ -173,6 +213,24 @@ export class TasksComponent implements OnInit, AfterViewInit {
       }
     };
   }
+
+  // openTreeModal(template: TemplateRef<any>, data) {
+  //   console.log('data', data);
+  //   this.selectedTask = data;
+  //   this.treeData = data.task_detail;
+  //   const config = {
+  //     backdrop: true,
+  //     ignoreBackdropClick: false,
+  //     class: 'gray modal-xlg'
+  //   };
+  //   for (const iterator of this.treeData) {
+  //     console.log('terator', iterator);
+  //     iterator.percentage = this.miscHelperService.calculateStatusPercentageObject(
+  //       iterator
+  //     );
+  //   }
+  //   this.modalRef = this.modalService.show(template, config);
+  // }
 
   openConfirmationTab(template: TemplateRef<any>, data, mystatus?, msgstatus?) {
     this.msgstatus = msgstatus;

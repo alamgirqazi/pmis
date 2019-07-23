@@ -168,7 +168,7 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
                 iterator.selected_user_assigned = filter[0];
               }
 
-              iterator.percentage = this.miscHelperService.calculateStatusPercentage(
+              iterator.percentage = this.miscHelperService.calculateStatusPercentageTasks(
                 iterator.task_detail
               );
               // iterator.percentage = this.miscHelperService.calculateStatusPercentage(
