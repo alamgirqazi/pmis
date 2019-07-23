@@ -15,28 +15,17 @@
 
       <div>
         <div id="tab-3" formArrayName="activities">
-          <div
-            *ngFor="let item of formDataActivities.controls; let i = index"
-            [formGroupName]="i"
-          >
+          <div *ngFor="let item of formDataActivities.controls; let i = index" [formGroupName]="i">
             <div class="row">
               <div class="col-lg-12">
                 <div *ngIf="i != -1" class="pull-right add-btn">
-                  <button
-                    _ngcontent-c13=""
-                    (click)="deleteActivity(i, item)"
-                    class="btn btn-sm btn-block btn-line"
-                    type="button"
-                  >
+                  <button _ngcontent-c13="" (click)="deleteActivity(i, item)" class="btn btn-sm btn-block btn-line"
+                    type="button">
                     <i class="material-icons">delete</i>
                   </button>
                 </div>
                 <div *ngIf="i == 0" class="pull-right add-btn">
-                  <button
-                    class="btn btn-sm customclass btn-block btn-green"
-                    (click)="addActivities()"
-                    type="button"
-                  >
+                  <button class="btn btn-sm customclass btn-block btn-green" (click)="addActivities()" type="button">
                     <i _ngcontent-c8="" class="material-icons">add</i>
                   </button>
                 </div>
@@ -45,23 +34,16 @@
             <div class="row">
               <div class="col-lg-5">
                 <div class="form-group row">
-                  <label class="col-lg-3 form-control-label l-label"
-                    >Activity Name:</label
-                  >
+                  <label class="col-lg-3 form-control-label l-label">Activity:</label>
 
                   <div class="col-lg-9">
-                    <input
-                      type="text"
-                      [ngClass]="{
+                    <input type="text" [ngClass]="{
                         'error-input':
                           submitObjectives &&
                           formDataActivities.controls[i].controls[
                             'activity_name'
                           ].invalid
-                      }"
-                      formControlName="activity_name"
-                      class="form-control"
-                    />
+                      }" formControlName="activity_name" class="form-control" />
                   </div>
                 </div>
               </div>
@@ -71,7 +53,12 @@
                     >Users Assigned:</label
                   > -->
 
-                  <div class="col-lg-12">
+                  <div class="col-lg-3">
+                    <label class=" form-control-label l-label">Project Coordinators:</label>
+
+                  </div>
+                  <div class="col-lg-9">
+
                     <!-- <input
                       class="form-control"
                       [ngClass]="{
@@ -89,37 +76,16 @@
                       rows="3"
                     /> -->
 
-                    <ng-select
-                      [items]="usersList"
-                      [multiple]="true"
-                      bindLabel="name"
-                      formControlName="users_assigned"
-                      placeholder="Select project coordinators"
-                    >
-                      <ng-template
-                        ng-multi-label-tmp
-                        let-items="items"
-                        let-clear="clear"
-                      >
-                        <div
-                          class="ng-value"
-                          *ngFor="let item of items ? items.slice(0, 2) : []"
-                        >
-                          <span class="ng-value-label"
-                            ><img [src]="item.src" width="20px" height="20px" />
-                            {{ item.name }}</span
-                          >
-                          <span
-                            class="ng-value-icon right"
-                            (click)="clear(item)"
-                            aria-hidden="true"
-                            >×</span
-                          >
+                    <ng-select [items]="usersList" [multiple]="true" bindLabel="name" formControlName="users_assigned"
+                      placeholder="Select project coordinators">
+                      <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                        <div class="ng-value" *ngFor="let item of items ? items.slice(0, 2) : []">
+                          <span class="ng-value-label"><img [src]="item.src" width="20px" height="20px" />
+                            {{ item.name }}</span>
+                          <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
                         </div>
                         <div class="ng-value" *ngIf="items.length > 2">
-                          <span class="ng-value-label"
-                            >{{ items.length - 2 }} more...</span
-                          >
+                          <span class="ng-value-label">{{ items.length - 2 }} more...</span>
                         </div>
                       </ng-template>
                     </ng-select>
@@ -127,7 +93,54 @@
                 </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-group row">
+                  <label class="col-lg-3 form-control-label l-label">Start Date:</label>
 
+                  <div class="col-lg-9">
+                    <input type="text" bsDatepicker [ngClass]="{
+                          'error-input':
+                            submitObjectives &&
+                            formDataObjectives.controls[i].controls[
+                              'start_date'
+                            ].invalid
+                        }" formControlName="start_date" class="form-control" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group row">
+                  <label class="col-lg-3 form-control-label l-label">End Date:</label>
+
+                  <div class="col-lg-9">
+                    <input type="text" bsDatepicker [ngClass]="{
+                          'error-input':
+                            submitObjectives &&
+                            formDataObjectives.controls[i].controls[
+                              'end_date'
+                            ].invalid
+                        }" formControlName="end_date" class="form-control" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group row">
+                  <label class="col-lg-3 form-control-label">severity:</label>
+                  <div class="col-lg-9">
+                    <select formControlName="severity" [ngClass]="{
+                  'error-input':
+                  submitObjectives &&formDataObjectives.controls[i].controls['severity'].invalid
+                }" name="name" class="form-control valid">
+                      <ng-template ngFor let-item [ngForOf]="severityList" let-i="index">
+                        <option value="{{ item.name }}">{{ item.name }} </option>
+                      </ng-template>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+            </div>
             <div class="row">
               <div class="col-md-12">
                 <hr class="line" />
@@ -141,16 +154,8 @@
       <button type="button" class="btn btn-line" (click)="closeModal()">
         Cancel
       </button>
-      <button
-        type="button"
-        (click)="saveAppInfo()"
-        class="btn btn-green round"
-        [disabled]="isLoading"
-      >
-        <i
-          *ngIf="isLoading"
-          class="fa fa-circle-o-notch fa-spin btn-spinner"
-        ></i>
+      <button type="button" (click)="saveAppInfo()" class="btn btn-green round" [disabled]="isLoading">
+        <i *ngIf="isLoading" class="fa fa-circle-o-notch fa-spin btn-spinner"></i>
         <span *ngIf="!isLoading">Save </span>
       </button>
 
@@ -169,11 +174,7 @@
       Are you sure you want to remove
       {{ activityInfo?.value?.activity_name }} Activity?
     </p>
-    <button
-      type="button"
-      class="btn btn-green"
-      (click)="deleteActivityFromDB()"
-    >
+    <button type="button" class="btn btn-green" (click)="deleteActivityFromDB()">
       Yes
     </button>
     <button type="button" class="btn btn-default" (click)="decline()">

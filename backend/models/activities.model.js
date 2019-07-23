@@ -17,6 +17,16 @@ const Activities = new Schema({
     activity_name: {
         type: String
     },
+    start_date: {
+        type: Date
+    },
+    end_date: {
+        type: Date
+    },
+    severity: {
+        type: String,
+        default: 'normal'
+    },
     status: {
         type: String,
         default: 'pending'
