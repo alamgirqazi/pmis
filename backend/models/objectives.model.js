@@ -21,7 +21,8 @@ const Objectives = new Schema({
         type: Date
     },
     severity: {
-        type: String
+        type: String,
+        default: 'normal'
     },
     status: {
         type: String,

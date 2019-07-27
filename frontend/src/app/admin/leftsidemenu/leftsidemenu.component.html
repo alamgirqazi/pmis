@@ -1,8 +1,4 @@
-<div
-  id="aside"
-  class="app-aside fade nav-dropdown folded black"
-  [ngClass]="{ folded: !isClosedNav }"
->
+<div id="aside" class="app-aside fade nav-dropdown folded black" [ngClass]="{ folded: !isClosedNav }">
   <!-- fluid app aside -->
   <div class="navside dk" data-layout="column">
     <div class="navbar no-radius">
@@ -10,12 +6,7 @@
       <a class="navbar-brand">
         <!-- <img src="./assets/images/irmlogo-lg.png" alt="IRM" /> -->
 
-        <img
-          [src]="user.src"
-          alt="Avatar"
-          class="nav-avatar"
-          onError="this.src='assets/images/avatar.jpg'"
-        />
+        <img [src]="user.src" alt="Avatar" class="nav-avatar" onError="this.src='assets/images/avatar.jpg'" />
         <span class="clear txt hidden-folded p-x"> {{ name }} </span>
 
         <span class="hidden-folded inline"></span>
@@ -25,12 +16,26 @@
     <div data-flex="" class="hide-scroll">
       <nav class="scroll nav-stacked nav-stacked-rounded nav-color">
         <ul class="nav" data-ui-nkav="">
-          <li
-            *ngIf="role == 'Executive Director' || role == 'Managing Director'"
-            routerLinkActive="active"
-            data-toggle="tooltip"
-            data-placement="right"
-          >
+          <li *ngIf="role == 'Executive Director'" routerLinkActive="active" data-toggle="tooltip"
+            data-placement="right">
+            <a routerLink="/admin/dashboard" title="Dashboard">
+              <span class="nav-icon">
+                <i class="fa font-20 fa-dashboard"></i>
+              </span>
+              <span class="nav-text">Dashboard</span>
+            </a>
+          </li>
+          <li *ngIf="role == 'Executive Director'" routerLinkActive="active" data-toggle="tooltip"
+            data-placement="right">
+            <a routerLink="/admin/reports" title="Reports">
+              <span class="nav-icon">
+                <i class="fa font-20 fa-dashboard"></i>
+              </span>
+              <span class="nav-text">Reports</span>
+            </a>
+          </li>
+          <li *ngIf="role == 'Executive Director' || role == 'Managing Director'" routerLinkActive="active"
+            data-toggle="tooltip" data-placement="right">
             <a routerLink="/admin/projects" title="Dashboard">
               <span class="nav-icon">
                 <i class="fa font-20 fa-dashboard"></i>
@@ -38,12 +43,7 @@
               <span class="nav-text">Projects</span>
             </a>
           </li>
-          <li
-            *ngIf="role == 'Project Manager'"
-            routerLinkActive="active"
-            data-toggle="tooltip"
-            data-placement="right"
-          >
+          <li *ngIf="role == 'Project Manager'" routerLinkActive="active" data-toggle="tooltip" data-placement="right">
             <a routerLink="/admin/objectives" title="Objectives">
               <span class="nav-icon">
                 <i class="fa font-20 fa-dashboard"></i>
@@ -64,13 +64,8 @@
             </a>
           </li> -->
 
-          <li
-            *ngIf="role == 'Project Coordinator'"
-            class=""
-            routerLinkActive="active"
-            data-toggle="tooltip"
-            data-placement="right"
-          >
+          <li *ngIf="role == 'Project Coordinator'" class="" routerLinkActive="active" data-toggle="tooltip"
+            data-placement="right">
             <a routerLink="/admin/activities" title="Activities">
               <span class="nav-icon">
                 <i class="material-icons">people</i>
@@ -78,13 +73,8 @@
               <span class="nav-text">Activities</span>
             </a>
           </li>
-          <li
-            *ngIf="role == 'Official'"
-            class=""
-            routerLinkActive="active"
-            data-toggle="tooltip"
-            data-placement="right"
-          >
+          <li *ngIf="role == 'Official'" class="" routerLinkActive="active" data-toggle="tooltip"
+            data-placement="right">
             <a routerLink="/admin/tasks" title="Tasks">
               <span class="nav-icon">
                 <i class="material-icons">people</i>
@@ -92,12 +82,7 @@
               <span class="nav-text">Tasks</span>
             </a>
           </li>
-          <li
-            class=""
-            routerLinkActive="active"
-            data-toggle="tooltip"
-            data-placement="right"
-          >
+          <li class="" routerLinkActive="active" data-toggle="tooltip" data-placement="right">
             <a routerLink="/admin/profile" title="Profile">
               <span class="nav-icon">
                 <i class="material-icons">people</i>
@@ -105,13 +90,8 @@
               <span class="nav-text">Profile</span>
             </a>
           </li>
-          <li
-            *ngIf="role == 'Executive Director'"
-            class=""
-            routerLinkActive="active"
-            data-toggle="tooltip"
-            data-placement="right"
-          >
+          <li *ngIf="role == 'Executive Director'" class="" routerLinkActive="active" data-toggle="tooltip"
+            data-placement="right">
             <a routerLink="/admin/users" title="Users">
               <span class="nav-icon">
                 <i class="material-icons">people</i>
@@ -144,8 +124,7 @@
               </div>
             </div>
             <div class="clear txt hidden-folded p-x">
-              <span class="block _500 text-muted" style="color: #4bad29;"
-                >{{ role }}
+              <span class="block _500 text-muted" style="color: #4bad29;">{{ role }}
               </span>
               <div class="progress-xxs hide m-y-sm lt progress">
                 <div class="progress-bar warning" style="width: 15%;"></div>
@@ -158,36 +137,23 @@
             </a> -->
             <ul class="list-inline">
               <li>
-                <a class="dropdown-item" target="_blank"
-                  ><i class="material-icons">help</i> Help</a
-                >
+                <a class="dropdown-item" target="_blank"><i class="material-icons">help</i> Help</a>
               </li>
               <li>
-                <a class="dropdown-item" (click)="logout()"
-                  ><i class="material-icons">power_settings_new</i> Sign out</a
-                >
+                <a class="dropdown-item" (click)="logout()"><i class="material-icons">power_settings_new</i> Sign
+                  out</a>
               </li>
             </ul>
           </div>
           <span class="footer-icon" (click)="toggleMenu()">
             <i *ngIf="isClosedNav" class="menu-icon fa fa-chevron-left"></i>
-            <i
-              *ngIf="!isClosedNav"
-              class="fa fa-chevron-right"
-              aria-hidden="true"
-            ></i>
+            <i *ngIf="!isClosedNav" class="fa fa-chevron-right" aria-hidden="true"></i>
           </span>
         </div>
         <span style="font-size:12px" class="">
           powered by
-          <a
-            style="color:#2EA3F2"
-            href="http://www.digichan.co/"
-            target="_blank"
-          >
-            DIGICHAN</a
-          ></span
-        >
+          <a style="color:#2EA3F2" href="http://www.digichan.co/" target="_blank">
+            DIGICHAN</a></span>
       </div>
     </div>
   </div>

@@ -97,7 +97,7 @@ export class MiscHelperService {
     });
   }
 
-  calculateStatusPercentage(arr: Array<any>) {
+  calculateStatusPercentage(arr: Array<any>, percentage = true) {
     if (!arr || (arr && arr.length === 0)) {
       return 0;
     }
@@ -106,10 +106,7 @@ export class MiscHelperService {
     for (const iterator of arr) {
       for (const iterator2 of iterator.users_assigned) {
         total_users++;
-        console.log('sec1', iterator2);
         if (iterator2.status && iterator2.status === 'complete') {
-          console.log('sec2');
-
           success++;
         }
       }
@@ -118,7 +115,11 @@ export class MiscHelperService {
     if (success === 0) {
       return 0;
     } else {
-      return Math.round((success / total_users) * 100);
+      if (percentage) {
+        return Math.round((success / total_users) * 100);
+      } else {
+        return success;
+      }
     }
   }
   calculateStatusPercentageObject(obj: any) {
@@ -141,7 +142,7 @@ export class MiscHelperService {
       return Math.round((success / total_users) * 100);
     }
   }
-  calculateStatusPercentageTasks(obj: any) {
+  calculateStatusPercentageTasks(obj: any, percentage = true) {
     if (!obj) {
       return 0;
     }
@@ -158,8 +159,11 @@ export class MiscHelperService {
 
     if (success === 0) {
       return 0;
-    } else {
+    }
+    if (percentage) {
       return Math.round((success / total_users) * 100);
+    } else {
+      return success;
     }
   }
   removeSpaces(control: AbstractControl) {

@@ -14,18 +14,14 @@ export const routes: Routes = [
         loadChildren:
           'app/admin/dashboardmodule/dashboardmodule.module#DashboardmoduleModule'
       },
-      // {
-      //   path: 'assets',
-      //   loadChildren: 'app/admin/assetsmodule/assets.module#AssetsmoduleModule'
-      // },
-      // {
-      //   path: 'supplies',
-      //   loadChildren:
-      //     'app/admin/inventorymodule/inventory.module#InventorymoduleModule'
-      // },
+
       {
         path: 'users',
         loadChildren: 'app/admin/usersmodule/users.module#UsersmoduleModule'
+      },
+      {
+        path: 'reports',
+        loadChildren: 'app/admin/reportsmodule/reports.module#ReportsmoduleModule'
       },
       {
         path: 'projects',

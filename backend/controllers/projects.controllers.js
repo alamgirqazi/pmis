@@ -31,7 +31,16 @@ projectsController.getAll = async (req, res) => {
 
     for (let [index, iterator] of response_object.docs.entries()) {
       const res = await Objectives.find({ project_id: iterator._id });
+
+      const res1 = await Activities.find({ project_id: iterator._id });
+      const res2 = await Tasks.find({ project_id: iterator._id });
+      // response_object.docs[index].project_detail = res;
+      // response_object.docs[index].objective_detail = res1;
+      // response_object.docs[index].activity_detail = res2;
+
       response_object.docs[index].objective_detail = res;
+      response_object.docs[index].activity_detail = res1;
+      response_object.docs[index].task_detail = res2;
     }
 
     res.status(200).send({
