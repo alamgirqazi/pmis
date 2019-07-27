@@ -3,19 +3,61 @@ const Objectives = require('../models/tasks.model');
 const Projects = require('../models/projects.model');
 const Activities = require('../models/activities.model');
 const Tasks = require('../models/tasks.model');
+const Users = require('../models/user.model');
 
 statisticsController.getAllStatistics = async (req, res) => {
   try {
-    let query = {};
-    if (req.query.completeonly) {
-      query = { status: { $ne: 'complete' } };
+    let query = { status: { $ne: 'complete' } };
+    let incomplete_query = { status:'complete' };
+    // if (req.query.completeonly) {
+    //   query = { status: { $ne: 'complete' } };
+    // }
+
+
+    const projects_all = await Projects.count();
+    const projects_complete = await Projects.count(query);
+    const projects_incomplete = await Projects.count(incomplete_query);
+    
+    const projects = {
+      all: projects_all,
+      complete: projects_complete,
+      incomplete: projects_incomplete
     }
 
-    const projects = await Projects.count(query);
-    const objectives = await Objectives.count(query);
+    const Objectives_all = await Objectives.count();
+    const Objectives_complete = await Objectives.count(query);
+    const Objectives_incomplete = await Objectives.count(incomplete_query);
 
-    const activities = await Activities.count(query);
-    const tasks = await Tasks.count();
+    const objectives = {
+      all: Objectives_all,
+      complete: Objectives_complete,
+      incomplete: Objectives_incomplete
+    }
+
+    const Activities_all = await Activities.count();
+    const Activities_complete = await Activities.count(query);
+    const Activities_incomplete = await Activities.count(incomplete_query);
+
+    const activities = {
+      all: Activities_all,
+      complete: Activities_complete,
+      incomplete: Activities_incomplete
+    }
+  
+    const Tasks_all = await Tasks.count();
+    const Tasks_complete = await Tasks.count(query);
+    const Tasks_incomplete = await Tasks.count(incomplete_query);
+
+    const tasks = {
+      all: Tasks_all,
+      complete: Tasks_complete,
+      incomplete: Tasks_incomplete
+    }
+
+    // const objectives = await Objectives.count();
+
+    // const activities = await Activities.count();
+    // const tasks = await Tasks.count();
 
     responseObj = {
       projects,
@@ -51,6 +93,32 @@ statisticsController.getAllProjectsStatistics = async (req, res) => {
     res.status(200).send({
       code: 200,
       message: 'getAllProjectsStatistics',
+      data: responseObj
+    });
+  } catch (error) {
+    console.log('error', error);
+    return res.status(500).send(error);
+  }
+};
+statisticsController.getAllUsersStatistics = async (req, res) => {
+  try {
+    const ed = await Users.count({ role: 'Executive Director' });
+    const md = await Users.count({ role: 'Managing Director' });
+    const pm = await Users.count({ role: 'Project Manager' });
+    const pc = await Users.count({ role: 'Project Coordinator' });
+    const official = await Users.count({ role: 'Official' });
+    users = {
+      ed,md,pm,pc,official
+
+    }
+
+    responseObj = {
+      users
+    };
+
+    res.status(200).send({
+      code: 200,
+      message: 'getAllUsersStatistics',
       data: responseObj
     });
   } catch (error) {

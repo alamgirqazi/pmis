@@ -1,37 +1,16 @@
-import * as FileSaver from 'file-saver';
-import * as html2canvas from 'html2canvas';
-import * as jsPDF from 'jsPDF';
-import * as moment from 'moment';
-
-import {
-  AfterViewInit,
-  Component,
-  OnInit,
-  QueryList,
-  TemplateRef,
-  ViewChildren
-} from '@angular/core';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 
 import { ActivitiesApi } from './../../../sdk/services/custom/activities.service';
 import { AsideNavigationService } from '../../services/asideNavigation.Service';
 import { AuthService } from '../../../sdk/services/core/auth.service';
-import { Baseconfig } from '../../../sdk/base.config';
 import { DataTableDirective } from 'angular-datatables';
-import { DaterangepickerConfig } from 'ng2-daterangepicker';
-import { ExcelService } from '../../../sdk/services/custom/excel.service';
 import { MiscHelperService } from '../../../sdk/services/custom/misc.service';
 import { ObjectivesApi } from './../../../sdk/services/custom/objectives.service';
 import { ProjectsApi } from './../../../sdk/services/custom/projects.service';
-import { Router } from '@angular/router';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import { Subject } from 'rxjs/Subject';
 import { TasksApi } from './../../../sdk/services/custom/tasks.service';
-import { ToasterService } from 'angular2-toaster';
 import { UserApi } from './../../../sdk/services/custom/user.service';
-
-// import '../../../mainassets/plugins/datatables/css/dataTables.bootstrap.css';
 
 @Component({
   selector: 'app-reports',
@@ -41,10 +20,7 @@ import { UserApi } from './../../../sdk/services/custom/user.service';
 export class ReportsComponent implements OnInit {
   constructor(
     private slimScroll: SlimLoadingBarService,
-    private router: Router,
-    private http: HttpClient,
-    private excelService: ExcelService,
-    private daterangepickerOptions: DaterangepickerConfig,
+
     private projectsApi: ProjectsApi,
     private objectivesApi: ObjectivesApi,
     private activitiesApi: ActivitiesApi,
@@ -52,24 +28,8 @@ export class ReportsComponent implements OnInit {
     private miscHelperService: MiscHelperService,
     private authService: AuthService,
     private tasksApi: TasksApi,
-    private modalService: BsModalService,
-    private toasterService: ToasterService,
     private _asideNavigationService: AsideNavigationService
-  ) {
-    this.toasterService = toasterService;
-    const start = moment().subtract(12, 'months');
-    const end = moment();
-
-    this.daterangepickerOptions.skipCSS = true;
-
-    this.daterangepickerOptions.settings = {
-      locale: { format: 'DD-MM-YYYY' },
-      alwaysShowCalendars: true,
-      startDate: start,
-      endDate: end,
-      ranges: {}
-    };
-  }
+  ) {}
   selectedAppStatus: any = null;
   hiddenTblresult = [];
 

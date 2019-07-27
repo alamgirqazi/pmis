@@ -15,6 +15,7 @@ router.get(
   StatisticsController.getAllActivitiesStatistics
 );
 router.get('/getall/tasks', StatisticsController.getAllTasksStatistics);
+router.get('/getall/users', StatisticsController.getAllUsersStatistics);
 
 // router.get("/",checkAuth,ActivitiesController.sampleObjectives);
 module.exports = router;

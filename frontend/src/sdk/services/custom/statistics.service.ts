@@ -12,7 +12,7 @@ export class StatisticsApi {
   constructor(protected http: HttpClient, private authService: AuthService) {}
 
   public getAllStatistics(completeonly?): Observable<any> {
-    const url = Baseconfig.getPath() + `/statistics`;
+    const url = Baseconfig.getPath() + `/statistics/getall`;
 
     let params = new HttpParams();
 
@@ -23,6 +23,20 @@ export class StatisticsApi {
     return this.http
       .get(url, {
         params,
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
+  public getAllUsersStatistics(): Observable<any> {
+    const url = Baseconfig.getPath() + `/statistics/getall/users`;
+
+    return this.http
+      .get(url, {
         headers: new HttpHeaders().set(
           'Authorization',
           this.authService.getAccessTokenId()
