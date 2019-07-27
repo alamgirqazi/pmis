@@ -37,7 +37,22 @@ export class TasksApi {
         return response;
       });
   }
+  public getTasks(): Observable<any> {
+    const url = Baseconfig.getPath() + `/tasks`;
 
+    const params = new HttpParams().set('start', '0').set('length', '50'); // now it has aaa
+    return this.http
+      .get(url, {
+        params: params,
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
   public insertTasks(
     data,
     project_id,

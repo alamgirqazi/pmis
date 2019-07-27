@@ -14,6 +14,7 @@ import {
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import { ActivitiesApi } from './../../../sdk/services/custom/activities.service';
 import { AsideNavigationService } from '../../services/asideNavigation.Service';
 import { AuthService } from '../../../sdk/services/core/auth.service';
 import { Baseconfig } from '../../../sdk/base.config';
@@ -26,7 +27,9 @@ import { ProjectsApi } from './../../../sdk/services/custom/projects.service';
 import { Router } from '@angular/router';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import { Subject } from 'rxjs/Subject';
+import { TasksApi } from './../../../sdk/services/custom/tasks.service';
 import { ToasterService } from 'angular2-toaster';
+import { UserApi } from './../../../sdk/services/custom/user.service';
 
 // import '../../../mainassets/plugins/datatables/css/dataTables.bootstrap.css';
 
@@ -44,8 +47,11 @@ export class ReportsComponent implements OnInit {
     private daterangepickerOptions: DaterangepickerConfig,
     private projectsApi: ProjectsApi,
     private objectivesApi: ObjectivesApi,
+    private activitiesApi: ActivitiesApi,
+    private userApi: UserApi,
     private miscHelperService: MiscHelperService,
     private authService: AuthService,
+    private tasksApi: TasksApi,
     private modalService: BsModalService,
     private toasterService: ToasterService,
     private _asideNavigationService: AsideNavigationService
@@ -72,10 +78,6 @@ export class ReportsComponent implements OnInit {
   showTempTable = false;
 
   dtOptions = {};
-  dtOptions2 = {};
-  dtOptions3 = {};
-  dtOptions4 = {};
-  dtOptions5 = {};
   // dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   dtTrigger2: Subject<any> = new Subject();
@@ -86,43 +88,11 @@ export class ReportsComponent implements OnInit {
   navOpened;
   result;
   result2;
-  queryStatus = null;
-  queryType = null;
-  queryPriority = null;
-  modalRef: BsModalRef;
-  msgstatus;
-  newInstance = true;
-  mystatus;
-  selectedType;
-  selectedPriority;
-
-  selectedLocation = 'All';
-  selectedCategory = 'All';
-  selectedDisposed;
-
+  result3;
+  result4;
+  result5;
   role = 'User';
-  location;
 
-  assetList;
-  categoriesList;
-  isDisposedListing = [
-    {
-      id: 1,
-      name: 'All',
-      value: ''
-    },
-    {
-      id: 2,
-      name: 'Disposed',
-      value: 1
-    },
-    {
-      id: 3,
-      name: 'Not Disposed',
-      value: 0
-    }
-  ];
-  locationListing;
   changedApp;
   dateStartFormatted2;
   dateEndFormatted2;
@@ -197,7 +167,15 @@ export class ReportsComponent implements OnInit {
     if (item.type == 'objective') {
       this.getAll2(true);
     }
-    console.log('item');
+    if (item.type == 'activity') {
+      this.getAll3(true);
+    }
+    if (item.type == 'task') {
+      this.getAll4(true);
+    }
+    if (item.type == 'employee') {
+      this.getAll5(true);
+    }
   }
   resetAll() {
     this.isFetchingData = false;
@@ -342,6 +320,175 @@ export class ReportsComponent implements OnInit {
     );
   }
 
+  // Activity
+  getAll3(flag?) {
+    this.slimScroll.progress = 20;
+    this.slimScroll.start();
+    this.isFetchingData3 = false;
+
+    this.activitiesApi.getActivities().subscribe(
+      async data => {
+        if (flag) {
+          await this.miscHelperService.destroyDataTable(
+            'angulardatatable3',
+            this.dtElement
+          );
+        }
+        const { docs } = data['data'];
+        this.result3 = docs;
+
+        for (const iterator of this.result3) {
+          iterator.percentage =
+            this.miscHelperService.calculateStatusPercentage(
+              iterator.objective_detail
+            ) + '%';
+          iterator.objective_complete = this.miscHelperService.calculateStatusPercentage(
+            iterator.objective_detail,
+            false
+          );
+          iterator.activity_complete = this.miscHelperService.calculateStatusPercentage(
+            iterator.activity_detail,
+            false
+          );
+          iterator.task_complete = this.miscHelperService.calculateStatusPercentageTasks(
+            iterator.task_detail,
+            false
+          );
+          iterator.task_users = this.calculateTaskUsers(iterator.task_detail);
+          iterator.objectives_users = this.calculateTaskUsers(
+            iterator.objective_detail
+          );
+          iterator.activity_users = this.calculateTaskUsers(
+            iterator.activity_detail
+          );
+          iterator.task_names = this.returnNamesArray(
+            iterator.task_detail,
+            'task_name'
+          );
+          iterator.activity_names = this.returnNamesArray(
+            iterator.activity_detail,
+            'activity_name'
+          );
+          iterator.objective_names = this.returnNamesArray(
+            iterator.objective_detail,
+            'objective_name'
+          );
+        }
+        setTimeout(() => {
+          this.dtTrigger3.next();
+          setTimeout(() => {
+            this.isFetchingData3 = true;
+          }, 250);
+        }, 100);
+        this.slimScroll.complete();
+      },
+      error => {
+        this.slimScroll.complete();
+      }
+    );
+  }
+
+  // Task
+  getAll4(flag?) {
+    this.slimScroll.progress = 20;
+    this.slimScroll.start();
+    this.isFetchingData4 = false;
+
+    this.tasksApi.getTasks().subscribe(
+      async data => {
+        if (flag) {
+          await this.miscHelperService.destroyDataTable(
+            'angulardatatable4',
+            this.dtElement
+          );
+        }
+        const { docs } = data['data'];
+        this.result4 = docs;
+
+        for (const iterator of this.result4) {
+          iterator.percentage =
+            this.miscHelperService.calculateStatusPercentage(
+              iterator.objective_detail
+            ) + '%';
+          iterator.objective_complete = this.miscHelperService.calculateStatusPercentage(
+            iterator.objective_detail,
+            false
+          );
+          iterator.activity_complete = this.miscHelperService.calculateStatusPercentage(
+            iterator.activity_detail,
+            false
+          );
+          iterator.task_complete = this.miscHelperService.calculateStatusPercentageTasks(
+            iterator.task_detail,
+            false
+          );
+          iterator.task_users = this.calculateTaskUsers(iterator.task_detail);
+          iterator.objectives_users = this.calculateTaskUsers(
+            iterator.objective_detail
+          );
+          iterator.activity_users = this.calculateTaskUsers(
+            iterator.activity_detail
+          );
+          iterator.task_names = this.returnNamesArray(
+            iterator.task_detail,
+            'task_name'
+          );
+          iterator.activity_names = this.returnNamesArray(
+            iterator.activity_detail,
+            'activity_name'
+          );
+          iterator.objective_names = this.returnNamesArray(
+            iterator.objective_detail,
+            'objective_name'
+          );
+        }
+        setTimeout(() => {
+          this.dtTrigger4.next();
+          setTimeout(() => {
+            this.isFetchingData4 = true;
+          }, 250);
+        }, 100);
+        this.slimScroll.complete();
+      },
+      error => {
+        this.slimScroll.complete();
+      }
+    );
+  }
+  // Employee
+  getAll5(flag?) {
+    this.slimScroll.progress = 20;
+    this.slimScroll.start();
+    this.isFetchingData5 = false;
+
+    this.userApi.getUsers().subscribe(
+      async data => {
+        if (flag) {
+          await this.miscHelperService.destroyDataTable(
+            'angulardatatable5',
+            this.dtElement
+          );
+        }
+        console.log('data', data);
+        this.result5 = data.data['docs'];
+
+        // for (const iterator of this.result5) {
+
+        // }
+        setTimeout(() => {
+          this.dtTrigger5.next();
+          setTimeout(() => {
+            this.isFetchingData5 = true;
+          }, 250);
+        }, 100);
+        this.slimScroll.complete();
+      },
+      error => {
+        this.slimScroll.complete();
+      }
+    );
+  }
+
   returnNamesArray(arr, variable) {
     if (!arr || (arr && arr.length === 0)) {
       return [];
@@ -356,35 +503,6 @@ export class ReportsComponent implements OnInit {
   }
   configDatatable() {
     this.dtOptions = {
-      paging: true,
-      autoWidth: false,
-      lengthChange: false,
-      searching: true,
-      retrieve: true,
-      pageLength: 10,
-      ordering: true,
-      dom: 'Btp',
-      // Configure the buttons
-      buttons: ['csv', 'excel'],
-      // buttons: ['copy', 'print', 'csv', 'excel', 'pdf'],
-      columnDefs: [
-        {
-          targets: 0,
-          orderable: false
-        },
-        {
-          targets: 6,
-          orderable: false
-        },
-        {
-          targets: 7,
-          orderable: false
-        }
-      ],
-      pagingType: 'simple_numbers',
-      order: [[0, 'desc']]
-    };
-    this.dtOptions2 = {
       paging: true,
       autoWidth: false,
       lengthChange: false,

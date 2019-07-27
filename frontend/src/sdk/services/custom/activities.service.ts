@@ -38,6 +38,23 @@ export class ActivitiesApi {
       });
   }
 
+  public getActivities(): Observable<any> {
+    const url = Baseconfig.getPath() + `/activities`;
+
+    const params = new HttpParams().set('start', '0').set('length', '50'); // now it has aaa
+    return this.http
+      .get(url, {
+        params: params,
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
+
   public insertActivities(data, project_id, objective_id): Observable<any> {
     const url = Baseconfig.getPath() + '/activities/insertmany';
     data['project_id'] = project_id;
