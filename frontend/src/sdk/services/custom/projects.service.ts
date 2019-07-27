@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { AuthService } from '../core/auth.service';
 import { Baseconfig } from '../../base.config';
@@ -36,6 +36,23 @@ export class ProjectsApi {
 
     return this.http
       .get(url, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
+  public getProjects(): Observable<any> {
+    const url = Baseconfig.getPath() + `/projects`;
+
+    let params = new HttpParams().set('start', '0').set('length', '50'); // now it has aaa
+
+    return this.http
+      .get(url, {
+        params: params,
         headers: new HttpHeaders().set(
           'Authorization',
           this.authService.getAccessTokenId()

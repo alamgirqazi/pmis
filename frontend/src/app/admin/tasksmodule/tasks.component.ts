@@ -28,23 +28,6 @@ import { ToasterService } from 'angular2-toaster';
 
 // import '../../../mainassets/plugins/datatables/css/dataTables.bootstrap.css';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
@@ -184,8 +167,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
               if (filter && filter.length > 0) {
                 iterator.selected_user_assigned = filter[0];
               }
-              console.log('iterator', iterator);
-              console.log('stats', iterator.status);
+
               if (iterator.status === 'complete') {
                 iterator.percentage = 100;
               } else {

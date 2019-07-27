@@ -73,11 +73,11 @@
                                               title="Assets Backup">
                                               Export to PDF
                                             </button> -->
-                                            <button (click)="
+                                            <!-- <button (click)="
                                                 exportExcel(result, true)
                                               " class="btn btn-green round" type="button" title="Excel">
                                               Export to Excel
-                                            </button>
+                                            </button> -->
                                           </div>
                                         </div>
                                       </div>
@@ -133,10 +133,12 @@
                                                 </td>
 
                                                 <td>
-                                                  <div *ngFor="let obj of data.objective_detail">
+                                                  {{data.objective_names.toString()}}
+
+                                                  <!-- <div *ngFor="let obj of data.objective_detail">
                                                     {{obj.objective_name}}
 
-                                                  </div>
+                                                  </div> -->
                                                 </td>
                                                 <td>
                                                   {{data.objective_detail.length}}
@@ -147,10 +149,12 @@
 
                                                 </td>
                                                 <td>
-                                                  <div *ngFor="let obj of data.activity_detail">
+                                                  <!-- <div *ngFor="let obj of data.activity_detail">
                                                     {{obj.activity_name}}
 
-                                                  </div>
+                                                  </div> -->
+                                                  {{data.activity_names.toString()}}
+
                                                 </td>
                                                 <td>
                                                   {{data.activity_detail.length}}
@@ -161,11 +165,9 @@
 
                                                 </td>
                                                 <td>
-
-                                                  <div *ngFor="let task of data.task_detail">
-                                                    {{task.task_name}}
-
-                                                  </div>
+                                                  <!-- <span *ngFor="let task of data.task_detail">{{task.task_name}},
+                                                  </span> -->
+                                                  {{data.task_names.toString()}}
                                                 </td>
                                                 <td>
                                                   {{data.task_detail.length}}
@@ -177,24 +179,15 @@
                                                 </td>
 
                                                 <td>
-                                                  <div *ngFor="let user of data.task_users">
-                                                    {{user }}
 
-                                                  </div>
+                                                  {{data.task_users.toString() }}
+                                                </td>
+                                                <td>
+                                                  {{data.activity_users.toString() }}
 
                                                 </td>
                                                 <td>
-                                                  <div *ngFor="let user of data.activity_users">
-                                                    {{user }}
-
-                                                  </div>
-
-                                                </td>
-                                                <td>
-                                                  <div *ngFor="let user of data.objectives_users">
-                                                    {{user }}
-
-                                                  </div>
+                                                  {{data.objectives_users.toString() }}
 
                                                 </td>
 
@@ -330,7 +323,7 @@
                                                 </div> -->
                                             </div>
                                           </footer>
-                                          <!-- </div> -->
+                                          <!-- </td> -->
                                         </div>
                                       </div>
                                     </div>
