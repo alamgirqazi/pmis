@@ -67,6 +67,11 @@ export class DashboardmoduleComponent implements OnInit, AfterViewInit {
   _chart: Highcharts.ChartObject;
   ngOnInit() {
     const { role } = this.authService.getAccessTokenInfo();
+    if (role === 'Executive Director') {
+      console.log('nothing');
+    } else {
+      this.router.navigate(['/admin/profile']);
+    }
     // if (Role == 'User') {
     //   this.router.navigate(['/admin/assets']);
     // }

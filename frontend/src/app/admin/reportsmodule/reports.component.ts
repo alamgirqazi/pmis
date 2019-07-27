@@ -7,6 +7,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { MiscHelperService } from '../../../sdk/services/custom/misc.service';
 import { ObjectivesApi } from './../../../sdk/services/custom/objectives.service';
 import { ProjectsApi } from './../../../sdk/services/custom/projects.service';
+import { Router } from '@angular/router';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import { Subject } from 'rxjs/Subject';
 import { TasksApi } from './../../../sdk/services/custom/tasks.service';
@@ -28,6 +29,7 @@ export class ReportsComponent implements OnInit {
     private miscHelperService: MiscHelperService,
     private authService: AuthService,
     private tasksApi: TasksApi,
+    private router: Router,
     private _asideNavigationService: AsideNavigationService
   ) {}
   selectedAppStatus: any = null;
@@ -110,8 +112,12 @@ export class ReportsComponent implements OnInit {
     this.configDatatable();
     this.selectedAppStatus = this.allStatuses[0];
     this.getAll();
-    const { Role } = this.authService.getAccessTokenInfo();
-
+    const { role } = this.authService.getAccessTokenInfo();
+    if (role === 'Executive Director') {
+      console.log('nothing');
+    } else {
+      this.router.navigate(['/admin/profile']);
+    }
     this._asideNavigationService.currentMessage.subscribe(message => {
       this.navOpened = message;
       // console.log('message: ', message);
