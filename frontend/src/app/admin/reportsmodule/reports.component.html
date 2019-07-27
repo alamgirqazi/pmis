@@ -7,6 +7,63 @@
           <div class="row-body scrollable hover">
             <div class="row-inner">
               <div class="row-col">
+
+                <!-- <! Aside -> -->
+                <div class="col-xs modal fade aside aside-sm  b-r width-300 white" id="list">
+                  <!-- List Style Leftside  -->
+                  <div class="white bg b-b toptoolbar">
+                    <!-- inner top navbar start -->
+                    <div class="navbar no-radius">
+                      <!-- link and dropdown -->
+                      <ul class="nav navbar-nav list-top-navbar">
+
+                        <li class="nav-item">
+                          <!-- <a class="nav-link btn btn-green" data-toggle="modal"
+                            (click)="openModal(appinfomodal,null,true)">
+                            <i class="material-icons">add</i> Add IP
+                          </a> -->
+                        </li>
+                        <!-- <li class="nav-item dropdown">
+                          <a class="nav-link btn btn-line" id="jobs-filter"><i class="fa fa-search"></i> &nbsp;Search
+                            <i class="material-icons text-danger search_icon_remove hide" aria-hidden="true" onclick="jobfilterreset();">clear</i>
+                          </a>
+                        </li> -->
+                      </ul>
+                    </div>
+                    <!-- inner top navbar end -->
+                  </div>
+                  <!-- Items -->
+                  <div class="list">
+                    <ng-template ngFor let-item [ngForOf]="allStatuses" let-i="index">
+
+                      <div class="inner-list">
+
+                        <div class="list-item" [ngClass]="{'active': item.id == selectedAppStatus?.id}"
+                          (click)="statusSelected(item)">
+
+                          <div class="list-item-wrapper">
+                            <div class="list-left">
+                              <i class="material-icons text-success">lense</i>
+                            </div>
+                            <div class="list-body">
+                              <div class="item-title">
+                                <a class="_500">{{item.name}}</a>
+                              </div>
+                            </div>
+                          </div>
+
+
+
+                        </div>
+                      </div>
+
+                    </ng-template>
+
+                  </div>
+                  <!--- End item -->
+
+                </div>
+
                 <div class="col-xs hidden-lg-up show" id="detail">
                   <div class="row-col">
                     <div class="col-lg col-md col-sm col-xs b-r">
@@ -18,7 +75,7 @@
                                 <ul class="nav navbar-nav list-top-navbar">
                                   <li class="nav-item">
                                     <h1 class="navbar-item-title">
-                                      REPORTS by Projects
+                                      REPORTS
                                     </h1>
                                   </li>
 
@@ -38,7 +95,7 @@
                             <div class="row-inner">
                               <div class="p-a">
                                 <div class="row">
-                                  <div class="col-xs-12">
+                                  <div class="col-xs-12" [hidden]="!isFetchingData">
                                     <div class="table-box box visible">
                                       <div class="box-header p-8">
                                         <div class="row">
@@ -48,36 +105,11 @@
                                             </h2>
                                           </div>
                                           <div class="col-md-4">
-                                            <!-- <div class="form-group" style="display: inline-block;">
-                                              <div class="" daterangepicker (selected)="
-                                                  selectedDate($event)
-                                                ">
-                                                <span class="form-control uneditable-input" name="daterange">
-                                                  <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                                                  &nbsp;
-                                                  {{
-                                                    dateStart
-                                                      | date: 'dd-MM-yyyy'
-                                                  }}
-                                                  -
-                                                  {{
-                                                    dateEnd | date: 'dd-MM-yyyy'
-                                                  }}
-                                                </span>
-                                              </div>
-                                            </div> -->
+
                                           </div>
                                           <div class="col-md-4 text-right">
                                             <li class="nav-item dropdown"></li>
-                                            <!-- <button (click)="genPDF()" class="btn btn-green round" type="button"
-                                              title="Assets Backup">
-                                              Export to PDF
-                                            </button> -->
-                                            <!-- <button (click)="
-                                                exportExcel(result, true)
-                                              " class="btn btn-green round" type="button" title="Excel">
-                                              Export to Excel
-                                            </button> -->
+
                                           </div>
                                         </div>
                                       </div>
@@ -87,7 +119,6 @@
                                           id="angulardatatable">
                                           <thead class="thead-light">
                                             <tr>
-                                              <!-- class="loadfreeth" -->
                                               <th>Project Name</th>
                                               <th>Percentage</th>
                                               <th>Status</th>
@@ -135,10 +166,7 @@
                                                 <td>
                                                   {{data.objective_names.toString()}}
 
-                                                  <!-- <div *ngFor="let obj of data.objective_detail">
-                                                    {{obj.objective_name}}
 
-                                                  </div> -->
                                                 </td>
                                                 <td>
                                                   {{data.objective_detail.length}}
@@ -149,10 +177,6 @@
 
                                                 </td>
                                                 <td>
-                                                  <!-- <div *ngFor="let obj of data.activity_detail">
-                                                    {{obj.activity_name}}
-
-                                                  </div> -->
                                                   {{data.activity_names.toString()}}
 
                                                 </td>
@@ -165,8 +189,6 @@
 
                                                 </td>
                                                 <td>
-                                                  <!-- <span *ngFor="let task of data.task_detail">{{task.task_name}},
-                                                  </span> -->
                                                   {{data.task_names.toString()}}
                                                 </td>
                                                 <td>
@@ -204,127 +226,142 @@
                                           </tbody>
                                         </table>
 
-                                        <div [hidden]="!showTempTable">
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                          <br />
-                                        </div>
-                                        <!-- [hidden]="!showTempTable" -->
-                                        <div [hidden]="!showTempTable" id="secrettable">
-                                          <span>
-                                            <img style="width:100px;height:50px;padding:10px"
-                                              src="./assets/images/irmlogo.png" alt="IRM" />
-                                            <span style="text-align: center;">
-                                              <h5 style="text-align: center;    font-size: 2.25rem;
-                                              ">
-                                                Assets Audit Report
-                                              </h5>
-                                            </span>
-                                          </span>
-                                          <h6 style="padding:10px">
-                                            Date:
-                                            <span>{{
-                                              returnTodayDate
-                                                | date: 'dd-MM-yyyy'
-                                            }}</span>
-                                          </h6>
-                                          <br />
-                                          <br />
-                                          <div class="box table-box-body dataTables_wrapper">
-                                            <table
-                                              class="table b-l-0 route-table m-b-0 table-hover table-striped table-bordered">
-                                              <thead>
-                                                <tr>
-                                                  <!-- let head of (hiddenTblresult[0] -->
 
-                                                  <th *ngFor="
-                                                      let head of hiddenTblresult[0]
-                                                        | keys
-                                                    ">
-                                                    {{ head }}
-                                                  </th>
-                                                </tr>
-                                              </thead>
-                                              <tbody>
-                                                <tr *ngFor="
-                                                    let item of hiddenTblresult;
-                                                    let i = index
-                                                  " [class.colorbg]="i % 2 == 0">
-                                                  <td *ngFor="
-                                                      let list of item | keys
-                                                    ">
-                                                    {{ item[list] }}
-                                                  </td>
-                                                </tr>
-                                              </tbody>
-                                            </table>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-xs-12" [hidden]="!isFetchingData2">
+                                    <div class="table-box box visible">
+                                      <div class="box-header p-8">
+                                        <div class="row">
+                                          <div class="col-md-4">
+                                            <h2 class="nowrap l-h" style="inline-block">
+                                              Objective Wise Report
+                                            </h2>
                                           </div>
-                                          <footer>
-                                            <br />
-                                            <hr />
-                                            <br />
-                                            <div class="row" style="padding: 10px">
-                                              <div class="col-md-8">
-                                                IRM Complex # 7, Sunrise Avenue,
-                                                <br />
-                                                Park Road near COMSATS
-                                                University, <br />
+                                          <div class="col-md-4">
 
-                                                Islamabad, Pakistan.<br />
-                                              </div>
-                                              <div class="col-md-4 text-right">
-                                                Tel: +92 51 8742201-7 <br />
-                                                Fax: +92 51 8742208
-                                              </div>
-                                            </div>
-                                            <div class="row" style="padding: 10px">
-                                              <div class="col-md-12 text-center">
-                                                IRM is registered under section
-                                                42 of Companies Ordinance 1984
-                                                <br />
-                                                www.irm.edu.pk
-                                              </div>
-                                              <!-- <div
-                                                  class="col-md-4 text-right"
-                                                >
-                                                  www.irm.edu.pk
-                                                </div> -->
-                                            </div>
-                                          </footer>
-                                          <!-- </td> -->
+                                          </div>
+                                          <div class="col-md-4 text-right">
+                                            <li class="nav-item dropdown"></li>
+
+                                          </div>
                                         </div>
+                                      </div>
+                                      <div class="table-box-body" id="datatable" [hidden]="!isFetchingData2">
+                                        <table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger2"
+                                          class="table b-l-0 route-table m-b-0 table-hover table-striped table-bordered"
+                                          id="angulardatatable2">
+                                          <thead class="thead-light">
+                                            <tr>
+                                              <th>Objective Name</th>
+                                              <th>Percentage</th>
+                                              <th>Status</th>
+                                              <th>Project Name</th>
+                                              <th>Start Date</th>
+                                              <th>End Date</th>
+                                              <th>Objectives</th>
+                                              <th>Total # of Objectives</th>
+                                              <th>Completed # of Objectives</th>
+                                              <th>Activities</th>
+                                              <th>Total # of Activities</th>
+                                              <th>Completed # of Activities</th>
+                                              <th>Tasks</th>
+                                              <th>Total # of Tasks</th>
+                                              <th>Completed # of Tasks</th>
+                                              <th>Officials</th>
+                                              <th>Project Coordinators</th>
+                                              <th>Project Managers</th>
+
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <ng-template ngFor let-data [ngForOf]="result2" let-i="index">
+                                              <!-- [class.odd]="" -->
+                                              <tr role="row" class="">
+                                                <td>
+                                                  {{ data.objective_name }}
+                                                </td>
+                                                <td>
+                                                  {{ data.percentage }}
+                                                </td>
+                                                <td>
+                                                  {{ data.status }}
+                                                </td>
+                                                <td>
+                                                  {{ data.project_detail.name }}
+                                                </td>
+                                                <td>
+                                                  {{ data.start_date | date }}
+                                                </td>
+                                                <td>
+                                                  {{ data.end_date | date }}
+                                                </td>
+
+                                                <td>
+                                                  <!-- {{data.objective_names.toString()}} -->
+
+
+                                                </td>
+                                                <td>
+                                                  <!-- {{data.objective_detail.length}} -->
+
+                                                </td>
+                                                <td>
+                                                  <!-- {{data.objective_complete}} -->
+
+                                                </td>
+                                                <td>
+                                                  {{data.activity_names.toString()}}
+
+                                                </td>
+                                                <td>
+                                                  <!-- {{data.activity_detail.length}} -->
+
+                                                </td>
+                                                <td>
+                                                  {{data.activity_complete}}
+
+                                                </td>
+                                                <td>
+                                                  {{data.task_names.toString()}}
+                                                </td>
+                                                <td>
+                                                  <!-- {{data.task_detail.length}} -->
+
+                                                </td>
+                                                <td>
+                                                  {{data.task_complete}}
+
+                                                </td>
+
+                                                <td>
+
+                                                  <!-- {{data.task_users.toString() }} -->
+                                                </td>
+                                                <td>
+                                                  <!-- {{data.activity_users.toString() }} -->
+
+                                                </td>
+                                                <td>
+                                                  <!-- {{data.objectives_users.toString() }} -->
+
+                                                </td>
+
+
+                                              </tr>
+                                              <tr *ngIf="
+                                                  result == 0 && isFetchingData
+                                                ">
+                                                <td colspan="12" class="no-data-available">
+                                                  Data is not Available.
+                                                </td>
+                                              </tr>
+                                            </ng-template>
+                                          </tbody>
+                                        </table>
+
+
                                       </div>
                                     </div>
                                   </div>

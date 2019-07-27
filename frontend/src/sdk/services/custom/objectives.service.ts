@@ -65,7 +65,22 @@ export class ObjectivesApi {
         return response;
       });
   }
+  public getObjectives(): Observable<any> {
+    const url = Baseconfig.getPath() + `/objectives`;
 
+    const params = new HttpParams().set('start', '0').set('length', '50'); // now it has aaa
+    return this.http
+      .get(url, {
+        params: params,
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
   public updateObjectivesStatus(_id: any, data?: any): Observable<any> {
     const url = Baseconfig.getPath() + '/objectives/' + _id;
     return this.http

@@ -4,7 +4,6 @@ const Projects = require('../models/projects.model');
 const Activities = require('../models/activities.model');
 
 objectivesController.getAll = async (req, res) => {
-  let objectives;
   try {
     const { start, length, user_id, project_id } = req.query;
 

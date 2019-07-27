@@ -48,7 +48,7 @@ export class ProjectsApi {
   public getProjects(): Observable<any> {
     const url = Baseconfig.getPath() + `/projects`;
 
-    let params = new HttpParams().set('start', '0').set('length', '50'); // now it has aaa
+    const params = new HttpParams().set('start', '0').set('length', '50'); // now it has aaa
 
     return this.http
       .get(url, {

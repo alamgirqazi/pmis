@@ -21,6 +21,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { DaterangepickerConfig } from 'ng2-daterangepicker';
 import { ExcelService } from '../../../sdk/services/custom/excel.service';
 import { MiscHelperService } from '../../../sdk/services/custom/misc.service';
+import { ObjectivesApi } from './../../../sdk/services/custom/objectives.service';
 import { ProjectsApi } from './../../../sdk/services/custom/projects.service';
 import { Router } from '@angular/router';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
@@ -42,6 +43,7 @@ export class ReportsComponent implements OnInit {
     private excelService: ExcelService,
     private daterangepickerOptions: DaterangepickerConfig,
     private projectsApi: ProjectsApi,
+    private objectivesApi: ObjectivesApi,
     private miscHelperService: MiscHelperService,
     private authService: AuthService,
     private modalService: BsModalService,
@@ -69,13 +71,21 @@ export class ReportsComponent implements OnInit {
   dateStartFormatted;
   showTempTable = false;
 
-  allStatuses;
   dtOptions = {};
+  dtOptions2 = {};
+  dtOptions3 = {};
+  dtOptions4 = {};
+  dtOptions5 = {};
   // dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
+  dtTrigger2: Subject<any> = new Subject();
+  dtTrigger3: Subject<any> = new Subject();
+  dtTrigger4: Subject<any> = new Subject();
+  dtTrigger5: Subject<any> = new Subject();
   tabList = [false, false, false];
   navOpened;
   result;
+  result2;
   queryStatus = null;
   queryType = null;
   queryPriority = null;
@@ -119,12 +129,56 @@ export class ReportsComponent implements OnInit {
   dateStart;
   dateEnd;
   isFetchingData = false;
+  isFetchingData2 = false;
+  isFetchingData3 = false;
+  isFetchingData4 = false;
+  isFetchingData5 = false;
   formData;
+  allStatuses = [
+    {
+      id: 1,
+      name: 'Projects wise',
+      type: 'project',
+      icon: 'icon-gray'
+    },
+    {
+      id: 2,
+      name: 'Objectives wise',
+      status: 'Unblocked',
+      type: 'objective',
+
+      icon: 'text-success'
+    },
+    {
+      id: 3,
+      name: 'Activities wise',
+      status: 'Blocked',
+      type: 'activity',
+
+      icon: 'text-danger'
+    },
+    {
+      id: 4,
+      name: 'Tasks wise',
+      type: 'task',
+
+      status: 'Blocked',
+      icon: 'text-danger'
+    },
+    {
+      id: 5,
+      name: 'Employee wise',
+      type: 'employee',
+      status: 'Blocked',
+      icon: 'text-danger'
+    }
+  ];
   @ViewChildren(DataTableDirective)
   dtElement: QueryList<DataTableDirective>;
 
   ngOnInit() {
     this.configDatatable();
+    this.selectedAppStatus = this.allStatuses[0];
     this.getAll();
     const { Role } = this.authService.getAccessTokenInfo();
 
@@ -134,72 +188,23 @@ export class ReportsComponent implements OnInit {
       // console.log('this.navOpened: ', this.navOpened);
     });
   }
-
-  openConfirmationTab(template: TemplateRef<any>, data, mystatus?, msgstatus?) {
-    this.msgstatus = msgstatus;
-    this.mystatus = mystatus;
-    this.changedApp = data;
-    this.modalRef = this.modalService.show(template, { class: 'modal-xs' });
-  }
-  openModal(template: TemplateRef<any>, data, newInstance) {
-    console.log('data', data);
-    this.newInstance = newInstance;
-    this.formData = data;
-    const config = {
-      backdrop: true,
-      ignoreBackdropClick: true
-      // class: 'gray modal-lg'
-    };
-    this.modalRef = this.modalService.show(template, config);
-  }
-
-  generateAssetsBackup() {
-    // this.assetsApi.getAssetsEverything().subscribe(
-    //   async response => {
-    //     console.log('response->', response);
-    //     setTimeout(() => {
-    //       this.exportExcel(response.data);
-    //     }, 1000);
-    //     this.slimScroll.complete();
-    //   },
-    //   error => {
-    //     console.log('error', error);
-    //     // this.modalRef.hide();
-    //     this.slimScroll.complete();
-    //   }
-    // );
-  }
-
-  returnMonthsDifference(d1, d2, bothmonths = false) {
-    const date1 = new Date(d1); //Remember, months are 0 based in JS
-    const date2 = new Date(d2);
-    const year1 = date1.getFullYear();
-    const year2 = date2.getFullYear();
-    let month1 = date1.getMonth();
-    let month2 = date2.getMonth();
-    if (month1 === 0) {
-      //Have to take into account
-      month1++;
-      month2++;
+  statusSelected(item) {
+    this.selectedAppStatus = item;
+    this.resetAll();
+    if (item.type == 'project') {
+      this.getAll(true);
     }
-    let numberOfMonths;
-
-    // 1.If you want just the number of the months between the two dates excluding both month1 and month2
-
-    // numberOfMonths = (year2 - year1) * 12 + (month2 - month1) - 1;
-
-    // 2.If you want to include either of the months
-    if (!bothmonths) {
-      numberOfMonths = (year2 - year1) * 12 + (month2 - month1);
+    if (item.type == 'objective') {
+      this.getAll2(true);
     }
-
-    // 3.If you want to include both of the months
-    if (bothmonths) {
-      numberOfMonths = (year2 - year1) * 12 + (month2 - month1) + 1;
-    }
-    // numberOfMonths = (year2 - year1) * 12 + (month2 - month1) + 1;
-
-    return numberOfMonths;
+    console.log('item');
+  }
+  resetAll() {
+    this.isFetchingData = false;
+    this.isFetchingData2 = false;
+    this.isFetchingData3 = false;
+    this.isFetchingData4 = false;
+    this.isFetchingData5 = false;
   }
   getAll(flag?, closemodal?) {
     this.slimScroll.progress = 20;
@@ -216,6 +221,7 @@ export class ReportsComponent implements OnInit {
         }
         const { docs } = data['data'];
         this.result = docs;
+
         for (const iterator of this.result) {
           iterator.percentage =
             this.miscHelperService.calculateStatusPercentage(
@@ -269,6 +275,72 @@ export class ReportsComponent implements OnInit {
       }
     );
   }
+  getAll2(flag?) {
+    this.slimScroll.progress = 20;
+    this.slimScroll.start();
+    this.isFetchingData2 = false;
+
+    this.objectivesApi.getObjectives().subscribe(
+      async data => {
+        if (flag) {
+          await this.miscHelperService.destroyDataTable(
+            'angulardatatable2',
+            this.dtElement
+          );
+        }
+        const { docs } = data['data'];
+        this.result2 = docs;
+
+        for (const iterator of this.result2) {
+          iterator.percentage =
+            this.miscHelperService.calculateStatusPercentage(
+              iterator.objective_detail
+            ) + '%';
+          iterator.objective_complete = this.miscHelperService.calculateStatusPercentage(
+            iterator.objective_detail,
+            false
+          );
+          iterator.activity_complete = this.miscHelperService.calculateStatusPercentage(
+            iterator.activity_detail,
+            false
+          );
+          iterator.task_complete = this.miscHelperService.calculateStatusPercentageTasks(
+            iterator.task_detail,
+            false
+          );
+          iterator.task_users = this.calculateTaskUsers(iterator.task_detail);
+          iterator.objectives_users = this.calculateTaskUsers(
+            iterator.objective_detail
+          );
+          iterator.activity_users = this.calculateTaskUsers(
+            iterator.activity_detail
+          );
+          iterator.task_names = this.returnNamesArray(
+            iterator.task_detail,
+            'task_name'
+          );
+          iterator.activity_names = this.returnNamesArray(
+            iterator.activity_detail,
+            'activity_name'
+          );
+          iterator.objective_names = this.returnNamesArray(
+            iterator.objective_detail,
+            'objective_name'
+          );
+        }
+        setTimeout(() => {
+          this.dtTrigger2.next();
+          setTimeout(() => {
+            this.isFetchingData2 = true;
+          }, 250);
+        }, 100);
+        this.slimScroll.complete();
+      },
+      error => {
+        this.slimScroll.complete();
+      }
+    );
+  }
 
   returnNamesArray(arr, variable) {
     if (!arr || (arr && arr.length === 0)) {
@@ -289,7 +361,36 @@ export class ReportsComponent implements OnInit {
       lengthChange: false,
       searching: true,
       retrieve: true,
-      pageLength: 25,
+      pageLength: 10,
+      ordering: true,
+      dom: 'Btp',
+      // Configure the buttons
+      buttons: ['csv', 'excel'],
+      // buttons: ['copy', 'print', 'csv', 'excel', 'pdf'],
+      columnDefs: [
+        {
+          targets: 0,
+          orderable: false
+        },
+        {
+          targets: 6,
+          orderable: false
+        },
+        {
+          targets: 7,
+          orderable: false
+        }
+      ],
+      pagingType: 'simple_numbers',
+      order: [[0, 'desc']]
+    };
+    this.dtOptions2 = {
+      paging: true,
+      autoWidth: false,
+      lengthChange: false,
+      searching: true,
+      retrieve: true,
+      pageLength: 10,
       ordering: true,
       dom: 'Btp',
       // Configure the buttons
@@ -314,10 +415,6 @@ export class ReportsComponent implements OnInit {
     };
   }
 
-  decline() {
-    this.modalRef.hide();
-  }
-
   calculateTaskUsers(arr) {
     if (!arr || (arr && arr.length === 0)) {
       return 0;
@@ -334,45 +431,14 @@ export class ReportsComponent implements OnInit {
     return unique;
   }
   getUnique(array) {
-    var uniqueArray = [];
+    const uniqueArray = [];
 
     // Loop through array values
-    for (var value of array) {
+    for (const value of array) {
       if (uniqueArray.indexOf(value) === -1) {
         uniqueArray.push(value);
       }
     }
     return uniqueArray;
-  }
-
-  get returnTodayDate() {
-    return new Date(Date.now());
-  }
-
-  outputAndReload() {
-    // this.configDatatable(true);
-
-    this.modalRef.hide();
-  }
-  exportExcel(data?, msg?) {
-    // if (data) {
-    //   this.excelService.exportAsExcelFile(data, 'assets');
-    // } else {
-    //   const mydata = JSON.parse(JSON.stringify(this.result));
-    //   mydata.forEach(element => {
-    //     delete element.is_deleted;
-    //     delete element._id;
-    //     delete element.__v;
-    //   });
-    // let no</any>wdate = new Date(Date.now());
-    const nowdate = moment().format('LLLL'); // "Invalid date"
-
-    let text;
-    if (msg) {
-      text = `assets-report-${nowdate}`;
-    } else {
-    }
-    text = `assets-backup-${nowdate}`;
-    this.excelService.exportAsExcelFile(data, text);
   }
 }
