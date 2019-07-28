@@ -75,7 +75,6 @@ export class UserApi {
       JSON.stringify({ value: '', regex: false })
     );
 
-    console.log('params', params);
     return this.http
       .get(url, {
         headers: new HttpHeaders().set(
@@ -83,6 +82,20 @@ export class UserApi {
           this.authService.getAccessTokenId()
         ),
         params: params
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
+  public getUsersStatistics(): Observable<any> {
+    const url = Baseconfig.getPath() + `/users/statistics/detail`;
+
+    return this.http
+      .get(url, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
       })
       .map((response: any) => {
         return response;

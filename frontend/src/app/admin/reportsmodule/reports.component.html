@@ -121,6 +121,7 @@
                                           id="angulardatatable">
                                           <thead class="thead-light">
                                             <tr>
+                                              <th>#</th>
                                               <th>Project Name</th>
                                               <th>Percentage</th>
                                               <th>Status</th>
@@ -146,6 +147,9 @@
                                             <ng-template ngFor let-data [ngForOf]="result" let-i="index">
                                               <!-- [class.odd]="" -->
                                               <tr role="row" class="">
+                                                <td>
+                                                  {{ i+1 }}
+                                                </td>
                                                 <td>
                                                   {{ data.name }}
                                                 </td>
@@ -551,7 +555,7 @@
                                         <div class="row">
                                           <div class="col-md-4">
                                             <h2 class="nowrap l-h" style="inline-block">
-                                              Tasks Wise Report
+                                              User Wise Report
                                             </h2>
                                           </div>
                                           <div class="col-md-4">
@@ -569,24 +573,16 @@
                                           id="angulardatatable5">
                                           <thead class="thead-light">
                                             <tr>
-                                              <th>Employee Name</th>
+                                              <th>#</th>
+                                              <th>User Name</th>
                                               <th>Role</th>
                                               <th>Status</th>
-                                              <th>Project Name</th>
-                                              <th>Start Date</th>
-                                              <th>End Date</th>
-                                              <th>Objectives</th>
-                                              <th>Total # of Objectives</th>
-                                              <th>Completed # of Objectives</th>
-                                              <th>Activities</th>
-                                              <th>Total # of Activities</th>
-                                              <th>Completed # of Activities</th>
-                                              <th>Tasks</th>
-                                              <th>Total # of Tasks</th>
-                                              <th>Completed # of Tasks</th>
-                                              <th>Officials</th>
-                                              <th>Project Coordinators</th>
-                                              <th>Project Managers</th>
+                                              <th>Objectives Total</th>
+                                              <th>Objectives Completed</th>
+                                              <th>Activities Total</th>
+                                              <th>Activities Completed</th>
+                                              <th>Tasks Total</th>
+                                              <th>Tasks Completed</th>
 
                                             </tr>
                                           </thead>
@@ -594,6 +590,9 @@
                                             <ng-template ngFor let-data [ngForOf]="result5" let-i="index">
                                               <!-- [class.odd]="" -->
                                               <tr role="row" class="">
+                                                <td>
+                                                  {{ i+1 }}
+                                                </td>
                                                 <td>
                                                   {{ data.name }}
                                                 </td>
@@ -604,63 +603,22 @@
                                                   {{ data.status }}
                                                 </td>
                                                 <td>
-                                                  {{ data?.project_detail?.name }}
+                                                  {{ data.objectives.length }}
                                                 </td>
                                                 <td>
-                                                  {{ data.start_date | date }}
+                                                  {{ data.objectives_complete }}
                                                 </td>
                                                 <td>
-                                                  {{ data.end_date | date }}
-                                                </td>
-
-                                                <td>
-                                                  <!-- {{data.objective_names.toString()}} -->
-
-
+                                                  {{ data.activities.length }}
                                                 </td>
                                                 <td>
-                                                  <!-- {{data.objective_detail.length}} -->
-
+                                                  {{ data.activities_complete }}
                                                 </td>
                                                 <td>
-                                                  <!-- {{data.objective_complete}} -->
-
+                                                  {{ data.tasks.length }}
                                                 </td>
                                                 <td>
-                                                  {{data?.activity_names?.toString()}}
-
-                                                </td>
-                                                <td>
-                                                  <!-- {{data.activity_detail.length}} -->
-
-                                                </td>
-                                                <td>
-                                                  {{data?.activity_complete}}
-
-                                                </td>
-                                                <td>
-                                                  {{data?.task_names?.toString()}}
-                                                </td>
-                                                <td>
-                                                  <!-- {{data.task_detail.length}} -->
-
-                                                </td>
-                                                <td>
-                                                  {{data?.task_complete}}
-
-                                                </td>
-
-                                                <td>
-
-                                                  <!-- {{data.task_users.toString() }} -->
-                                                </td>
-                                                <td>
-                                                  <!-- {{data.activity_users.toString() }} -->
-
-                                                </td>
-                                                <td>
-                                                  <!-- {{data.objectives_users.toString() }} -->
-
+                                                  {{ data.tasks_complete }}
                                                 </td>
 
 

@@ -12,6 +12,7 @@ import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import { Subject } from 'rxjs/Subject';
 import { TasksApi } from './../../../sdk/services/custom/tasks.service';
 import { UserApi } from './../../../sdk/services/custom/user.service';
+import { ar } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-reports',
@@ -305,7 +306,6 @@ export class ReportsComponent implements OnInit {
           const arr = [iterator];
 
           iterator.activity_users = this.calculateTaskUsers(arr);
-          console.log('iterator.activity_users', iterator.activity_users);
           iterator.task_names = this.returnNamesArray(
             iterator.task_detail,
             'task_name'
@@ -374,7 +374,7 @@ export class ReportsComponent implements OnInit {
     this.slimScroll.start();
     this.isFetchingData5 = false;
 
-    this.userApi.getUsers().subscribe(
+    this.userApi.getUsersStatistics().subscribe(
       async data => {
         if (flag) {
           await this.miscHelperService.destroyDataTable(
@@ -382,12 +382,22 @@ export class ReportsComponent implements OnInit {
             this.dtElement
           );
         }
-        console.log('data', data);
         this.result5 = data.data['docs'];
 
-        // for (const iterator of this.result5) {
+        for (const iterator of this.result5) {
+          iterator.objectives_complete = this.checkIfUserCompleted(
+            iterator.objectives,
+            iterator._id
+          );
+          iterator.activities_complete = this.checkIfUserCompleted(
+            iterator.activities,
+            iterator._id
+          );
+          iterator.tasks_complete = this.checkIfUserCompletedTasks(
+            iterator.tasks
+          );
+        }
 
-        // }
         setTimeout(() => {
           this.dtTrigger5.next();
           setTimeout(() => {
@@ -441,9 +451,39 @@ export class ReportsComponent implements OnInit {
           orderable: false
         }
       ],
-      pagingType: 'simple_numbers',
-      order: [[0, 'desc']]
+      pagingType: 'simple_numbers'
+      // order: [[0, 'desc']]
     };
+  }
+
+  checkIfUserCompleted(arr, user_id) {
+    if (!arr || arr.length === 0) {
+      return 0;
+    }
+    let total = arr.length;
+    let success = 0;
+    for (const iterator of arr) {
+      console.log('iterator', iterator);
+      const found = iterator.users_assigned.find(function(element) {
+        return element._id === user_id;
+      });
+      if (found.status == 'complete') {
+        success++;
+      }
+    }
+    return success;
+  }
+  checkIfUserCompletedTasks(arr) {
+    if (!arr || arr.length === 0) {
+      return 0;
+    }
+    let success = 0;
+    for (const iterator of arr) {
+      if (iterator.status == 'complete') {
+        success++;
+      }
+    }
+    return success;
   }
 
   calculateTaskUsers(arr) {

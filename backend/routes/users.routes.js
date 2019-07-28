@@ -8,7 +8,7 @@ const upload = require('./../config/upload');
 // router.get("/",UserController.sampleUser);
 router.get("/",UserController.getAll);
 router.get("/:_id",UserController.getSingleUser);
-router.get("/statistics",UserController.usersStatistics);
+router.get("/statistics/detail",UserController.getAllStatistics);
 router.get("/getnextid/next",UserController.getNextId);
 router.post("/",UserController.addUser);
 router.put("/:_id", UserController.updateUser);

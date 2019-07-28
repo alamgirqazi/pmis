@@ -1,5 +1,8 @@
 const usersController = {};
 const Users = require("../models/user.model");
+const Objectives = require("../models/objectives.model");
+const Tasks = require("../models/tasks.model");
+const Activities = require('../models/activities.model');
 const path = require('path');
 usersController.getAll = async (req, res) => {
     let users;
@@ -41,6 +44,41 @@ usersController.getAll = async (req, res) => {
             code: 200,
             message: 'Successful',
             data: users
+        });
+
+    } catch (error) {
+        console.log('error', error);
+        return res.status(500).send(error);
+    }
+};
+usersController.getAllStatistics = async (req, res) => {
+    let users;
+    try {
+
+        users = await Users.paginate({},{      password: 0}, {
+             password: 0,
+            offset: 0,
+            limit:100
+        });
+
+        let response_object = JSON.parse(JSON.stringify(users));
+
+        for (let[index, iterator] of response_object.docs.entries()) {
+   
+            const objectives =  await Objectives.find({ "users_assigned._id": iterator._id });
+            const tasks =  await Tasks.find({ "users_assigned._id": iterator._id });
+            const activities =  await Activities.find({ "users_assigned._id": iterator._id });
+            
+             response_object.docs[index].objectives = objectives;
+             response_object.docs[index].activities = activities;
+             response_object.docs[index].tasks = tasks;
+       
+           }
+
+        res.status(200).send({
+            code: 200,
+            message: 'Successful',
+            data: response_object
         });
 
     } catch (error) {
@@ -104,39 +142,6 @@ usersController.getNextId = async (req, res) => {
       return res.status(500).send(error);
     }
   };
-
-
-usersController.usersStatistics = async (req, res) => {
-    
-    try {
-   
-        const Location = await  Users.aggregate(
-            [ {$group : { _id : '$Location', count : {$sum : 1}}} ]
-        )
-        const Role = await  Users.aggregate(
-            [ {$group : { _id : '$Role', count : {$sum : 1}}} ]
-        )
-        const Date_added = await  Users.aggregate(
-            [ {$group : { _id : '$Date_added', count : {$sum : 1}}} ]
-        )
-
-responseObj = {
-
-    Location,Role,Date_added
-}
-
-        res.status(200).send({
-            code: 200,
-            message: "Stats",
-            data: responseObj
-        });
-
-    } catch (error) {
-        console.log('error', error);
-        return res.status(500).send(error);
-    }
-};
-
 
 
 usersController.deleteUser = async (req, res) => {
