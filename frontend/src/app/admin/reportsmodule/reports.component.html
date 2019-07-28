@@ -345,13 +345,16 @@
                                       </div>
                                     </div>
                                   </div>
+
+                                  <!-- Activities -->
+
                                   <div class="col-xs-12" [hidden]="!isFetchingData3">
                                     <div class="table-box box visible">
                                       <div class="box-header p-8">
                                         <div class="row">
                                           <div class="col-md-4">
                                             <h2 class="nowrap l-h" style="inline-block">
-                                              Objective Wise Report
+                                              Activities Wise Report
                                             </h2>
                                           </div>
                                           <div class="col-md-4">
@@ -369,24 +372,19 @@
                                           id="angulardatatable3">
                                           <thead class="thead-light">
                                             <tr>
+                                              <th>#</th>
                                               <th>Activity Name</th>
                                               <th>Percentage</th>
                                               <th>Status</th>
+                                              <th>Objective Name</th>
                                               <th>Project Name</th>
+                                              <th>Assigned To</th>
+
                                               <th>Start Date</th>
                                               <th>End Date</th>
-                                              <th>Objectives</th>
-                                              <th>Total # of Objectives</th>
-                                              <th>Completed # of Objectives</th>
-                                              <th>Activities</th>
-                                              <th>Total # of Activities</th>
-                                              <th>Completed # of Activities</th>
                                               <th>Tasks</th>
                                               <th>Total # of Tasks</th>
                                               <th>Completed # of Tasks</th>
-                                              <th>Officials</th>
-                                              <th>Project Coordinators</th>
-                                              <th>Project Managers</th>
 
                                             </tr>
                                           </thead>
@@ -394,6 +392,9 @@
                                             <ng-template ngFor let-data [ngForOf]="result3" let-i="index">
                                               <!-- [class.odd]="" -->
                                               <tr role="row" class="">
+                                                <td>
+                                                  {{ i+1 }}
+                                                </td>
                                                 <td>
                                                   {{ data.activity_name }}
                                                 </td>
@@ -404,7 +405,13 @@
                                                   {{ data.status }}
                                                 </td>
                                                 <td>
+                                                  {{ data.objective_detail.objective_name }}
+                                                </td>
+                                                <td>
                                                   {{ data.project_detail.name }}
+                                                </td>
+                                                <td>
+                                                  {{ data.activity_users.toString() }}
                                                 </td>
                                                 <td>
                                                   {{ data.start_date | date }}
@@ -413,36 +420,12 @@
                                                   {{ data.end_date | date }}
                                                 </td>
 
-                                                <td>
-                                                  <!-- {{data.objective_names.toString()}} -->
 
-
-                                                </td>
-                                                <td>
-                                                  <!-- {{data.objective_detail.length}} -->
-
-                                                </td>
-                                                <td>
-                                                  <!-- {{data.objective_complete}} -->
-
-                                                </td>
-                                                <td>
-                                                  {{data.activity_names.toString()}}
-
-                                                </td>
-                                                <td>
-                                                  <!-- {{data.activity_detail.length}} -->
-
-                                                </td>
-                                                <td>
-                                                  {{data.activity_complete}}
-
-                                                </td>
                                                 <td>
                                                   {{data.task_names.toString()}}
                                                 </td>
                                                 <td>
-                                                  <!-- {{data.task_detail.length}} -->
+                                                  {{data.task_detail.length}}
 
                                                 </td>
                                                 <td>
@@ -450,18 +433,6 @@
 
                                                 </td>
 
-                                                <td>
-
-                                                  <!-- {{data.task_users.toString() }} -->
-                                                </td>
-                                                <td>
-                                                  <!-- {{data.activity_users.toString() }} -->
-
-                                                </td>
-                                                <td>
-                                                  <!-- {{data.objectives_users.toString() }} -->
-
-                                                </td>
 
 
                                               </tr>

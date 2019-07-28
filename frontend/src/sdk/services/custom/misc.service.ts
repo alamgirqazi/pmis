@@ -126,7 +126,6 @@ export class MiscHelperService {
     if (!obj) {
       return 0;
     }
-    console.log('got obj', obj);
     let success = 0;
     let total_users = 0;
 
@@ -143,15 +142,14 @@ export class MiscHelperService {
       return Math.round((success / total_users) * 100);
     }
   }
-  calculateStatusPercentageTasks(obj: any, percentage = true) {
-    if (!obj) {
+  calculateStatusPercentageTasks(arr: any, percentage = true) {
+    if (!arr) {
       return 0;
     }
     let success = 0;
     let total_users = 0;
 
-    console.log('tasks', obj);
-    for (const iterator of obj) {
+    for (const iterator of arr) {
       total_users++;
       if (iterator.status && iterator.status === 'complete') {
         success++;

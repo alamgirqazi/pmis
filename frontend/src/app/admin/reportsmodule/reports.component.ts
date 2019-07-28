@@ -110,18 +110,15 @@ export class ReportsComponent implements OnInit {
 
   ngOnInit() {
     this.configDatatable();
-    this.selectedAppStatus = this.allStatuses[1];
+    this.selectedAppStatus = this.allStatuses[0];
     this.getAll();
     const { role } = this.authService.getAccessTokenInfo();
     if (role === 'Executive Director') {
-      console.log('nothing');
     } else {
       this.router.navigate(['/admin/profile']);
     }
     this._asideNavigationService.currentMessage.subscribe(message => {
       this.navOpened = message;
-      // console.log('message: ', message);
-      // console.log('this.navOpened: ', this.navOpened);
     });
   }
   statusSelected(item) {
@@ -296,41 +293,26 @@ export class ReportsComponent implements OnInit {
 
         for (const iterator of this.result3) {
           iterator.percentage =
-            this.miscHelperService.calculateStatusPercentage(
-              iterator.objective_detail
+            this.miscHelperService.calculateStatusPercentageTasks(
+              iterator.task_detail
             ) + '%';
-          iterator.objective_complete = this.miscHelperService.calculateStatusPercentage(
-            iterator.objective_detail,
-            false
-          );
-          iterator.activity_complete = this.miscHelperService.calculateStatusPercentage(
-            iterator.activity_detail,
-            false
-          );
+
           iterator.task_complete = this.miscHelperService.calculateStatusPercentageTasks(
             iterator.task_detail,
             false
           );
           iterator.task_users = this.calculateTaskUsers(iterator.task_detail);
-          iterator.objectives_users = this.calculateTaskUsers(
-            iterator.objective_detail
-          );
-          iterator.activity_users = this.calculateTaskUsers(
-            iterator.activity_detail
-          );
+          const arr = [iterator];
+
+          iterator.activity_users = this.calculateTaskUsers(arr);
+          console.log('iterator.activity_users', iterator.activity_users);
           iterator.task_names = this.returnNamesArray(
             iterator.task_detail,
             'task_name'
           );
-          iterator.activity_names = this.returnNamesArray(
-            iterator.activity_detail,
-            'activity_name'
-          );
-          iterator.objective_names = this.returnNamesArray(
-            iterator.objective_detail,
-            'objective_name'
-          );
         }
+
+        console.log('this.result3', this.result3);
         setTimeout(() => {
           this.dtTrigger3.next();
           setTimeout(() => {
@@ -399,6 +381,8 @@ export class ReportsComponent implements OnInit {
             'objective_name'
           );
         }
+
+        console.log('this.result4', this.result4);
         setTimeout(() => {
           this.dtTrigger4.next();
           setTimeout(() => {
