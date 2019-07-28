@@ -126,6 +126,7 @@ export class MiscHelperService {
     if (!obj) {
       return 0;
     }
+    console.log('got obj', obj);
     let success = 0;
     let total_users = 0;
 

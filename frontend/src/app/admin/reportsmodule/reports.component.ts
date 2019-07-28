@@ -110,7 +110,7 @@ export class ReportsComponent implements OnInit {
 
   ngOnInit() {
     this.configDatatable();
-    this.selectedAppStatus = this.allStatuses[0];
+    this.selectedAppStatus = this.allStatuses[1];
     this.getAll();
     const { role } = this.authService.getAccessTokenInfo();
     if (role === 'Executive Director') {
@@ -207,9 +207,6 @@ export class ReportsComponent implements OnInit {
           this.dtTrigger.next();
           setTimeout(() => {
             this.isFetchingData = true;
-            if (closemodal) {
-              this.modalRef.hide();
-            }
           }, 250);
         }, 100);
         this.slimScroll.complete();
@@ -238,12 +235,9 @@ export class ReportsComponent implements OnInit {
         for (const iterator of this.result2) {
           iterator.percentage =
             this.miscHelperService.calculateStatusPercentage(
-              iterator.objective_detail
+              iterator.activity_detail
             ) + '%';
-          iterator.objective_complete = this.miscHelperService.calculateStatusPercentage(
-            iterator.objective_detail,
-            false
-          );
+
           iterator.activity_complete = this.miscHelperService.calculateStatusPercentage(
             iterator.activity_detail,
             false
@@ -253,9 +247,8 @@ export class ReportsComponent implements OnInit {
             false
           );
           iterator.task_users = this.calculateTaskUsers(iterator.task_detail);
-          iterator.objectives_users = this.calculateTaskUsers(
-            iterator.objective_detail
-          );
+          const arr = [iterator];
+          iterator.objectives_users = this.calculateTaskUsers(arr);
           iterator.activity_users = this.calculateTaskUsers(
             iterator.activity_detail
           );
@@ -267,11 +260,9 @@ export class ReportsComponent implements OnInit {
             iterator.activity_detail,
             'activity_name'
           );
-          iterator.objective_names = this.returnNamesArray(
-            iterator.objective_detail,
-            'objective_name'
-          );
         }
+
+        console.log('this.result2', this.result2);
         setTimeout(() => {
           this.dtTrigger2.next();
           setTimeout(() => {

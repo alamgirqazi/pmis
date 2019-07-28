@@ -95,6 +95,8 @@
                             <div class="row-inner">
                               <div class="p-a">
                                 <div class="row">
+
+                                  <!-- Projects  -->
                                   <div class="col-xs-12" [hidden]="!isFetchingData">
                                     <div class="table-box box visible">
                                       <div class="box-header p-8">
@@ -230,6 +232,8 @@
                                       </div>
                                     </div>
                                   </div>
+
+                                  <!-- Objectives  -->
                                   <div class="col-xs-12" [hidden]="!isFetchingData2">
                                     <div class="table-box box visible">
                                       <div class="box-header p-8">
@@ -258,20 +262,16 @@
                                               <th>Percentage</th>
                                               <th>Status</th>
                                               <th>Project Name</th>
+                                              <th>Assigned To</th>
                                               <th>Start Date</th>
                                               <th>End Date</th>
-                                              <th>Objectives</th>
-                                              <th>Total # of Objectives</th>
-                                              <th>Completed # of Objectives</th>
+
                                               <th>Activities</th>
                                               <th>Total # of Activities</th>
                                               <th>Completed # of Activities</th>
                                               <th>Tasks</th>
                                               <th>Total # of Tasks</th>
                                               <th>Completed # of Tasks</th>
-                                              <th>Officials</th>
-                                              <th>Project Coordinators</th>
-                                              <th>Project Managers</th>
 
                                             </tr>
                                           </thead>
@@ -292,31 +292,23 @@
                                                   {{ data.project_detail.name }}
                                                 </td>
                                                 <td>
+                                                  {{ data.objectives_users.toString() }}
+                                                </td>
+
+                                                <td>
                                                   {{ data.start_date | date }}
                                                 </td>
                                                 <td>
                                                   {{ data.end_date | date }}
                                                 </td>
 
-                                                <td>
-                                                  <!-- {{data.objective_names.toString()}} -->
 
-
-                                                </td>
-                                                <td>
-                                                  <!-- {{data.objective_detail.length}} -->
-
-                                                </td>
-                                                <td>
-                                                  <!-- {{data.objective_complete}} -->
-
-                                                </td>
                                                 <td>
                                                   {{data.activity_names.toString()}}
 
                                                 </td>
                                                 <td>
-                                                  <!-- {{data.activity_detail.length}} -->
+                                                  {{data.activity_detail.length}}
 
                                                 </td>
                                                 <td>
@@ -327,7 +319,7 @@
                                                   {{data.task_names.toString()}}
                                                 </td>
                                                 <td>
-                                                  <!-- {{data.task_detail.length}} -->
+                                                  {{data.task_detail.length}}
 
                                                 </td>
                                                 <td>
@@ -335,18 +327,6 @@
 
                                                 </td>
 
-                                                <td>
-
-                                                  <!-- {{data.task_users.toString() }} -->
-                                                </td>
-                                                <td>
-                                                  <!-- {{data.activity_users.toString() }} -->
-
-                                                </td>
-                                                <td>
-                                                  <!-- {{data.objectives_users.toString() }} -->
-
-                                                </td>
 
 
                                               </tr>
