@@ -33,15 +33,13 @@ const statisticsRoutes = require('./routes/statistics.routes');
 // config mongodb
 
 // mongoose.connect(mongoCon);
-
-console.log('process.env.mongoCon',process.env.mongoCon)
-mongoose.connect(process.env.mongoCon,{ useNewUrlParser: true,useCreateIndex: true });
+mongoose.connect(process.env.mongocon,{ useNewUrlParser: true,useCreateIndex: true });
 
 
-const fs = require('fs');
-fs.readdirSync(__dirname + "/models").forEach(function(file) {
-    require(__dirname + "/models/" + file);
-});
+// const fs = require('fs');
+// fs.readdirSync(__dirname + "/models").forEach(function(file) {
+//     require(__dirname + "/models/" + file);
+// });
 
 app.use('/images', express.static(path.join(__dirname, 'uploads')))
 
