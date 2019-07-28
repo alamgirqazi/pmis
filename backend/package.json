@@ -20,7 +20,7 @@
     "multer": "^1.4.1"
   },
   "devDependencies": {
-    "dotenv": "^6.0.0",
+    "dotenv": "^6.2.0",
     "eslint-config-google": "^0.9.1"
   }
 }

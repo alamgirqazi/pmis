@@ -8,6 +8,8 @@ const errorMessage = require("./middleware/error-message");
 const accessControls = require("./middleware/access-controls");
 const mongoose = require('mongoose');
 const cors = require('cors');
+require('dotenv').config()
+
 const bodyParser = require('body-parser')
 app.use(
     bodyParser.urlencoded({
@@ -20,7 +22,6 @@ app.use(
   
 // Requiring Routes
 
-// const assetsRoutes = require('./routes/assets.routes');
 const authRoutes = require('./routes/auth.routes');
 const usersRoutes = require('./routes/users.routes');
 const projectsRoutes = require('./routes/projects.routes');
@@ -28,13 +29,13 @@ const objectivesRoutes = require('./routes/objectives.routes');
 const activitiesRoutes = require('./routes/activities.routes');
 const tasksRoutes = require('./routes/tasks.routes');
 const statisticsRoutes = require('./routes/statistics.routes');
-// const inventoryRoutes = require('./routes/inventory.routes');
 
 // config mongodb
-const mongoCon = 'mongodb://localhost:27017/pmis-db';
 
 // mongoose.connect(mongoCon);
-mongoose.connect(mongoCon,{ useNewUrlParser: true,useCreateIndex: true });
+
+console.log('process.env.mongoCon',process.env.mongoCon)
+mongoose.connect(process.env.mongoCon,{ useNewUrlParser: true,useCreateIndex: true });
 
 
 const fs = require('fs');
