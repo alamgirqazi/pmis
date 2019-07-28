@@ -476,24 +476,17 @@
                                           id="angulardatatable4">
                                           <thead class="thead-light">
                                             <tr>
+                                              <th>#</th>
                                               <th>Task Name</th>
                                               <th>Percentage</th>
                                               <th>Status</th>
+                                              <th>Activity Name</th>
+                                              <th>Objective Name</th>
                                               <th>Project Name</th>
+
+                                              <th>Officials Assigned</th>
                                               <th>Start Date</th>
                                               <th>End Date</th>
-                                              <th>Objectives</th>
-                                              <th>Total # of Objectives</th>
-                                              <th>Completed # of Objectives</th>
-                                              <th>Activities</th>
-                                              <th>Total # of Activities</th>
-                                              <th>Completed # of Activities</th>
-                                              <th>Tasks</th>
-                                              <th>Total # of Tasks</th>
-                                              <th>Completed # of Tasks</th>
-                                              <th>Officials</th>
-                                              <th>Project Coordinators</th>
-                                              <th>Project Managers</th>
 
                                             </tr>
                                           </thead>
@@ -501,6 +494,9 @@
                                             <ng-template ngFor let-data [ngForOf]="result4" let-i="index">
                                               <!-- [class.odd]="" -->
                                               <tr role="row" class="">
+                                                <td>
+                                                  {{ i+1 }}
+                                                </td>
                                                 <td>
                                                   {{ data.task_name }}
                                                 </td>
@@ -511,7 +507,16 @@
                                                   {{ data.status }}
                                                 </td>
                                                 <td>
+                                                  {{ data.activity_detail.activity_name }}
+                                                </td>
+                                                <td>
+                                                  {{ data.objective_detail.objective_name }}
+                                                </td>
+                                                <td>
                                                   {{ data.project_detail.name }}
+                                                </td>
+                                                <td>
+                                                  {{ data.task_users.toString() }}
                                                 </td>
                                                 <td>
                                                   {{ data.start_date | date }}
@@ -520,55 +525,7 @@
                                                   {{ data.end_date | date }}
                                                 </td>
 
-                                                <td>
-                                                  <!-- {{data.objective_names.toString()}} -->
 
-
-                                                </td>
-                                                <td>
-                                                  <!-- {{data.objective_detail.length}} -->
-
-                                                </td>
-                                                <td>
-                                                  <!-- {{data.objective_complete}} -->
-
-                                                </td>
-                                                <td>
-                                                  {{data.activity_names.toString()}}
-
-                                                </td>
-                                                <td>
-                                                  <!-- {{data.activity_detail.length}} -->
-
-                                                </td>
-                                                <td>
-                                                  {{data.activity_complete}}
-
-                                                </td>
-                                                <td>
-                                                  {{data.task_names.toString()}}
-                                                </td>
-                                                <td>
-                                                  <!-- {{data.task_detail.length}} -->
-
-                                                </td>
-                                                <td>
-                                                  {{data.task_complete}}
-
-                                                </td>
-
-                                                <td>
-
-                                                  <!-- {{data.task_users.toString() }} -->
-                                                </td>
-                                                <td>
-                                                  <!-- {{data.activity_users.toString() }} -->
-
-                                                </td>
-                                                <td>
-                                                  <!-- {{data.objectives_users.toString() }} -->
-
-                                                </td>
 
 
                                               </tr>

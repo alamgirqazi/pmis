@@ -345,41 +345,13 @@ export class ReportsComponent implements OnInit {
         this.result4 = docs;
 
         for (const iterator of this.result4) {
-          iterator.percentage =
-            this.miscHelperService.calculateStatusPercentage(
-              iterator.objective_detail
-            ) + '%';
-          iterator.objective_complete = this.miscHelperService.calculateStatusPercentage(
-            iterator.objective_detail,
-            false
-          );
-          iterator.activity_complete = this.miscHelperService.calculateStatusPercentage(
-            iterator.activity_detail,
-            false
-          );
-          iterator.task_complete = this.miscHelperService.calculateStatusPercentageTasks(
-            iterator.task_detail,
-            false
-          );
-          iterator.task_users = this.calculateTaskUsers(iterator.task_detail);
-          iterator.objectives_users = this.calculateTaskUsers(
-            iterator.objective_detail
-          );
-          iterator.activity_users = this.calculateTaskUsers(
-            iterator.activity_detail
-          );
-          iterator.task_names = this.returnNamesArray(
-            iterator.task_detail,
-            'task_name'
-          );
-          iterator.activity_names = this.returnNamesArray(
-            iterator.activity_detail,
-            'activity_name'
-          );
-          iterator.objective_names = this.returnNamesArray(
-            iterator.objective_detail,
-            'objective_name'
-          );
+          iterator.percentage = '0%';
+          if (iterator.status === 'complete') {
+            iterator.percentage = '100%';
+          }
+
+          const arr = [iterator];
+          iterator.task_users = this.calculateTaskUsers(arr);
         }
 
         console.log('this.result4', this.result4);
