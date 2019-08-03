@@ -426,31 +426,32 @@ export class ReportsComponent implements OnInit {
   }
   configDatatable() {
     this.dtOptions = {
-      paging: true,
-      autoWidth: false,
-      lengthChange: false,
-      searching: true,
-      retrieve: true,
+      // paging: true,
+      // autoWidth: true,
+      // lengthChange: false,
+      // searching: true,
+      // retrieve: true,
       pageLength: 10,
+      searching: true,
       ordering: true,
-      dom: 'Btp',
+      dom: 'Bftp',
       // Configure the buttons
       buttons: ['csv', 'excel'],
       // buttons: ['copy', 'print', 'csv', 'excel', 'pdf'],
-      columnDefs: [
-        {
-          targets: 0,
-          orderable: false
-        },
-        {
-          targets: 6,
-          orderable: false
-        },
-        {
-          targets: 7,
-          orderable: false
-        }
-      ],
+      // columnDefs: [
+      //   {
+      //     targets: 0,
+      //     orderable: false
+      //   },
+      //   {
+      //     targets: 6,
+      //     orderable: false
+      //   },
+      //   {
+      //     targets: 7,
+      //     orderable: false
+      //   }
+      // ],
       pagingType: 'simple_numbers'
       // order: [[0, 'desc']]
     };
