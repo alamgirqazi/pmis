@@ -82,6 +82,20 @@ export class ProjectsApi {
       formData.append('objective_id', tempformData._id);
       formData.append('objective_name', tempformData.objective_name);
     }
+    if (file_info.file_type == 'activities') {
+      url =
+        Baseconfig.getPath() +
+        `/activities/${project_id}/attachments/${tempformData._id}`;
+      formData.append('activity_id', tempformData._id);
+      formData.append('activity_name', tempformData.activity_name);
+    }
+    if (file_info.file_type == 'tasks') {
+      url =
+        Baseconfig.getPath() +
+        `/tasks/${project_id}/attachments/${tempformData._id}`;
+      formData.append('task_id', tempformData._id);
+      formData.append('task_name', tempformData.task_name);
+    }
 
     const file_location = `attachment-${file_info.id}.${file_info.extension}`;
 

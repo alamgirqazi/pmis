@@ -56,6 +56,9 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
   tabList = [false, false, false];
   navOpened;
   result = [];
+  tempFormData;
+  title;
+  attachments = [];
   hiddenTblresult = [];
   showTempTable = false;
 
@@ -208,7 +211,7 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
     };
     this.modalRef = this.modalService.show(template, config);
   }
-
+  reload() {}
   openTreeModal(template: TemplateRef<any>, data) {
     console.log('data', data);
     this.selectedObjective = data;
@@ -264,6 +267,13 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
           this.slimScroll.complete();
         }
       );
+  }
+  openAttachments(template: TemplateRef<any>, data) {
+    this.tempFormData = data;
+    console.log('data', data);
+    this.title = `Objective: ${data.objective_name}`;
+    this.attachments = data.attachments;
+    this.modalRef = this.modalService.show(template, { class: 'modal-xlg' });
   }
 
   decline() {

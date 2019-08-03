@@ -17,6 +17,7 @@ import { CustompipesModule } from '../../shared/custompipes/custompipes.module';
 import { DataTablesModule } from 'angular-datatables';
 import { NgModule } from '@angular/core';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SharedModule } from '../shared/shared.module';
 
 // import { SelectModule } from 'ng2-select';
 
@@ -33,6 +34,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     BsDatepickerModule.forRoot(),
     CustompipesModule.forRoot(),
     CustomdirectivesModule,
+    SharedModule,
     ProgressbarModule.forRoot()
   ],
   declarations: [ActivitiesComponent, ActivitiesmodalComponent],

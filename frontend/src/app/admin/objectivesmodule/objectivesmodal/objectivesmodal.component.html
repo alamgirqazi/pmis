@@ -143,6 +143,17 @@
             </div>
             <div class="row">
               <div class="col-md-12">
+                <a (click)="
+                    openAttachments(upload,
+                    item.value
+                    )
+                  "><i class="material-icons">attach_file</i>
+                </a>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
                 <hr class="line" />
               </div>
             </div>
@@ -181,4 +192,11 @@
       No
     </button>
   </div>
+</ng-template>
+
+
+<ng-template #upload>
+  <shared-upload-attachments [title]="title" (output)="reload()" [attachments]="attachments" [formData]="tempFormData"
+    [fileType]="'activities'">
+  </shared-upload-attachments>
 </ng-template>

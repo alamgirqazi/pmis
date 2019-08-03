@@ -14,6 +14,7 @@ import { CustompipesModule } from '../../shared/custompipes/custompipes.module';
 import { DataTablesModule } from 'angular-datatables';
 import { NgModule } from '@angular/core';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SharedModule } from './../shared/shared.module';
 import { TasksComponent } from './tasks.component';
 import { TasksModuleRoutes } from './tasks.routing';
 
@@ -32,6 +33,7 @@ import { TasksModuleRoutes } from './tasks.routing';
     BsDatepickerModule.forRoot(),
     CustompipesModule.forRoot(),
     CustomdirectivesModule,
+    SharedModule,
     ProgressbarModule.forRoot()
   ],
   declarations: [TasksComponent],

@@ -17,6 +17,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ObjectivesComponent } from './objectives.component';
 import { ObjectivesModuleRoutes } from './objectives.routing';
 import { ObjectivesmodalComponent } from './objectivesmodal/objectivesmodal.component';
+import { SharedModule } from './../shared/shared.module';
 
 // import { SelectModule } from 'ng2-select';
 
@@ -32,7 +33,7 @@ import { ObjectivesmodalComponent } from './objectivesmodal/objectivesmodal.comp
     ObjectivesModuleRoutes,
     BsDatepickerModule.forRoot(),
     CustompipesModule.forRoot(),
-
+    SharedModule,
     ProgressbarModule.forRoot(),
     CustomdirectivesModule
   ],

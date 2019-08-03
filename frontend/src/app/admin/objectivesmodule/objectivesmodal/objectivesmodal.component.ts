@@ -68,6 +68,9 @@ export class ObjectivesmodalComponent implements OnInit {
   categoriesList = [];
   role = 'User';
   usersList = [];
+  tempFormData;
+  attachments = [];
+  title;
   activityInfo;
   deleteId;
   control;
@@ -201,7 +204,6 @@ export class ObjectivesmodalComponent implements OnInit {
     this.getUsersFromDB(type);
   }
   deleteActivityFromDB() {
-    console.log('this.objectiveInfo', this.activityInfo.value._id);
     this.activitiesApi.deleteActivity(this.activityInfo.value._id).subscribe(
       async response => {
         console.log('deleteActivityFromDB->', response);
@@ -216,7 +218,13 @@ export class ObjectivesmodalComponent implements OnInit {
       }
     );
   }
-
+  openAttachments(template: TemplateRef<any>, data) {
+    this.tempFormData = data;
+    console.log('data', data);
+    this.title = `Activity: ${data.activity_name}`;
+    this.attachments = data.attachments;
+    this.modalRef = this.modalService.show(template, { class: 'modal-xlg' });
+  }
   getUsersFromDB(type = 'Project Coordinator') {
     // const user_type = null;
     this.userApi.getUsers(type).subscribe(
