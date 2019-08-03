@@ -115,6 +115,47 @@ tasksController.addTask = async (req, res) => {
     }
   });
 };
+
+tasksController.updateAttachment = async (req, res) => {
+  if (!req.params._id) {
+    res.status(500).send({
+      message: 'ID missing'
+    });
+  }
+  try {
+    const _id = req.params._id;
+
+    const body = req.body;
+
+    let final_attachments = JSON.parse(body.attachments);
+    
+    delete body['attachments']
+    delete body['file']
+    const filePath = `images/attachments/${req.params._id}/`;
+
+    const attachment = {
+      ...body,
+      date: Date.now(),
+      filePath: filePath
+    }
+    if(final_attachments){
+      final_attachments = [attachment,...final_attachments]
+
+    }
+else {
+  final_attachments = []
+final_attachments.push(attachment)
+}
+const updates = {
+  attachments: final_attachments
+}
+console.log('my updades',updates);
+    runUpdate(body.task_id, updates, res);
+  } catch (error) {
+    console.log('error', error);
+    return res.status(500).send(error);
+  }
+};
 tasksController.addManyTasks = async (req, res) => {
   try {
     const tasks = req.body.tasks;

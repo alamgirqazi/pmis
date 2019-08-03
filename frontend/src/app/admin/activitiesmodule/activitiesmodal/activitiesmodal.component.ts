@@ -58,7 +58,9 @@ export class ActivitiesmodalComponent implements OnInit {
   isLoading = false;
   result;
   modalRef: BsModalRef;
-
+  tempFormData;
+  attachments = [];
+  title;
   appInfoForm: FormGroup;
   appActivityForm: FormGroup;
   appObjectiveForm: FormGroup;
@@ -131,6 +133,17 @@ export class ActivitiesmodalComponent implements OnInit {
     this.output.emit(null);
   }
 
+  openAttachments(template: TemplateRef<any>, data) {
+    this.tempFormData = data;
+    console.log('data', data);
+    this.title = `Task: ${data.task_name}`;
+    this.attachments = data.attachments;
+    this.modalRef = this.modalService.show(template, { class: 'modal-xlg' });
+  }
+
+  reload() {
+    this.outputAndReload.emit(null);
+  }
   changeTab(id) {
     this.tabId = id;
   }
