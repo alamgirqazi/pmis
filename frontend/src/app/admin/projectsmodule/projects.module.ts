@@ -17,6 +17,7 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { ProjectsComponent } from './projects.component';
 import { ProjectsModuleRoutes } from './projects.routing';
 import { ProjectsmodalComponent } from './projectsmodal/projectsmodal.component';
+import { SharedModule } from '../shared/shared.module';
 
 // import { SelectModule } from 'ng2-select';
 
@@ -30,6 +31,7 @@ import { ProjectsmodalComponent } from './projectsmodal/projectsmodal.component'
     ReactiveFormsModule,
     NgSelectModule,
     ProjectsModuleRoutes,
+    SharedModule,
     BsDatepickerModule.forRoot(),
     CustompipesModule.forRoot(),
     CustomdirectivesModule,

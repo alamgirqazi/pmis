@@ -101,6 +101,8 @@
                                               <th>Start Date</th>
                                               <th>End Date</th>
                                               <th>Notes</th>
+                                              <th>Attachments </th>
+
                                               <th>Add Objectives To Project</th>
                                               <th>Display Objectives </th>
                                               <th>Percentage</th>
@@ -133,6 +135,13 @@
                                                   }}
                                                 </td>
                                                 <td>{{ data.notes }}</td>
+
+                                                <td> <a (click)="
+                                                  openAttachments(upload,
+                                                    data
+                                                  )
+                                                "><i class="material-icons">attach_file</i>
+                                                  </a> </td>
                                                 <td> <a (click)="
                                                         openModal(
                                                           appinfomodal,
@@ -476,6 +485,10 @@
 
       <!-- <ngx-json-viewer [json]="itCategory"></ngx-json-viewer> -->
     </div>
+  </ng-template>
+  <!-- Upload Modal -->
+  <ng-template #upload>
+    <shared-upload-attachments></shared-upload-attachments>
   </ng-template>
 
   <!-- Report  Modal

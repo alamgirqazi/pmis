@@ -204,6 +204,12 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
     this.changedApp = data;
     this.modalRef = this.modalService.show(template, { class: 'modal-xs' });
   }
+
+  openAttachments(template: TemplateRef<any>, data) {
+    this.changedApp = data;
+    this.modalRef = this.modalService.show(template, { class: 'modal-xlg' });
+  }
+
   openModal(template: TemplateRef<any>, data, newInstance, tabId) {
     this.tabId = tabId;
     console.log('data', data);

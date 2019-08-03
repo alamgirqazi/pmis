@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { CustomdirectivesModule } from '../../shared/directives/customdirectives/customdirectives.module';
 import { DataTablesModule } from 'angular-datatables';
 import { NgModule } from '@angular/core';
+import { UploadAttachmentsComponent } from '../../shared/component/upload-attachments/upload-attachments.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { NgModule } from '@angular/core';
     BsDatepickerModule,
     BsDropdownModule
   ],
-  declarations: [],
-  exports: []
+  declarations: [UploadAttachmentsComponent],
+  exports: [UploadAttachmentsComponent]
 })
 export class SharedModule {}

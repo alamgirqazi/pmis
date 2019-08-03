@@ -340,6 +340,15 @@ form label {
   box-shadow: rgba(0, 0, 0, 0.05) 0 1px 1px 0;
 }
 
+.btn.btn-red {
+  color: #fff !important;
+  background-color: red;
+  border: 1px solid red;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0 1px 1px 0;
+  -moz-box-shadow: rgba(0, 0, 0, 0.05) 0 1px 1px 0;
+  box-shadow: rgba(0, 0, 0, 0.05) 0 1px 1px 0;
+}
+
 .btn.btn-green:hover {
   color: #fff !important;
   -webkit-box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.1);

@@ -1,0 +1,45 @@
+.boxy {
+  margin: 15px;
+  overflow: hidden;
+  padding: 10px 10px;
+  border: 3px solid green;
+  min-width: 200px;
+  min-height: 200px;
+  max-width: 200px;
+  max-height: 200px;
+  display: inline-block;
+  position: relative;
+
+}
+
+.btn {
+  text-align: center;
+  justify-content: center;
+  left: 30%;
+  position: absolute;
+  /* left: 50%; */
+  top: 20%;
+}
+
+.btn-red {
+  background-color: red !important;
+  color: white !important;
+  top: 40%;
+
+
+}
+
+.inputfile {
+  display: none;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  justify-content: center;
+  left: 30%;
+  position: absolute;
+  /* left: 50%; */
+  top: 20%;
+}

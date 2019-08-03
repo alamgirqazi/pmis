@@ -1,0 +1,15 @@
+<h1> Attachments</h1>
+
+<div class="boxy" *ngFor="let item of attachments;let i = index">
+
+  <button type="button" class="btn btn-green"> download file</button>
+  <button type="button" class="btn btn-red"> delete file</button>
+</div>
+
+<div class="boxy incomplete">
+  <label class="fileContainer">
+    <img src="assets/images/attachment.png">
+    <input type="file" class="inputfile" />
+  </label>
+
+</div>
