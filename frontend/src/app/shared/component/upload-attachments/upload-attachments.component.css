@@ -12,19 +12,20 @@
 
 }
 
+/*
 .btn {
   text-align: center;
   justify-content: center;
   left: 30%;
   position: absolute;
   /* left: 50%; */
-  top: 20%;
-}
+/* top: 20%;
+} */
 
 .btn-red {
   background-color: red !important;
   color: white !important;
-  top: 40%;
+  /* top: 40%; */
 
 
 }

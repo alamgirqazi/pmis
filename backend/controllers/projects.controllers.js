@@ -3,7 +3,9 @@ const Objectives = require('../models/objectives.model');
 const Projects = require('../models/projects.model');
 const Activities = require('../models/activities.model');
 const Tasks = require('../models/tasks.model');
-
+const path = require(
+  'path'
+)
 projectsController.getAll = async (req, res) => {
   let projects;
   try {
@@ -251,6 +253,45 @@ projectsController.updateProject = async (req, res) => {
   try {
     const _id = req.params._id;
     let updates = req.body;
+
+    runUpdate(_id, updates, res);
+  } catch (error) {
+    console.log('error', error);
+    return res.status(500).send(error);
+  }
+};
+projectsController.updateProjectAttachment = async (req, res) => {
+  if (!req.params._id) {
+    res.status(500).send({
+      message: 'ID missing'
+    });
+  }
+  try {
+    const _id = req.params._id;
+    // let updates = req.body;
+    const body = req.body;
+    console.log('body',body);
+
+    let final_attachments = JSON.parse(body.attachments);
+
+    delete body['attachments']
+    const filePath = `images/attachments/${req.params._id}/`;
+
+    const attachment = {
+      ...body,
+      date: Date.now(),
+      filePath: filePath
+    } 
+    console.log('single',attachment)
+    // const ext = path.extname(req.file.originalname);
+
+    
+    final_attachments = [attachment,...final_attachments]
+
+    console.log('final',final_attachments );
+const updates = {
+  attachments: final_attachments
+}
 
     runUpdate(_id, updates, res);
   } catch (error) {

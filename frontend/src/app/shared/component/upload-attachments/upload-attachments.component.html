@@ -1,15 +1,40 @@
 <h1> Attachments</h1>
 
 <div class="boxy" *ngFor="let item of attachments;let i = index">
-
-  <button type="button" class="btn btn-green"> download file</button>
-  <button type="button" class="btn btn-red"> delete file</button>
+  <div class="centered">
+    <small style="word-wrap: break-word">{{item.file_name}} </small>
+    <small> Uploader:<strong> {{item.user_name}}</strong></small>
+    <br />
+    <small> Date:<strong> {{item.date | date}}</strong></small>
+    <br />
+    <button type="button" (click)="downloadFile(item)" class="btn btn-green"> View file</button>
+    <br /> <button type="button" (click)="deleteFile(deleteTemplate,item)" class="btn btn-red m-t-10"> delete
+      file</button>
+  </div>
 </div>
 
 <div class="boxy incomplete">
   <label class="fileContainer">
-    <img src="assets/images/attachment.png">
-    <input type="file" class="inputfile" />
+    <img *ngIf="!fileItem" src="assets/images/attachment.png">
+    <input type="file" (change)="onFileChange($event)" class="inputfile" />
+    <button *ngIf="fileItem" type="button" (click)="uploadFile()" class="btn btn-green"> UPLOAD !!</button>
+
   </label>
 
 </div>
+
+<!-- Confirmation  Modal -->
+<ng-template #deleteTemplate>
+  <div class="modal-body text-center">
+    <p>
+      Are you sure you want to remove
+      {{ selectedAttachment?.file_name }} ?
+    </p>
+    <button type="button" class="btn btn-green" (click)="confirmDelete()">
+      Yes
+    </button>
+    <button type="button" class="btn btn-default" (click)="decline()">
+      No
+    </button>
+  </div>
+</ng-template>

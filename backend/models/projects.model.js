@@ -37,7 +37,7 @@ const Projects = new Schema({
         type: Array
     },
     attachments: {
-        type: String
+        type: Array
     },
     status: {
         type: String,

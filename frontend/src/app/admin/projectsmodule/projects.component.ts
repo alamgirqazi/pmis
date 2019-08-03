@@ -60,6 +60,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   tabList = [false, false, false];
   navOpened;
   result = [];
+  attachments = [];
   hiddenTblresult = [];
   showTempTable = false;
   tabId = 1;
@@ -206,7 +207,8 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   }
 
   openAttachments(template: TemplateRef<any>, data) {
-    this.changedApp = data;
+    this.formData = data;
+    this.attachments = data.attachments;
     this.modalRef = this.modalService.show(template, { class: 'modal-xlg' });
   }
 

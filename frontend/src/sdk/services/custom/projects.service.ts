@@ -62,23 +62,37 @@ export class ProjectsApi {
         return response;
       });
   }
-  // public uploadDocument(image: any): Observable<any> {
-  //   const url = Baseconfig.getPath() + `/assets/fileimport`;
+  public uploadAttachment(
+    project_id,
+    file: any,
+    file_info: any,
+    attachments
+  ): Observable<any> {
+    console.log('id', project_id);
+    const url = Baseconfig.getPath() + `/projects/${project_id}/attachments`;
+    const file_location = `attachment-${file_info.id}.${file_info.extension}`;
 
-  //   const formData: FormData = new FormData();
-  //   formData.append('file', image, image.name);
+    const formData: FormData = new FormData();
+    formData.append('file', file, file_location);
+    formData.append('file_type', file_info.file_type);
+    formData.append('file_name', file.name);
+    formData.append('id', file_info.id);
+    formData.append('user_name', file_info.user_name);
+    formData.append('user_id', file_info.user_id);
+    formData.append('extension', file_info.extension);
+    formData.append('attachments', JSON.stringify(attachments));
 
-  //   return this.http
-  //     .post(url, formData, {
-  //       headers: new HttpHeaders().set(
-  //         'Authorization',
-  //         this.authService.getAccessTokenId()
-  //       )
-  //     })
-  //     .map((response: any) => {
-  //       return response;
-  //     });
-  // }
+    return this.http
+      .post(url, formData, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
   // public uploadProjectsDocument(image: any): Observable<any> {
   //   const url = Baseconfig.getPath() + `/Projects/fileimport`;
 

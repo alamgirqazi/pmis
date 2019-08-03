@@ -488,7 +488,9 @@
   </ng-template>
   <!-- Upload Modal -->
   <ng-template #upload>
-    <shared-upload-attachments></shared-upload-attachments>
+    <shared-upload-attachments (output)="configDatatable(true)" [attachments]="attachments" [formData]="formData"
+      [fileType]="'projects'">
+    </shared-upload-attachments>
   </ng-template>
 
   <!-- Report  Modal
