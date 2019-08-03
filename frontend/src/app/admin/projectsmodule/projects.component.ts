@@ -52,7 +52,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   treeData;
   selectedProject;
   // items: TreeviewItem[];
-
+  title;
   selectedAppStatus: any = null;
   allStatuses;
   dtOptions: DataTables.Settings = {};
@@ -208,7 +208,9 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
 
   openAttachments(template: TemplateRef<any>, data) {
     this.formData = data;
+    this.formData['project_id'] = data._id;
     this.attachments = data.attachments;
+    this.title = `Project ${this.formData.name}`;
     this.modalRef = this.modalService.show(template, { class: 'modal-xlg' });
   }
 

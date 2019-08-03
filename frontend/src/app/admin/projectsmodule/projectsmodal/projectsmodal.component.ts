@@ -54,13 +54,14 @@ export class ProjectsmodalComponent implements OnInit {
   @Output() outputAndReload: EventEmitter<any> = new EventEmitter();
   // deleteTemplate: TemplateRef<any>;
   @ViewChild('deleteTemplate') deleteTemplate: TemplateRef<any>;
-
+  attachments = [];
   isLoading = false;
   deleteId;
   control;
   result;
+  title;
   modalRef: BsModalRef;
-
+  tempFormData;
   appInfoForm: FormGroup;
   appActivityForm: FormGroup;
   appObjectiveForm: FormGroup;
@@ -203,6 +204,7 @@ export class ProjectsmodalComponent implements OnInit {
       severity: ['normal'],
       start_date: [''],
       end_date: [''],
+      attachments: [null],
       users_assigned: [null]
     });
   }
@@ -378,6 +380,18 @@ export class ProjectsmodalComponent implements OnInit {
           this.slimScroll.complete();
         }
       );
+  }
+  openAttachments(template: TemplateRef<any>, data) {
+    this.tempFormData = data;
+    console.log('data', data);
+    this.title = `Objective: ${data.objective_name}`;
+    this.attachments = data.attachments;
+    this.modalRef = this.modalService.show(template, { class: 'modal-xlg' });
+  }
+
+  reload() {
+    this.outputAndReload.emit(null);
+    console.log('well see what to do');
   }
 
   saveObjectivesToDB() {

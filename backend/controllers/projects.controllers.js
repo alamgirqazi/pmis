@@ -268,9 +268,8 @@ projectsController.updateProjectAttachment = async (req, res) => {
   }
   try {
     const _id = req.params._id;
-    // let updates = req.body;
+
     const body = req.body;
-    console.log('body',body);
 
     let final_attachments = JSON.parse(body.attachments);
 
@@ -281,14 +280,10 @@ projectsController.updateProjectAttachment = async (req, res) => {
       ...body,
       date: Date.now(),
       filePath: filePath
-    } 
-    console.log('single',attachment)
-    // const ext = path.extname(req.file.originalname);
-
+    }
     
     final_attachments = [attachment,...final_attachments]
 
-    console.log('final',final_attachments );
 const updates = {
   attachments: final_attachments
 }

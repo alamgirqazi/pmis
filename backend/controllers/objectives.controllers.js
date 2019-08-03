@@ -66,6 +66,51 @@ objectivesController.getAll = async (req, res) => {
     return res.status(500).send(error);
   }
 };
+
+objectivesController.updateAttachment = async (req, res) => {
+  if (!req.params._id) {
+    res.status(500).send({
+      message: 'ID missing'
+    });
+  }
+  try {
+    const _id = req.params._id;
+
+    const body = req.body;
+
+    let final_attachments = JSON.parse(body.attachments);
+    
+    delete body['attachments']
+    delete body['file']
+    const filePath = `images/attachments/${req.params._id}/`;
+
+    const attachment = {
+      ...body,
+      date: Date.now(),
+      filePath: filePath
+    }
+    if(final_attachments){
+      final_attachments = [attachment,...final_attachments]
+
+    }
+else {
+    console.log('got in else');
+  final_attachments = []
+final_attachments.push(attachment)
+}
+const updates = {
+  attachments: final_attachments
+}
+  console.log(attachment);
+  console.log(updates);
+    runUpdate(body.objective_id, updates, res);
+  } catch (error) {
+    console.log('error', error);
+    return res.status(500).send(error);
+  }
+};
+
+
 objectivesController.addObjective = async (req, res) => {
   // const max_result = await objectives.aggregate([
   //     { $group: { _id: null, max: { $max: { $toInt: '$id' } } } }

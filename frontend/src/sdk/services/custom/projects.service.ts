@@ -66,13 +66,25 @@ export class ProjectsApi {
     project_id,
     file: any,
     file_info: any,
-    attachments
+    attachments,
+    tempformData = null
   ): Observable<any> {
-    console.log('id', project_id);
-    const url = Baseconfig.getPath() + `/projects/${project_id}/attachments`;
+    let url;
+    const formData: FormData = new FormData();
+
+    if (file_info.file_type == 'projects') {
+      url = Baseconfig.getPath() + `/projects/${project_id}/attachments`;
+    }
+    if (file_info.file_type == 'objectives') {
+      url =
+        Baseconfig.getPath() +
+        `/objectives/${project_id}/attachments/${tempformData._id}`;
+      formData.append('objective_id', tempformData._id);
+      formData.append('objective_name', tempformData.objective_name);
+    }
+
     const file_location = `attachment-${file_info.id}.${file_info.extension}`;
 
-    const formData: FormData = new FormData();
     formData.append('file', file, file_location);
     formData.append('file_type', file_info.file_type);
     formData.append('file_name', file.name);
@@ -129,6 +141,36 @@ export class ProjectsApi {
 
   public updateProjectsStatus(_id: any, data?: any): Observable<any> {
     const url = Baseconfig.getPath() + '/projects/' + _id;
+    return this.http
+      .put(url, data, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
+  public updateAttachments(
+    _id: any,
+    type = 'projects',
+    data: any
+  ): Observable<any> {
+    let url;
+    if (type == 'projects') {
+      url = Baseconfig.getPath() + '/projects/' + _id;
+    }
+    if (type == 'objectives') {
+      url = Baseconfig.getPath() + '/objectives/' + _id;
+    }
+    if (type == 'activities') {
+      url = Baseconfig.getPath() + '/activities/' + _id;
+    }
+    if (type == 'tasks') {
+      url = Baseconfig.getPath() + '/tasks/' + _id;
+    }
+
     return this.http
       .put(url, data, {
         headers: new HttpHeaders().set(

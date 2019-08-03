@@ -32,6 +32,10 @@ const Objectives = new Schema({
         type: Array
     },
   
+    attachments: {
+        type: Array
+    },
+  
     is_deleted: {
         type: Number,
         default: 0

@@ -36,6 +36,7 @@ export class UploadAttachmentsComponent implements OnInit {
   modalRef: BsModalRef;
   @Input() fileType = 'projects';
   @Input() formData;
+  @Input() title;
   @Output() output: EventEmitter<any> = new EventEmitter();
   selectedAttachment = null;
   user_name;
@@ -47,11 +48,13 @@ export class UploadAttachmentsComponent implements OnInit {
     this.user_id = id;
 
     console.log('id', id);
-    for (const iterator of this.attachments) {
-      console.log(iterator.user_id);
-      iterator.url = `${Baseconfig.getPath()}/${iterator.filePath}attachment-${
-        iterator.id
-      }.${iterator.extension}`;
+    if (this.attachments) {
+      for (const iterator of this.attachments) {
+        console.log(iterator);
+        iterator.url = `${Baseconfig.getPath()}/${
+          iterator.filePath
+        }attachment-${iterator.id}.${iterator.extension}`;
+      }
     }
   }
   downloadFile(item) {
@@ -90,8 +93,26 @@ export class UploadAttachmentsComponent implements OnInit {
       attachments: attachments
     };
     console.log('finale', attachments);
+
+    let id;
+    if (this.fileType === 'projects') {
+      id = this.formData._id;
+    }
+    if (this.fileType === 'objectives') {
+      console.log('got here');
+      console.log(this.formData);
+      id = this.formData._id;
+    }
+    if (this.fileType === 'activities') {
+      id = this.formData.activity_id;
+    }
+    if (this.fileType === 'tasks') {
+      id = this.formData.task_id;
+    }
+    // we need to give it right id
+
     this.projectsApi
-      .updateProjectsStatus(this.formData._id, data_to_save)
+      .updateAttachments(id, this.fileType, data_to_save)
       .subscribe(
         async response => {
           console.log('response->', response);
@@ -120,10 +141,11 @@ export class UploadAttachmentsComponent implements OnInit {
     if (this.fileItem) {
       this.projectsApi
         .uploadAttachment(
-          this.formData._id,
+          this.formData.project_id,
           this.file,
           this.fileItem,
-          this.attachments
+          this.attachments,
+          this.formData
         )
         .subscribe(
           async response => {
