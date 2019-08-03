@@ -7,9 +7,13 @@
     <br />
     <small> Date:<strong> {{item.date | date}}</strong></small>
     <br />
-    <button type="button" (click)="downloadFile(item)" class="btn btn-green"> View file</button>
-    <br /> <button type="button" (click)="deleteFile(deleteTemplate,item)" class="btn btn-red m-t-10"> delete
-      file</button>
+    <small> type:<strong> {{item.file_type }}</strong></small>
+    <br />
+    <div style="display: inline-flex">
+      <button type="button" (click)="downloadFile(item)" class="btn btn-green"> View </button>
+      <button type="button" *ngIf="user_id==item.user_id" (click)="deleteFile(deleteTemplate,item)" class="btn btn-red">
+        delete
+      </button></div>
   </div>
 </div>
 

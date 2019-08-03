@@ -46,7 +46,9 @@ export class UploadAttachmentsComponent implements OnInit {
     this.user_name = name;
     this.user_id = id;
 
+    console.log('id', id);
     for (const iterator of this.attachments) {
+      console.log(iterator.user_id);
       iterator.url = `${Baseconfig.getPath()}/${iterator.filePath}attachment-${
         iterator.id
       }.${iterator.extension}`;
