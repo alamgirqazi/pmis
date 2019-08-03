@@ -268,6 +268,7 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
         }
       );
   }
+
   openAttachments(template: TemplateRef<any>, data) {
     this.tempFormData = data;
     console.log('data', data);

@@ -52,6 +52,10 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
   selectedAppStatus: any = null;
   allStatuses;
   treeData;
+
+  tempFormData;
+  title;
+  attachments = [];
   selectedActivity;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -192,7 +196,17 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
       }
     };
   }
+  openAttachments(template: TemplateRef<any>, data) {
+    this.tempFormData = data;
+    console.log('data', data);
+    this.title = `Activity: ${data.activity_name}`;
+    this.attachments = data.attachments;
+    this.modalRef = this.modalService.show(template, { class: 'modal-xlg' });
+  }
 
+  reload() {
+    this.configDatatable(true);
+  }
   openTreeModal(template: TemplateRef<any>, data) {
     console.log('data', data);
     this.selectedActivity = data;

@@ -296,6 +296,9 @@ export class ObjectivesmodalComponent implements OnInit {
         }
       );
   }
+  reload() {
+    this.outputAndReload.emit(null);
+  }
   insertData() {
     this.isLoading = true;
     this.projectsApi.insertProjects(this.appInfoForm.value).subscribe(

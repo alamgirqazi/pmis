@@ -34,6 +34,9 @@ const Activities = new Schema({
     users_assigned: {
         type: Array
     },
+    attachments: {
+        type: Array
+    },
   
     is_deleted: {
         type: Number,

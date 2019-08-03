@@ -81,8 +81,6 @@ export class UploadAttachmentsComponent implements OnInit {
     this.modalRef.hide();
   }
   confirmDelete() {
-    console.log();
-
     const attachments = this.attachments.filter(x => {
       return x.id !== this.selectedAttachment.id;
     });
@@ -90,27 +88,11 @@ export class UploadAttachmentsComponent implements OnInit {
     const data_to_save = {
       attachments: attachments
     };
-    console.log('finale', attachments);
 
-    let id;
-    if (this.fileType === 'projects') {
-      id = this.formData._id;
-    }
-    if (this.fileType === 'objectives') {
-      console.log('got here');
-      console.log(this.formData);
-      id = this.formData._id;
-    }
-    if (this.fileType === 'activities') {
-      id = this.formData.activity_id;
-    }
-    if (this.fileType === 'tasks') {
-      id = this.formData.task_id;
-    }
     // we need to give it right id
 
     this.projectsApi
-      .updateAttachments(id, this.fileType, data_to_save)
+      .updateAttachments(this.formData._id, this.fileType, data_to_save)
       .subscribe(
         async response => {
           console.log('response->', response);
