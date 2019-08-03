@@ -72,6 +72,7 @@
                                               <th>Objective Name</th>
                                               <th>Project Name</th>
 
+                                              <th>Attachments</th>
                                               <th>Percentage</th>
                                               <th>Status</th>
 
@@ -101,7 +102,12 @@
                                                     data?.project_detail?.name
                                                   }}
                                                 </td>
-
+                                                <td> <a (click)="
+                                                  openAttachments(upload,
+                                                    data
+                                                  )
+                                                "><i class="material-icons">attach_file</i>
+                                                  </a> </td>
                                                 <td>
 
                                                   <progressbar class="progress" [value]="data.percentage"
@@ -288,3 +294,9 @@
   </ng-template>
 </div> -->
 </div>
+<!-- Upload Modal -->
+<ng-template #upload>
+  <shared-upload-attachments [title]="title" (output)="reload()" [attachments]="attachments" [formData]="tempFormData"
+    [fileType]="'tasks'">
+  </shared-upload-attachments>
+</ng-template>

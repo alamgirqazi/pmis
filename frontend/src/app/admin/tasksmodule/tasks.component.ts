@@ -54,6 +54,9 @@ export class TasksComponent implements OnInit, AfterViewInit {
   selectedAppStatus: any = null;
   allStatuses;
   treeData;
+  tempFormData;
+  attachments = [];
+  title;
   selectedTask;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -256,6 +259,16 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
   decline() {
     this.modalRef.hide();
+  }
+  reload() {
+    this.configDatatable(true);
+  }
+  openAttachments(template: TemplateRef<any>, data) {
+    this.tempFormData = data;
+    console.log('data', data);
+    this.title = `Task: ${data.task_name}`;
+    this.attachments = data.attachments;
+    this.modalRef = this.modalService.show(template, { class: 'modal-xlg' });
   }
 
   outputAndReload() {
