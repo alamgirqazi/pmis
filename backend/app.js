@@ -24,6 +24,7 @@ app.use(
 
 const authRoutes = require('./routes/auth.routes');
 const usersRoutes = require('./routes/users.routes');
+const departmentsRoutes = require('./routes/departments.routes');
 const projectsRoutes = require('./routes/projects.routes');
 const objectivesRoutes = require('./routes/objectives.routes');
 const activitiesRoutes = require('./routes/activities.routes');
@@ -60,6 +61,7 @@ app.use(cors());
 // app.use("/assets",assetsRoutes);
 // checkAuth
 app.use("/users",usersRoutes);
+app.use("/departments",departmentsRoutes);
 app.use("/projects",projectsRoutes);
 app.use("/objectives",objectivesRoutes);
 app.use("/activities",activitiesRoutes);

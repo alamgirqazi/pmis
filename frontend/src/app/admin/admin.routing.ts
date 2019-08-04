@@ -21,7 +21,8 @@ export const routes: Routes = [
       },
       {
         path: 'reports',
-        loadChildren: 'app/admin/reportsmodule/reports.module#ReportsmoduleModule'
+        loadChildren:
+          'app/admin/reportsmodule/reports.module#ReportsmoduleModule'
       },
       {
         path: 'projects',
@@ -46,6 +47,11 @@ export const routes: Routes = [
         path: 'profile',
         loadChildren:
           'app/admin/profilemodule/profile.module#ProfilemoduleModule'
+      },
+      {
+        path: 'departments',
+        loadChildren:
+          'app/admin/departmentsmodule/departments.module#DepartmentsmoduleModule'
       },
       // {
       //   path: 'reports',

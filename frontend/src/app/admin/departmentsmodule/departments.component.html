@@ -1,0 +1,209 @@
+<div id="content" class="app-content box-shadow-z2" [class.app-aside-open]="navOpened"
+  [class.app-aside-closed]="!navOpened" role="main">
+  <div class="app-body">
+    <div class="app-body-inner">
+      <div class="row-col">
+        <div class="row-row">
+          <div class="row-body scrollable hover">
+            <div class="row-inner">
+              <div class="row-col">
+                <div class="col-xs hidden-lg-up show" id="detail">
+                  <div class="row-col">
+                    <div class="col-lg col-md col-sm col-xs b-r">
+                      <div class="row-col">
+                        <div class="b-b white bg">
+                          <div class="navbar no-radius">
+                            <div class="row">
+                              <div class="col-md-7">
+                                <ul class="nav navbar-nav list-top-navbar">
+                                  <!-- <li class="nav-item">
+                                      <h5 class="navbar-item-title">Inventory List</h5>
+                                    </li> -->
+
+                                  <li class="nav-item">
+                                    <a class="nav-link btn btn-green" data-toggle="modal" (click)="
+                                        openModal(appinfomodal, null, true)
+                                      ">
+                                      <i class="material-icons">add</i> Add Department
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="col-md-5">
+                                <!-- <ul class="nav navbar-nav list-top-navbar">
+
+                                  <li class="nav-item">
+                                    <div class="text-right">
+                                      <button
+                                        (click)="generateAssetsBackup()"
+                                        class="btn btn-green round"
+                                        type="button"
+                                        title="Assets Backup"
+                                      >
+                                        Generate Assets Backup
+                                      </button>
+                                    </div>
+                                  </li>
+                                  <li class="nav-item">
+                                    <div class="text-right">
+                                      <button
+                                        (click)="generateSuppliesBackup()"
+                                        class="btn btn-green round"
+                                        type="button"
+                                        title="Supplies Backup"
+                                      >
+                                        Generate Supplies Backup
+                                      </button>
+                                    </div>
+                                  </li>
+                                </ul> -->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row-row">
+                          <div class="row-body scrollable">
+                            <div class="row-inner">
+                              <div class="p-a">
+                                <div class="row">
+                                  <div class="col-xs-12">
+                                    <div class="table-box box visible">
+                                      <div class="box-header p-8">
+                                        <div class="row">
+                                          <div class="col-md-3">
+                                            <h2 class="nowrap l-h">
+                                              Departments
+                                            </h2>
+                                          </div>
+                                          <div class="col-md-9 text-right">
+                                            <form class="form-inline pull-right">
+                                              <ul class="p-l-0 m-b-0"></ul>
+                                            </form>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="table-box-body" id="datatable" [hidden]="!isFetchingData">
+                                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                                          class="table b-l-0 route-table m-b-0 table-hover table-striped table-bordered"
+                                          id="angulardatatable">
+                                          <thead class="thead-light">
+                                            <tr>
+                                              <!-- class="loadfreeth" -->
+                                              <th>ID</th>
+                                              <th>Name</th>
+                                              <th>Picture</th>
+                                              <th>Role</th>
+                                              <th>Email</th>
+                                              <th>Location</th>
+                                              <!-- class="loadorderth" -->
+
+                                              <th class="text-align">Edit</th>
+                                              <th class="text-align">Delete</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <ng-template ngFor let-data [ngForOf]="result" let-i="index">
+                                              <!-- [class.odd]="" -->
+                                              <tr role="row" class="">
+                                                <td>{{ data.id }}</td>
+                                                <td>
+                                                  {{ data.name }}
+                                                </td>
+                                                <td>
+                                                  <img [src]="data.src" alt="Avatar" class="custom-avatar"
+                                                    onError="this.src='assets/images/avatar.jpg'" />
+                                                </td>
+                                                <td>{{ data.role }}</td>
+                                                <td>{{ data.email }}</td>
+                                                <td>{{ data.password }}</td>
+
+                                                <td class="text-align">
+                                                  <span>
+                                                    <a (click)="
+                                                        openModal(
+                                                          appinfomodal,
+                                                          data,
+                                                          false
+                                                        )
+                                                      "><i class="material-icons">edit</i>
+                                                    </a>
+                                                  </span>
+                                                </td>
+                                                <td class="text-align">
+                                                  <span>
+                                                    <!-- (click)="openModal(appinfomodal,data,false)" -->
+                                                    <a (click)="
+                                                        openConfirmationTab(
+                                                          deleteconfirmation,
+                                                          data
+                                                        )
+                                                      "><i class="material-icons">delete</i>
+                                                    </a>
+                                                  </span>
+                                                </td>
+                                              </tr>
+                                              <tr *ngIf="
+                                                  result == 0 && isFetchingData
+                                                ">
+                                                <td colspan="12" class="no-data-available">
+                                                  Data is not Available.
+                                                </td>
+                                              </tr>
+                                            </ng-template>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Right End -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmation  Modal -->
+<ng-template #confirmation>
+  <div class="modal-body text-center">
+    <p>
+      Are you sure you want to <strong>{{ msgstatus }}</strong>
+      {{ changedApp?.name }}?
+    </p>
+    <button type="button" class="btn btn-green" (click)="updateAppStatus()">
+      Yes
+    </button>
+    <button type="button" class="btn btn-default" (click)="decline()">
+      No
+    </button>
+  </div>
+</ng-template>
+<!-- Confirmation  Modal -->
+<ng-template #deleteconfirmation>
+  <div class="modal-body text-center">
+    <p>Are you sure you want to remove {{ changedApp?.name }}?</p>
+    <button type="button" class="btn btn-green" (click)="deleteApplication()">
+      Yes
+    </button>
+    <button type="button" class="btn btn-default" (click)="decline()">
+      No
+    </button>
+  </div>
+</ng-template>
+
+<!-- App Info  Modal -->
+<ng-template #appinfomodal>
+  <app-departmentsmodal [formData]="formData" [newInstance]="newInstance" (outputAndReload)="outputAndReload()"
+    (output)="decline()"></app-departmentsmodal>
+</ng-template>
