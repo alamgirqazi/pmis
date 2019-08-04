@@ -91,10 +91,9 @@
                                               <!-- class="loadfreeth" -->
                                               <th>ID</th>
                                               <th>Name</th>
-                                              <th>Picture</th>
-                                              <th>Role</th>
-                                              <th>Email</th>
-                                              <th>Location</th>
+                                              <th>Company</th>
+                                              <th>Website</th>
+                                              <th>Phone</th>
                                               <!-- class="loadorderth" -->
 
                                               <th class="text-align">Edit</th>
@@ -110,12 +109,17 @@
                                                   {{ data.name }}
                                                 </td>
                                                 <td>
-                                                  <img [src]="data.src" alt="Avatar" class="custom-avatar"
-                                                    onError="this.src='assets/images/avatar.jpg'" />
+                                                  {{ data.company }}
                                                 </td>
-                                                <td>{{ data.role }}</td>
-                                                <td>{{ data.email }}</td>
-                                                <td>{{ data.password }}</td>
+
+                                                <td>
+                                                  {{ data.website }}
+                                                </td>
+
+                                                <td>
+                                                  {{ data.phone }}
+                                                </td>
+
 
                                                 <td class="text-align">
                                                   <span>

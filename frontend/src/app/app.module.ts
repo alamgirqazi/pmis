@@ -20,6 +20,7 @@ import { AuthService } from '../sdk/services/core/auth.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CustomdirectivesModule } from './shared/directives/customdirectives/customdirectives.module';
+import { DonorApi } from '../sdk/services/custom/donors.service';
 import { ErrorInterceptor } from '../sdk/services/core/httpinterceptor.service';
 import { ExcelService } from '../sdk/services/custom/excel.service';
 import { LoginComponent } from './login/login.component';
@@ -73,6 +74,7 @@ import { isLoginGuard } from './guard/islogin.service';
     StatisticsApi,
     AuthService,
     UserApi,
+    DonorApi,
     AsideNavigationService,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],

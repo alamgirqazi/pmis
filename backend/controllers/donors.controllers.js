@@ -32,7 +32,7 @@ donorsController.getAll = async (req, res) => {
     let merged = {...obj,...user_type_obj};
     
 
-        donors = await Donors.paginate({merged,
+        donors = await Donors.paginate(merged,{
             offset: parseInt(start),
             limit: parseInt(length)
         });

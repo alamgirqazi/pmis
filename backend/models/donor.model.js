@@ -15,7 +15,11 @@ const Donor = new Schema({
         type: String
     },
 
-     picture: {
+      website: {
+        type: String
+    },
+
+      phone: {
         type: String
     },
    

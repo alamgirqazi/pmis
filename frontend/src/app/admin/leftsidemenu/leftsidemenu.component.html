@@ -29,7 +29,7 @@
             data-placement="right">
             <a routerLink="/admin/reports" title="Reports">
               <span class="nav-icon">
-                <i class="fa font-20 fa-dashboard"></i>
+                <i class="material-icons">assessment</i>
               </span>
               <span class="nav-text">Reports</span>
             </a>
@@ -38,7 +38,7 @@
             data-toggle="tooltip" data-placement="right">
             <a routerLink="/admin/projects" title="Dashboard">
               <span class="nav-icon">
-                <i class="fa font-20 fa-dashboard"></i>
+                <i class="material-icons">list_alt</i>
               </span>
               <span class="nav-text">Projects</span>
             </a>
@@ -46,7 +46,7 @@
           <li *ngIf="role == 'Project Manager'" routerLinkActive="active" data-toggle="tooltip" data-placement="right">
             <a routerLink="/admin/objectives" title="Objectives">
               <span class="nav-icon">
-                <i class="fa font-20 fa-dashboard"></i>
+                <i class="material-icons">list_alt</i>
               </span>
               <span class="nav-text">Objectives</span>
             </a>
@@ -68,7 +68,7 @@
             data-placement="right">
             <a routerLink="/admin/activities" title="Activities">
               <span class="nav-icon">
-                <i class="material-icons">people</i>
+                <i class="material-icons">list_alt</i>
               </span>
               <span class="nav-text">Activities</span>
             </a>
@@ -77,17 +77,28 @@
             data-placement="right">
             <a routerLink="/admin/tasks" title="Tasks">
               <span class="nav-icon">
-                <i class="material-icons">people</i>
+                <i class="material-icons">list_alt</i>
               </span>
               <span class="nav-text">Tasks</span>
             </a>
           </li>
-          <li class="" routerLinkActive="active" data-toggle="tooltip" data-placement="right">
-            <a routerLink="/admin/profile" title="Profile">
+
+          <li *ngIf="role == 'Executive Director'" class="" routerLinkActive="active" data-toggle="tooltip"
+            data-placement="right">
+            <a routerLink="/admin/donors" title="Donors">
               <span class="nav-icon">
-                <i class="material-icons">people</i>
+                <i class="material-icons">card_membership</i>
               </span>
-              <span class="nav-text">Profile</span>
+              <span class="nav-text">Donors</span>
+            </a>
+          </li>
+          <li *ngIf="role == 'Executive Director'" class="" routerLinkActive="active" data-toggle="tooltip"
+            data-placement="right">
+            <a routerLink="/admin/departments" title="Departments">
+              <span class="nav-icon">
+                <i class="material-icons">people_outline</i>
+              </span>
+              <span class="nav-text">Departments</span>
             </a>
           </li>
           <li *ngIf="role == 'Executive Director'" class="" routerLinkActive="active" data-toggle="tooltip"
@@ -99,14 +110,15 @@
               <span class="nav-text">Users</span>
             </a>
           </li>
-          <!-- <li class="" routerLinkActive="active" data-toggle="tooltip" data-placement="right">
-            <a routerLink="/admin/reporting" title="Graphs">
+          <li class="" routerLinkActive="active" data-toggle="tooltip" data-placement="right">
+            <a routerLink="/admin/profile" title="Profile">
               <span class="nav-icon">
-                <i class="material-icons">assessment</i>
+                <i class="material-icons">person_pin</i>
               </span>
-              <span class="nav-text">Reporting</span>
+              <span class="nav-text">Profile</span>
             </a>
-          </li> -->
+          </li>
+
         </ul>
       </nav>
     </div>

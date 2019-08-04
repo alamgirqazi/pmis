@@ -146,7 +146,6 @@ export class UserApi {
 
     const file_location = `avatar-${user_id}.${user_info.extension}`;
     const formData: FormData = new FormData();
-    image.mydestination = 'fasd';
     formData.append('file', image, file_location);
 
     return this.http
