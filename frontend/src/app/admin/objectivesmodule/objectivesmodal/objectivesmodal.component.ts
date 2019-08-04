@@ -102,10 +102,8 @@ export class ObjectivesmodalComponent implements OnInit {
   }
   getActivitiesFromDB() {
     const objective_id = this.formData._id;
-    console.log('objective_id');
     this.activitiesApi.getActivitiesByIds(objective_id, '').subscribe(
       async response => {
-        console.log('my projects activities->', response);
         if (response.data && response.data.docs.length > 0) {
           // patch Rooms here
           this.resetActivities();

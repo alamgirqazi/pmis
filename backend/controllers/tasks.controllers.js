@@ -71,10 +71,8 @@ tasksController.getAll = async (req, res) => {
     let response_object = JSON.parse(JSON.stringify(objectives));
 
     for (let [index, iterator] of response_object.docs.entries()) {
-      console.log('iterator', iterator.objective_id);
       const res = await Projects.findOne({ _id: iterator.project_id });
       const res1 = await Objectives.findOne({ _id: iterator.objective_id });
-      console.log('res1', res1);
       const res2 = await Activities.findOne({ _id: iterator.activity_id });
       response_object.docs[index].project_detail = res;
       response_object.docs[index].objective_detail = res1;
@@ -149,7 +147,6 @@ final_attachments.push(attachment)
 const updates = {
   attachments: final_attachments
 }
-console.log('my updades',updates);
     runUpdate(body.task_id, updates, res);
   } catch (error) {
     console.log('error', error);

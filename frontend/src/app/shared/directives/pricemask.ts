@@ -33,12 +33,10 @@ export class PriceMask {
     // don't show braces for empty value
     if (!(typeof decimalCheck[1] === 'undefined')) {
       decimalCheck[1] = decimalCheck[1].slice(0, 2);
-      console.log(decimalCheck[1].length);
       newVal = decimalCheck[0] + '.' + decimalCheck[1];
     }
     // set the new value
     this.control.control.setValue(newVal);
 
-    console.log(newVal);
   }
 }

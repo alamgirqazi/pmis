@@ -89,10 +89,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   // @TODO
   ngOnInit() {
     const { role } = this.authService.getAccessTokenInfo();
-    console.log('role', role);
-    console.log(role === 'Managing Director');
     if (role.includes('Director')) {
-      console.log('nothing');
     } else {
       this.router.navigate(['/admin/profile']);
     }
@@ -253,7 +250,6 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
     this.modalRef = this.modalService.show(template, config);
   }
   openTreeModal(template: TemplateRef<any>, data) {
-    console.log('data', data);
     this.selectedProject = data;
     const config = {
       backdrop: true,
@@ -267,12 +263,10 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
         this.treeData = response.data;
 
         for (const iterator of this.treeData) {
-          console.log('terator', iterator);
           iterator.percentage = this.miscHelperService.calculateStatusPercentageObject(
             iterator
           );
         }
-        console.log('this.treedata', this.treeData);
         this.slimScroll.complete();
       },
       error => {

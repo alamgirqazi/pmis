@@ -153,10 +153,8 @@ export class ProjectsmodalComponent implements OnInit {
   }
   getObjectivesFromDB() {
     const project_id = this.appInfoForm.controls['_id'].value;
-    console.log('project_id', project_id);
     this.objectivesApi.getObjectivesByIds(project_id, '').subscribe(
       async response => {
-        console.log('my projects objectives->', response);
         if (response.data && response.data.docs.length > 0) {
           // patch Rooms here
           this.resetObjectives();
@@ -262,9 +260,7 @@ export class ProjectsmodalComponent implements OnInit {
   }
 
   deleteObjective(id, item) {
-    console.log('this', this.appObjectiveForm.value);
     // if (id !== 0) {
-    console.log('item--', item);
     if (item.value._id && item.value._id != '') {
       this.objectiveDeleted = true;
       this.objectiveInfo = item;
@@ -282,10 +278,8 @@ export class ProjectsmodalComponent implements OnInit {
     // }
   }
   deleteObjectiveFromDB() {
-    console.log('this.objectiveInfo', this.objectiveInfo.value._id);
     this.objectivesApi.deleteObjective(this.objectiveInfo.value._id).subscribe(
       async response => {
-        console.log('deleteObjectiveFromDB->', response);
         this.control.removeAt(this.deleteId);
         this.toasterService.pop('success', 'Objective deleted Successfully');
         this.modalRef.hide();
@@ -323,7 +317,6 @@ export class ProjectsmodalComponent implements OnInit {
         if (type === 'Managing Director') {
           this.usersList = response.data.docs;
         } else {
-          console.log('else', response.data.docs);
           this.projectManagersList = response.data.docs;
         }
 
@@ -406,7 +399,6 @@ export class ProjectsmodalComponent implements OnInit {
 
   reload() {
     this.outputAndReload.emit(null);
-    console.log('well see what to do');
   }
 
   saveObjectivesToDB() {

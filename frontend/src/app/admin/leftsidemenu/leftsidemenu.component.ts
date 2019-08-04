@@ -99,7 +99,6 @@ export class LeftsidemenuComponent implements OnInit {
   }
 
   logout() {
-    console.log('logout!');
     localStorage.removeItem('token');
     // localStorage.removeItem('data');
     this.router.navigate(['/login']);

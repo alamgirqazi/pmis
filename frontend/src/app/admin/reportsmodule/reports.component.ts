@@ -260,7 +260,6 @@ export class ReportsComponent implements OnInit {
           );
         }
 
-        console.log('this.result2', this.result2);
         setTimeout(() => {
           this.dtTrigger2.next();
           setTimeout(() => {
@@ -312,7 +311,6 @@ export class ReportsComponent implements OnInit {
           );
         }
 
-        console.log('this.result3', this.result3);
         setTimeout(() => {
           this.dtTrigger3.next();
           setTimeout(() => {
@@ -354,7 +352,6 @@ export class ReportsComponent implements OnInit {
           iterator.task_users = this.calculateTaskUsers(arr);
         }
 
-        console.log('this.result4', this.result4);
         setTimeout(() => {
           this.dtTrigger4.next();
           setTimeout(() => {
@@ -461,10 +458,8 @@ export class ReportsComponent implements OnInit {
     if (!arr || arr.length === 0) {
       return 0;
     }
-    let total = arr.length;
     let success = 0;
     for (const iterator of arr) {
-      console.log('iterator', iterator);
       const found = iterator.users_assigned.find(function(element) {
         return element._id === user_id;
       });

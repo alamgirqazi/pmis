@@ -87,7 +87,6 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
   // @TODO
   ngOnInit() {
     const { id, _id, role } = this.authService.getAccessTokenInfo();
-    console.log('TCL: ObjectivesComponent -> ngOnInit -> id', _id);
     this._id = _id;
     // if (role != 'Project Manager') {
     //   this.router.navigate(['/admin/activities']);
@@ -201,7 +200,6 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
     this.modalRef = this.modalService.show(template, { class: 'modal-xs' });
   }
   openModal(template: TemplateRef<any>, data, newInstance) {
-    console.log('data', data);
     this.newInstance = newInstance;
     this.formData = data;
     const config = {
@@ -213,7 +211,6 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
   }
   reload() {}
   openTreeModal(template: TemplateRef<any>, data) {
-    console.log('data', data);
     this.selectedObjective = data;
     this.treeData = data.activity_detail;
     const config = {
@@ -223,7 +220,6 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
     };
 
     for (const iterator of this.treeData) {
-      console.log('terator', iterator);
       iterator.percentage = this.miscHelperService.calculateStatusPercentageObject(
         iterator
       );
@@ -248,7 +244,6 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
 
     const merged = [...filter, ...selected_user_assigned];
 
-    console.log('merged', merged);
     // update status based on users_assigned
 
     this.objectivesApi
@@ -271,7 +266,6 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
 
   openAttachments(template: TemplateRef<any>, data) {
     this.tempFormData = data;
-    console.log('data', data);
     this.title = `Objective: ${data.objective_name}`;
     this.attachments = data.attachments;
     this.modalRef = this.modalService.show(template, { class: 'modal-xlg' });

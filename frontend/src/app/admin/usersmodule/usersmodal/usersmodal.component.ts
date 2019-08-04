@@ -67,7 +67,6 @@ export class UsersmodalComponent implements OnInit {
           '/' +
           this.formData.avatar +
           this.formData.avatar_ext;
-        console.log('this.userInfo.avatar', this.userInfo.avatar);
       }
     } else {
       this.getUserNextId();
@@ -82,7 +81,6 @@ export class UsersmodalComponent implements OnInit {
   }
 
   onFileChange(e) {
-    console.log('e', e);
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);

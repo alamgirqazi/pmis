@@ -11,7 +11,6 @@ export class NavService {
 
   changeNav(state) {
     this._navItemSource.next(state);
-    console.log('changeNav');
   }
 
   changeView(state) {
