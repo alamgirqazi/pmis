@@ -53,6 +53,10 @@ export const routes: Routes = [
         loadChildren:
           'app/admin/departmentsmodule/departments.module#DepartmentsmoduleModule'
       },
+      {
+        path: 'donors',
+        loadChildren: 'app/admin/donorsmodule/donors.module#DonorsmoduleModule'
+      },
       // {
       //   path: 'reports',
       //   loadChildren:

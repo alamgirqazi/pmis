@@ -1,0 +1,38 @@
+/* .list-top-navbar .nav-item > .nav-link {
+  line-height: 25px;
+  padding: 4px 15px;
+} */
+
+app-sidenav {
+  display: table;
+  table-layout: fixed;
+  height: 100%;
+}
+
+spd-destination {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  height: 100%;
+  border-spacing: 0px;
+}
+
+.navbar-item-title {
+  margin: 0px;
+  line-height: 35px;
+  font-size: 16px;
+}
+
+.dropdown-list-menu a:hover {
+  background: rgba(0, 0, 0, 0.1);
+  opacity: 1;
+  padding: 2px 8px;
+}
+
+.dropdown-list-menu a {
+  padding: 2px 8px;
+}
+
+.text-align {
+  text-align: center
+}
