@@ -197,6 +197,7 @@ export class ProjectsmodalComponent implements OnInit {
       department: ['', []],
       priority: ['medium', []],
       start_date: [null, []],
+      price: [null, []],
       severity: ['normal', []],
       end_date: [null, []],
       notes: [null, []],
