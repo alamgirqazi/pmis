@@ -18,6 +18,7 @@ import { AsideNavigationService } from '../../services/asideNavigation.Service';
 import { AuthService } from '../../../sdk/services/core/auth.service';
 import { Baseconfig } from '../../../sdk/base.config';
 import { DataTableDirective } from 'angular-datatables';
+import { DepartmentApi } from '../../../sdk/services/custom/department.service';
 import { ExcelService } from '../../../sdk/services/custom/excel.service';
 import { MiscHelperService } from '../../../sdk/services/custom/misc.service';
 import { Router } from '@angular/router';
@@ -37,6 +38,7 @@ export class DepartmentsComponent implements OnInit, AfterViewInit {
     private router: Router,
     private http: HttpClient,
     private userApi: UserApi,
+    private departmentApi: DepartmentApi,
     private miscHelperService: MiscHelperService,
     private authService: AuthService,
     private modalService: BsModalService,
@@ -73,7 +75,7 @@ export class DepartmentsComponent implements OnInit, AfterViewInit {
     this.userList = this.miscHelperService.userList;
     const { role } = this.authService.getAccessTokenInfo();
     if (role != 'Executive Director') {
-      this.router.navigate(['/admin/projects']);
+      this.router.navigate(['/admin/profile']);
     }
     this._asideNavigationService.currentMessage.subscribe(message => {
       this.navOpened = message;
@@ -115,7 +117,7 @@ export class DepartmentsComponent implements OnInit, AfterViewInit {
     };
     const displayMsg = `${this.changedApp.name} is now ${this.mystatus}`;
 
-    this.userApi.updateUser(this.changedApp._id, status).subscribe(
+    this.departmentApi.updateDepartment(this.changedApp._id, status).subscribe(
       async response => {
         console.log('response', response);
         this.configDatatable(true);
@@ -222,9 +224,9 @@ export class DepartmentsComponent implements OnInit, AfterViewInit {
   }
 
   deleteApplication() {
-    const displayMsg = `${this.changedApp.Name} has been removed successfully`;
+    const displayMsg = `${this.changedApp.name} has been removed successfully`;
 
-    this.userApi.deleteUser(this.changedApp._id).subscribe(
+    this.departmentApi.deleteDepartment(this.changedApp._id).subscribe(
       async response => {
         console.log('response', response);
         this.configDatatable(true);

@@ -5,7 +5,7 @@
       <button type="button" class="close" (click)="closeModal()">
         <span aria-hidden="true">×</span>
       </button>
-      Users Info
+      Department Info
     </div>
     <div class="modal-body">
       <div class="form-group row">
@@ -24,49 +24,8 @@
             }" class="form-control" type="text" />
         </div>
       </div>
-      <div class="form-group row">
-        <label class="col-lg-3 form-control-label">Email:</label>
-        <div class="col-lg-9">
-          <input formControlName="email" [ngClass]="{
-              'error-input': submitForm && appInfoForm.controls['email'].invalid
-            }" class="form-control" type="text" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-lg-3 form-control-label">Password:</label>
-        <div class="col-lg-9">
-          <input formControlName="password" [ngClass]="{
-              'error-input':
-                submitForm && appInfoForm.controls['password'].invalid
-            }" class="form-control" type="text" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-lg-3 form-control-label">Role:</label>
-        <div class="col-lg-9">
-          <select formControlName="role" [ngClass]="{
-              'error-input': submitForm && appInfoForm.controls['role'].invalid
-            }" name="type" class="form-control valid">
-            <ng-template ngFor let-item [ngForOf]="userTypeList" let-i="index">
-              <option value="{{ item.type }}">{{ item.type }}</option>
-            </ng-template>
-          </select>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-lg-3 form-control-label">Profile Pic:</label>
-        <div class="col-lg-9">
-          <label>
-            <input type="file" #inputFile style="display:none" (change)="onFileChange($event)" />
-            <img [src]="userInfo?.avatar" class="fixed-size" onError="this.src='assets/images/placeholder.jpg'" />
-          </label>
-          <button *ngIf="userInfo?.touched" type="button" (click)="uploadImage()" class="btn btn-green round"
-            [disabled]="isLoadingImgUpload">
-            <i *ngIf="isLoadingImgUpload" class="fa fa-circle-o-notch fa-spin btn-spinner"></i>
-            <span *ngIf="!isLoadingImgUpload">Upload Image </span>
-          </button>
-        </div>
-      </div>
+
+
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-line" (click)="closeModal()">

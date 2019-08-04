@@ -75,7 +75,7 @@ export class DonorsComponent implements OnInit, AfterViewInit {
     this.userList = this.miscHelperService.userList;
     const { role } = this.authService.getAccessTokenInfo();
     if (role != 'Executive Director') {
-      this.router.navigate(['/admin/projects']);
+      this.router.navigate(['/admin/profile']);
     }
     this._asideNavigationService.currentMessage.subscribe(message => {
       this.navOpened = message;
@@ -224,7 +224,7 @@ export class DonorsComponent implements OnInit, AfterViewInit {
   }
 
   deleteApplication() {
-    const displayMsg = `${this.changedApp.Name} has been removed successfully`;
+    const displayMsg = `${this.changedApp.name} has been removed successfully`;
 
     this.donorApi.deleteDonor(this.changedApp._id).subscribe(
       async response => {

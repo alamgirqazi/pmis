@@ -13,6 +13,7 @@ import {
 
 import { Baseconfig } from '../../../../sdk/base.config';
 import { DataTableDirective } from 'angular-datatables';
+import { DepartmentApi } from '../../../../sdk/services/custom/department.service';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { MiscHelperService } from '../../../../sdk/services/custom/misc.service';
@@ -33,6 +34,7 @@ export class DepartmentsmodalComponent implements OnInit {
   constructor(
     private slimScroll: SlimLoadingBarService,
     private miscHelperService: MiscHelperService,
+    private departmentApi: DepartmentApi,
     private userApi: UserApi,
     private toasterService: ToasterService,
     private fb: FormBuilder
@@ -60,89 +62,26 @@ export class DepartmentsmodalComponent implements OnInit {
 
     if (!this.newInstance) {
       this.appInfoForm.patchValue(this.formData);
-
-      if (this.formData.avatar) {
-        this.userInfo = {};
-        this.userInfo.avatar =
-          Baseconfig.getPath() +
-          '/' +
-          this.formData.avatar +
-          this.formData.avatar_ext;
-        console.log('this.userInfo.avatar', this.userInfo.avatar);
-      }
     } else {
       this.getUserNextId();
     }
-    this.getAll();
   }
-
-  getAll() {}
 
   closeModal() {
     this.output.emit(null);
-  }
-
-  onFileChange(e) {
-    console.log('e', e);
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = event => {
-      this.userInfo = {};
-      this.userInfo.touched = true;
-      this.userInfo.avatar = (<FileReader>event.target).result;
-      this.userInfo.file = file;
-      this.userInfo.extension = file.name.split('.').pop();
-    };
-    this.filePresent = true;
   }
 
   formInitializer() {
     this.appInfoForm = this.fb.group({
       name: [null, [Validators.required]],
       id: ['', [Validators.required]],
-      password: [''],
-      email: ['', [Validators.required, Validators.email]],
-      role: ['', [Validators.required]],
-      avatar: [null],
-      avatar_ext: [null],
       _id: ['', []]
       // status: ['', [Validators.required]],
     });
   }
 
-  uploadImage() {
-    if (this.filePresent) {
-      this.isLoadingImgUpload = true;
-      const id = this.appInfoForm.controls.id.value;
-
-      this.userApi
-        .uploadAvatar(this.userInfo, this.userInfo.file, id)
-        .subscribe(
-          async response => {
-            console.log('respoe->', response);
-            this.isLoadingImgUpload = false;
-            this.outputAndReload.emit(null);
-
-            // this.appInfoForm.patchValue(response.data);
-            // this.slimScroll.complete();
-          },
-          error => {
-            console.log('error', error);
-            this.isLoadingImgUpload = false;
-            this.toasterService.pop(
-              'error',
-              'There are some error while uploading Image'
-            );
-
-            // this.slimScroll.complete();
-          }
-        );
-    }
-  }
-
   getUserNextId() {
-    this.userApi.getUserNextId().subscribe(
+    this.departmentApi.getDepartmentNextId().subscribe(
       async response => {
         console.log('respoe->', response);
         this.appInfoForm.patchValue(response.data);
@@ -170,10 +109,8 @@ export class DepartmentsmodalComponent implements OnInit {
     this.isLoading = true;
 
     const val = this.appInfoForm.value;
-    if (val.password == '') {
-      delete val.password;
-    }
-    this.userApi.updateUser(this.formData._id, val).subscribe(
+
+    this.departmentApi.updateDepartment(this.formData._id, val).subscribe(
       async response => {
         console.log('response->', response);
         this.outputAndReload.emit(null);
@@ -189,7 +126,7 @@ export class DepartmentsmodalComponent implements OnInit {
   }
   insertData() {
     this.isLoading = true;
-    this.userApi.insertUser(this.appInfoForm.value).subscribe(
+    this.departmentApi.insertDepartment(this.appInfoForm.value).subscribe(
       async response => {
         console.log('response->', response);
         this.outputAndReload.emit(null);
