@@ -6,6 +6,7 @@ const upload = require('../config/upload');
 
 // router.get("/",departmentsController.sampleDepartment);
 router.get("/",departmentsController.getAll);
+router.get("/get/all/departments",departmentsController.getAllDepartments);
 router.get("/:_id",departmentsController.getSingleDepartment);
 router.get("/getnextid/next",departmentsController.getNextId);
 router.post("/",departmentsController.addDepartment);

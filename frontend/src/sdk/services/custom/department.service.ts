@@ -54,6 +54,20 @@ export class DepartmentApi {
         return response;
       });
   }
+  public getAllDepartments(): Observable<any> {
+    const url = Baseconfig.getPath() + `/departments/get/all/departments`;
+
+    return this.http
+      .get(url, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        )
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
 
   public updateDepartment(_id: any, data?: any): Observable<any> {
     const url = Baseconfig.getPath() + '/departments/' + _id;

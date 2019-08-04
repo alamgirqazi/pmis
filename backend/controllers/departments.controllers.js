@@ -47,6 +47,23 @@ departmentsController.getAll = async (req, res) => {
         return res.status(500).send(error);
     }
 };
+departmentsController.getAllDepartments = async (req, res) => {
+    let departments;
+    try {
+      
+
+        departments = await Departments.find();
+        res.status(200).send({
+            code: 200,
+            message: 'Successful',
+            data: departments
+        });
+
+    } catch (error) {
+        console.log('error', error);
+        return res.status(500).send(error);
+    }
+};
 
 departmentsController.getSingleDepartment = async (req, res) => {
     let user;

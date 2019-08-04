@@ -17,6 +17,7 @@ import { FormArray, FormBuilder } from '@angular/forms';
 import { AuthService } from '../../../../sdk/services/core/auth.service';
 import { Baseconfig } from '../../../../sdk/base.config';
 import { DataTableDirective } from 'angular-datatables';
+import { DepartmentApi } from './../../../../sdk/services/custom/department.service';
 import { FormGroup } from '@angular/forms';
 import { MiscHelperService } from '../../../../sdk/services/custom/misc.service';
 import { ObjectivesApi } from '../../../../sdk/services/custom/objectives.service';
@@ -41,6 +42,7 @@ export class ProjectsmodalComponent implements OnInit {
     private authService: AuthService,
     private projectsApi: ProjectsApi,
     private objectivesApi: ObjectivesApi,
+    private departmentApi: DepartmentApi,
     private userApi: UserApi,
     private modalService: BsModalService,
     private toasterService: ToasterService,
@@ -98,11 +100,12 @@ export class ProjectsmodalComponent implements OnInit {
 
   ngOnInit() {
     // this.locationListing = [...this.miscHelperService.locationList];
-    this.departmentList = this.miscHelperService.departmentList;
+    // this.departmentList = this.miscHelperService.departmentList;
     this.severityList = this.miscHelperService.severityList;
     this.priorityList = this.miscHelperService.priorityList;
     const { role } = this.authService.getAccessTokenInfo();
     this.getUsersFromDB();
+    this.getDepartments();
     this.getProjectManagers();
     this.formInitializer();
     if (this.newInstance) {
@@ -136,6 +139,18 @@ export class ProjectsmodalComponent implements OnInit {
     // }
   }
 
+  getDepartments() {
+    this.departmentApi.getAllDepartments().subscribe(
+      async response => {
+        this.departmentList = response.data;
+        // this.slimScroll.complete();
+      },
+      error => {
+        console.log('error', error);
+        this.slimScroll.complete();
+      }
+    );
+  }
   getObjectivesFromDB() {
     const project_id = this.appInfoForm.controls['_id'].value;
     console.log('project_id', project_id);
