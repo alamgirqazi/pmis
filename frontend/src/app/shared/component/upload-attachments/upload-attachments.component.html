@@ -1,17 +1,24 @@
 <h3> {{title}} Attachments</h3>
 
-<div class="boxy" *ngFor="let item of attachments;let i = index">
+<div class="boxy" *ngFor="let item of attachmentsToDisplay;let i = index">
   <div class="centered">
     <small style="word-wrap: break-word">{{item.file_name}} </small>
     <br /> <small> Uploader:<strong> {{item.user_name}}</strong></small>
     <br />
+    <small *ngIf="item.objective_name"> Objective:<strong> {{item.objective_name }}</strong></small>
+    <small *ngIf="item.activity_name"> Activity:<strong> {{item.activity_name }}</strong></small>
+    <small *ngIf="item.task_name"> Task:<strong> {{item.task_name }}</strong>
+    </small>
+    <br *ngIf="item.task_name || item.activity_name || item.objective_name " />
     <small> Date:<strong> {{item.date | date}}</strong></small>
     <br />
     <small> type:<strong> {{item.file_type }}</strong></small>
     <br />
+
     <div style="display: inline-flex">
       <button type="button" (click)="downloadFile(item)" class="btn btn-green"> View </button>
-      <button type="button" *ngIf="user_id==item.user_id" (click)="deleteFile(deleteTemplate,item)" class="btn btn-red">
+      <button type="button" *ngIf="user_id==item.user_id && item.file_type ==fileType"
+        (click)="deleteFile(deleteTemplate,item)" class="btn btn-red">
         delete
       </button></div>
   </div>

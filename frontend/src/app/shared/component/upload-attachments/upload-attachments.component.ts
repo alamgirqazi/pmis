@@ -32,6 +32,9 @@ export class UploadAttachmentsComponent implements OnInit {
     this.toasterService = toasterService;
   }
   @Input() attachments = [];
+  @Input() displayattachments = [];
+
+  attachmentsToDisplay = [];
   file = null;
   modalRef: BsModalRef;
   @Input() fileType = 'projects';
@@ -47,13 +50,25 @@ export class UploadAttachmentsComponent implements OnInit {
     this.user_name = name;
     this.user_id = id;
 
-    if (this.attachments) {
-      for (const iterator of this.attachments) {
+    if (this.displayattachments.length > 0) {
+      this.attachmentsToDisplay = JSON.parse(
+        JSON.stringify(this.displayattachments)
+      );
+      console.log('yeo');
+    } else {
+      this.attachmentsToDisplay = JSON.parse(JSON.stringify(this.attachments));
+    }
+    if (this.attachmentsToDisplay) {
+      for (const iterator of this.attachmentsToDisplay) {
         iterator.url = `${Baseconfig.getPath()}/${
           iterator.filePath
         }attachment-${iterator.id}.${iterator.extension}`;
       }
     }
+
+    console.log('this.att', this.attachments);
+    console.log('this.att', this.displayattachments);
+    console.log('this.att', this.attachmentsToDisplay);
   }
   downloadFile(item) {
     window.open(item.url, '_blank');
@@ -89,10 +104,17 @@ export class UploadAttachmentsComponent implements OnInit {
       attachments: attachments
     };
 
+    console.log('big call', this.selectedAttachment);
+
     // we need to give it right id
 
     this.projectsApi
-      .updateAttachments(this.formData._id, this.fileType, data_to_save)
+      .updateAttachments(
+        this.formData._id,
+        this.selectedAttachment.file_type,
+        data_to_save
+      )
+      // .updateAttachments(this.formData._id, this.fileType, data_to_save)
       .subscribe(
         async response => {
           console.log('response->', response);
@@ -113,9 +135,16 @@ export class UploadAttachmentsComponent implements OnInit {
   }
 
   removeFromView() {
-    this.attachments = this.attachments.filter(x => {
-      return x.id !== this.selectedAttachment.id;
-    });
+    if (this.attachments.length) {
+      this.attachments = this.attachments.filter(x => {
+        return x.id !== this.selectedAttachment.id;
+      });
+    }
+    if (this.attachmentsToDisplay.length) {
+      this.attachmentsToDisplay = this.attachmentsToDisplay.filter(x => {
+        return x.id !== this.selectedAttachment.id;
+      });
+    }
   }
   uploadFile() {
     if (this.fileItem) {

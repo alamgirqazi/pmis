@@ -61,6 +61,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   navOpened;
   result = [];
   attachments = [];
+  displayattachments = [];
   hiddenTblresult = [];
   showTempTable = false;
   tabId = 1;
@@ -93,7 +94,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
     if (role.includes('Director')) {
       console.log('nothing');
     } else {
-      this.router.navigate(['/admin/objectives']);
+      this.router.navigate(['/admin/profile']);
     }
 
     // if (role != 'Executive Director' || role != 'Managing Director') {
@@ -209,8 +210,33 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   openAttachments(template: TemplateRef<any>, data) {
     this.formData = data;
     this.formData['project_id'] = data._id;
-    this.attachments = data.attachments;
-    this.title = `Project ${this.formData.name}`;
+    // let find other attachments
+
+    let attachments = [];
+
+    if (data.objective_detail) {
+      for (const iterator of data.objective_detail) {
+        attachments = attachments.concat(iterator.attachments);
+      }
+    }
+    if (data.activity_detail) {
+      for (const iterator of data.activity_detail) {
+        attachments = attachments.concat(iterator.attachments);
+      }
+    }
+    if (data.task_detail) {
+      for (const iterator of data.task_detail) {
+        attachments = attachments.concat(iterator.attachments);
+      }
+    }
+
+    if (data.attachments === null) {
+      data.attachments = [];
+    }
+    this.attachments = [...data.attachments];
+    this.displayattachments = [...data.attachments, ...attachments];
+
+    this.title = `Project: ${this.formData.name}`;
     this.modalRef = this.modalService.show(template, { class: 'modal-xlg' });
   }
 
