@@ -26,9 +26,9 @@
 
 <div class="boxy incomplete">
   <label class="fileContainer">
-    <img *ngIf="!fileItem" src="assets/images/attachment.png">
+    <img *ngIf="!file" src="assets/images/attachment.png">
     <input type="file" (change)="onFileChange($event)" class="inputfile" />
-    <button *ngIf="fileItem" type="button" (click)="uploadFile()" class="btn btn-green"> UPLOAD !!</button>
+    <button *ngIf="file" type="button" (click)="uploadFile()" class="btn btn-green"> UPLOAD !!</button>
 
   </label>
 

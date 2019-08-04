@@ -54,7 +54,6 @@ export class UploadAttachmentsComponent implements OnInit {
       this.attachmentsToDisplay = JSON.parse(
         JSON.stringify(this.displayattachments)
       );
-      console.log('yeo');
     } else {
       this.attachmentsToDisplay = JSON.parse(JSON.stringify(this.attachments));
     }
@@ -65,10 +64,6 @@ export class UploadAttachmentsComponent implements OnInit {
         }attachment-${iterator.id}.${iterator.extension}`;
       }
     }
-
-    console.log('this.att', this.attachments);
-    console.log('this.att', this.displayattachments);
-    console.log('this.att', this.attachmentsToDisplay);
   }
   downloadFile(item) {
     window.open(item.url, '_blank');
@@ -103,8 +98,6 @@ export class UploadAttachmentsComponent implements OnInit {
     const data_to_save = {
       attachments: attachments
     };
-
-    console.log('big call', this.selectedAttachment);
 
     // we need to give it right id
 
@@ -160,8 +153,15 @@ export class UploadAttachmentsComponent implements OnInit {
           async response => {
             console.log('response', response);
             this.output.emit(null);
+            const filePath = `images/attachments/${this.formData.project_id}/`;
             this.fileItem['date'] = Date.now();
+            this.fileItem['filePath'] = filePath;
+            this.fileItem['url'] = `${Baseconfig.getPath()}/${
+              this.fileItem.filePath
+            }attachment-${this.fileItem.id}.${this.fileItem.extension}`;
+
             this.attachments.push(this.fileItem);
+            this.attachmentsToDisplay.push(this.fileItem);
             this.slimScroll.complete();
             this.fileItem = {};
             this.file = null;
