@@ -27,7 +27,6 @@ import { ExcelService } from '../sdk/services/custom/excel.service';
 import { LoginComponent } from './login/login.component';
 import { MiscHelperService } from '../sdk/services/custom/misc.service';
 import { NgModule } from '@angular/core';
-import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { ObjectivesApi } from './../sdk/services/custom/objectives.service';
 import { ProjectsApi } from '../sdk/services/custom/projects.service';
 import { RedirectLoginGuard } from './guard/redirectlogin.service';
@@ -35,7 +34,6 @@ import { Router } from '@angular/router';
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 import { StatisticsApi } from '../sdk/services/custom/statistics.service';
 import { TasksApi } from './../sdk/services/custom/tasks.service';
-import { TreeviewModule } from 'ngx-treeview';
 import { UserApi } from '../sdk/services/custom/user.service';
 import { isLoginGuard } from './guard/islogin.service';
 

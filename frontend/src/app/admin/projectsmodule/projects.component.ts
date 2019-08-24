@@ -1,9 +1,3 @@
-// import '../../../mainassets/plugins/datatables/css/dataTables.bootstrap.css';
-
-import * as html2canvas from 'html2canvas';
-import * as jsPDF from 'jsPDF';
-import * as moment from 'moment';
-
 import {
   AfterViewInit,
   Component,
@@ -14,7 +8,6 @@ import {
 } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { TreeviewConfig, TreeviewItem } from 'ngx-treeview';
 
 import { AsideNavigationService } from '../../services/asideNavigation.Service';
 import { AuthService } from '../../../sdk/services/core/auth.service';
