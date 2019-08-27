@@ -101,7 +101,7 @@ departmentsController.addDepartment = async (req, res) => {
 departmentsController.getNextId = async (req, res) => {
     try {
       const max_result = await Departments.aggregate([
-        { $group: { _id: null, max: { $max: { $toInt: '$id' } } } }
+        { $group: { _id: null, max: { $max:'$id' } } }
       ]);
   
       let nextId;

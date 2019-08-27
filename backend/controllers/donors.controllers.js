@@ -84,7 +84,7 @@ donorsController.addDonor = async (req, res) => {
 donorsController.getNextId = async (req, res) => {
     try {
       const max_result = await Donors.aggregate([
-        { $group: { _id: null, max: { $max: { $toInt: '$id' } } } }
+        { $group: { _id: null, max: { $max:  '$id'  } } }
       ]);
   
       let nextId;

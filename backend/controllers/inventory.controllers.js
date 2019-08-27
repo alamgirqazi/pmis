@@ -137,7 +137,7 @@ inventoryController.getNextId = async (req, res) => {
     try {
   
       const max_result = await Inventory.aggregate([
-        { $group: { _id: null, max: { $max: { $toInt: '$Id' } } } }
+        { $group: { _id: null, max: { $max:  '$Id'  } } }
       ]);
   
       let nextId;
@@ -159,7 +159,7 @@ inventoryController.getNextId = async (req, res) => {
   };
 inventoryController.addInventory = async (req, res) => {
     const max_result = await Inventory.aggregate([
-        { $group: { _id: null, max: { $max: { $toInt: '$Id' } } } }
+        { $group: { _id: null, max: { $max: '$Id' }  } }
       ]);
       let body = req.body;
       if (max_result.length > 0) {
