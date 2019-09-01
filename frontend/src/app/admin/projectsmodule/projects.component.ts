@@ -82,7 +82,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   // @TODO
   ngOnInit() {
     const { role } = this.authService.getAccessTokenInfo();
-    if (role.includes('Director')) {
+    if (role.includes('Chief')) {
     } else {
       this.router.navigate(['/admin/profile']);
     }

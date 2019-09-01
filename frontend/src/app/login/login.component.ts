@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('token', data.data);
           const { role } = this.authService.getAccessTokenInfo();
           let routeUrl = '/admin/projects';
-          if (role.includes('Director')) {
+          if (role.includes('Chief')) {
           } else if (role == 'Managers') {
             routeUrl = '/admin/objectives';
           } else if (role == 'Project Managers') {
