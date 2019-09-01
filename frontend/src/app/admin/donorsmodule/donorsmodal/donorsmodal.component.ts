@@ -72,7 +72,7 @@ export class DonorsmodalComponent implements OnInit {
       id: ['', [Validators.required]],
       company: [''],
       phone: [''],
-      website: [''],
+      focal_person: [''],
       _id: ['', []]
       // status: ['', [Validators.required]],
     });

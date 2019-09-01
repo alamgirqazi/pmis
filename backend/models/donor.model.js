@@ -15,7 +15,7 @@ const Donor = new Schema({
         type: String
     },
 
-      website: {
+      focal_person: {
         type: String
     },
 

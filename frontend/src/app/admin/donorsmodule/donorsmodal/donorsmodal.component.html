@@ -19,7 +19,7 @@
       <div class="form-group row">
         <label class="col-lg-3 form-control-label">Name:</label>
         <div class="col-lg-9">
-          <input maxLength="12" formControlName="name" [ngClass]="{
+          <input formControlName="name" [ngClass]="{
               'error-input': submitForm && appInfoForm.controls['name'].invalid
             }" class="form-control" type="text" />
         </div>
@@ -27,7 +27,7 @@
       <div class="form-group row">
         <label class="col-lg-3 form-control-label">company:</label>
         <div class="col-lg-9">
-          <input maxLength="12" formControlName="company" [ngClass]="{
+          <input formControlName="company" [ngClass]="{
               'error-input': submitForm && appInfoForm.controls['company'].invalid
             }" class="form-control" type="text" />
         </div>
@@ -35,15 +35,15 @@
       <div class="form-group row">
         <label class="col-lg-3 form-control-label">focal person:</label>
         <div class="col-lg-9">
-          <input maxLength="12" formControlName="website" [ngClass]="{
-              'error-input': submitForm && appInfoForm.controls['website'].invalid
+          <input formControlName="focal_person" [ngClass]="{
+              'error-input': submitForm && appInfoForm.controls['focal_person'].invalid
             }" class="form-control" type="text" />
         </div>
       </div>
       <div class="form-group row">
         <label class="col-lg-3 form-control-label">phone:</label>
         <div class="col-lg-9">
-          <input maxLength="12" formControlName="phone" [ngClass]="{
+          <input formControlName="phone" [ngClass]="{
               'error-input': submitForm && appInfoForm.controls['phone'].invalid
             }" class="form-control" type="text" />
         </div>
