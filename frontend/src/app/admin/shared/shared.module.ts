@@ -4,6 +4,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CommonModule } from '@angular/common';
 import { CustomdirectivesModule } from '../../shared/directives/customdirectives/customdirectives.module';
+import { CustompipesModule } from '../../shared/custompipes/custompipes.module';
 import { DataTablesModule } from 'angular-datatables';
 import { NgModule } from '@angular/core';
 import { UploadAttachmentsComponent } from '../../shared/component/upload-attachments/upload-attachments.component';
@@ -14,6 +15,7 @@ import { UploadAttachmentsComponent } from '../../shared/component/upload-attach
     FormsModule,
     DataTablesModule,
     CustomdirectivesModule,
+    CustompipesModule,
     ReactiveFormsModule,
     BsDatepickerModule,
     BsDropdownModule

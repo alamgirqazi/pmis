@@ -33,7 +33,7 @@ export class UploadAttachmentsComponent implements OnInit {
   }
   @Input() attachments = [];
   @Input() displayattachments = [];
-
+  query = '';
   attachmentsToDisplay = [];
   file = null;
   modalRef: BsModalRef;
@@ -59,9 +59,11 @@ export class UploadAttachmentsComponent implements OnInit {
     }
     if (this.attachmentsToDisplay) {
       for (const iterator of this.attachmentsToDisplay) {
-        iterator.url = `${Baseconfig.getPath()}/${
-          iterator.filePath
-        }attachment-${iterator.id}.${iterator.extension}`;
+        if (iterator) {
+          iterator.url = `${Baseconfig.getPath()}/${
+            iterator.filePath
+          }attachment-${iterator.id}.${iterator.extension}`;
+        }
       }
     }
   }
