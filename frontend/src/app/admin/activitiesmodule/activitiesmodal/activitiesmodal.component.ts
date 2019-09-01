@@ -210,7 +210,7 @@ export class ActivitiesmodalComponent implements OnInit {
     });
   }
   getProjectCoordinators() {
-    const type = 'Official';
+    const type = 'Project Coordinators / Officers';
     this.getUsersFromDB(type);
   }
   deleteTaskFromDB() {
@@ -230,7 +230,7 @@ export class ActivitiesmodalComponent implements OnInit {
     );
   }
 
-  getUsersFromDB(type = 'Official') {
+  getUsersFromDB(type = 'Project Coordinators / Officers') {
     // const user_type = null;
     this.userApi.getUsers(type).subscribe(
       async response => {

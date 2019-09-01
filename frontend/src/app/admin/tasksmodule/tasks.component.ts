@@ -93,7 +93,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
     const { id, _id, role } = this.authService.getAccessTokenInfo();
     this._id = _id;
 
-    if (role != 'Official') {
+    if (role != 'Project Coordinators / Officers') {
       this.router.navigate(['/admin/projects']);
     }
     this._asideNavigationService.currentMessage.subscribe(message => {

@@ -198,7 +198,7 @@ export class ObjectivesmodalComponent implements OnInit {
     });
   }
   getProjectCoordinators() {
-    const type = 'Project Coordinator';
+    const type = 'Project Managers';
     this.getUsersFromDB(type);
   }
   deleteActivityFromDB() {
@@ -223,7 +223,7 @@ export class ObjectivesmodalComponent implements OnInit {
     this.attachments = data.attachments;
     this.modalRef = this.modalService.show(template, { class: 'modal-xlg' });
   }
-  getUsersFromDB(type = 'Project Coordinator') {
+  getUsersFromDB(type = 'Project Managers') {
     // const user_type = null;
     this.userApi.getUsers(type).subscribe(
       async response => {

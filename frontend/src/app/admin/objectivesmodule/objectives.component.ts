@@ -88,7 +88,7 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     const { id, _id, role } = this.authService.getAccessTokenInfo();
     this._id = _id;
-    // if (role != 'Project Manager') {
+    // if (role != 'Managers') {
     //   this.router.navigate(['/admin/activities']);
     // }
     this._asideNavigationService.currentMessage.subscribe(message => {

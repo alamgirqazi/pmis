@@ -13,23 +13,23 @@ export class MiscHelperService {
   userList = [
     {
       id: 1,
-      type: 'Executive Director'
+      type: 'Chief Executive Officer'
     },
     {
       id: 2,
-      type: 'Managing Director'
+      type: 'Chief Operating Officer'
     },
     {
       id: 3,
-      type: 'Project Manager'
+      type: 'Managers'
     },
     {
       id: 4,
-      type: 'Project Coordinator'
+      type: 'Project Managers'
     },
     {
       id: 5,
-      type: 'Official'
+      type: 'Project Coordinators / Officers'
     }
   ];
   depList = [

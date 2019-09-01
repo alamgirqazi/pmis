@@ -44,7 +44,7 @@ export class DonorsmodalComponent implements OnInit {
   @Output() output: EventEmitter<any> = new EventEmitter();
   @Output() outputAndReload: EventEmitter<any> = new EventEmitter();
   isLoading = false;
-  result;
+  rDesignationesult;
   userInfo;
   AdminSelected = false;
   filePresent = false;

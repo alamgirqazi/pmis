@@ -33,6 +33,9 @@ const Projects = new Schema({
     notes: {
         type: String
     },
+    donor: {
+        type: String
+    },
     price: {
         type: Number   },
     users: {

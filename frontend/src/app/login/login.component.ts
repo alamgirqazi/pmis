@@ -51,11 +51,11 @@ export class LoginComponent implements OnInit {
           const { role } = this.authService.getAccessTokenInfo();
           let routeUrl = '/admin/projects';
           if (role.includes('Director')) {
-          } else if (role == 'Project Manager') {
+          } else if (role == 'Managers') {
             routeUrl = '/admin/objectives';
-          } else if (role == 'Project Coordinator') {
+          } else if (role == 'Project Managers') {
             routeUrl = '/admin/activities';
-          } else if (role == 'Official') {
+          } else if (role == 'Project Coordinators / Officers') {
             routeUrl = '/admin/tasks';
           } else {
             routeUrl = '/admin';

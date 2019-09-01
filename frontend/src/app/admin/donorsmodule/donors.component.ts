@@ -74,7 +74,7 @@ export class DonorsComponent implements OnInit, AfterViewInit {
     this.configDatatable();
     this.userList = this.miscHelperService.userList;
     const { role } = this.authService.getAccessTokenInfo();
-    if (role != 'Executive Director') {
+    if (role != 'Chief Executive Officer') {
       this.router.navigate(['/admin/profile']);
     }
     this._asideNavigationService.currentMessage.subscribe(message => {

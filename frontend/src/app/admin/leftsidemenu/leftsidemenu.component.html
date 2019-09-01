@@ -16,7 +16,7 @@
     <div data-flex="" class="hide-scroll">
       <nav class="scroll nav-stacked nav-stacked-rounded nav-color">
         <ul class="nav" data-ui-nkav="">
-          <li *ngIf="role == 'Executive Director'" routerLinkActive="active" data-toggle="tooltip"
+          <li *ngIf="role == 'Chief Executive Officer'" routerLinkActive="active" data-toggle="tooltip"
             data-placement="right">
             <a routerLink="/admin/dashboard" title="Dashboard">
               <span class="nav-icon">
@@ -25,7 +25,7 @@
               <span class="nav-text">Dashboard</span>
             </a>
           </li>
-          <li *ngIf="role == 'Executive Director'" routerLinkActive="active" data-toggle="tooltip"
+          <li *ngIf="role == 'Chief Executive Officer'" routerLinkActive="active" data-toggle="tooltip"
             data-placement="right">
             <a routerLink="/admin/reports" title="Reports">
               <span class="nav-icon">
@@ -34,7 +34,7 @@
               <span class="nav-text">Reports</span>
             </a>
           </li>
-          <li *ngIf="role == 'Executive Director' || role == 'Managing Director'" routerLinkActive="active"
+          <li *ngIf="role == 'Chief Executive Officer' || role == 'Chief Operating Officer'" routerLinkActive="active"
             data-toggle="tooltip" data-placement="right">
             <a routerLink="/admin/projects" title="Dashboard">
               <span class="nav-icon">
@@ -43,7 +43,7 @@
               <span class="nav-text">Projects</span>
             </a>
           </li>
-          <li *ngIf="role == 'Project Manager'" routerLinkActive="active" data-toggle="tooltip" data-placement="right">
+          <li *ngIf="role == 'Managers'" routerLinkActive="active" data-toggle="tooltip" data-placement="right">
             <a routerLink="/admin/objectives" title="Objectives">
               <span class="nav-icon">
                 <i class="material-icons">list_alt</i>
@@ -64,7 +64,7 @@
             </a>
           </li> -->
 
-          <li *ngIf="role == 'Project Coordinator'" class="" routerLinkActive="active" data-toggle="tooltip"
+          <li *ngIf="role == 'Project Managers'" class="" routerLinkActive="active" data-toggle="tooltip"
             data-placement="right">
             <a routerLink="/admin/activities" title="Activities">
               <span class="nav-icon">
@@ -73,7 +73,7 @@
               <span class="nav-text">Activities</span>
             </a>
           </li>
-          <li *ngIf="role == 'Official'" class="" routerLinkActive="active" data-toggle="tooltip"
+          <li *ngIf="role == 'Project Coordinators / Officers'" class="" routerLinkActive="active" data-toggle="tooltip"
             data-placement="right">
             <a routerLink="/admin/tasks" title="Tasks">
               <span class="nav-icon">
@@ -83,7 +83,7 @@
             </a>
           </li>
 
-          <li *ngIf="role == 'Executive Director'" class="" routerLinkActive="active" data-toggle="tooltip"
+          <li *ngIf="role == 'Chief Executive Officer'" class="" routerLinkActive="active" data-toggle="tooltip"
             data-placement="right">
             <a routerLink="/admin/donors" title="Donors">
               <span class="nav-icon">
@@ -92,7 +92,7 @@
               <span class="nav-text">Donors</span>
             </a>
           </li>
-          <li *ngIf="role == 'Executive Director'" class="" routerLinkActive="active" data-toggle="tooltip"
+          <li *ngIf="role == 'Chief Executive Officer'" class="" routerLinkActive="active" data-toggle="tooltip"
             data-placement="right">
             <a routerLink="/admin/departments" title="Departments">
               <span class="nav-icon">
@@ -101,7 +101,7 @@
               <span class="nav-text">Departments</span>
             </a>
           </li>
-          <li *ngIf="role == 'Executive Director'" class="" routerLinkActive="active" data-toggle="tooltip"
+          <li *ngIf="role == 'Chief Executive Officer'" class="" routerLinkActive="active" data-toggle="tooltip"
             data-placement="right">
             <a routerLink="/admin/users" title="Users">
               <span class="nav-icon">

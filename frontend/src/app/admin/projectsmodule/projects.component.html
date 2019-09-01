@@ -60,7 +60,7 @@
                           <div class="navbar no-radius">
                             <ul class="nav navbar-nav list-top-navbar">
                               <li class="nav-item"></li>
-                              <li class="nav-item" *ngIf="role === 'Executive Director'">
+                              <li class="nav-item" *ngIf="role === 'Chief Executive Officer'">
                                 <a class="nav-link btn btn-green" data-toggle="modal"
                                   (click)="openModal(appinfomodal, null, true,1)">
                                   <i class="material-icons">add</i> Add Projects
@@ -101,6 +101,7 @@
                                               <th>Start Date</th>
                                               <th>End Date</th>
                                               <th>price</th>
+                                              <th>Donor</th>
                                               <th>Notes</th>
                                               <th>Attachments </th>
 
@@ -136,6 +137,7 @@
                                                   }}
                                                 </td>
                                                 <td>{{ data.price }}</td>
+                                                <td>{{ data.donor }}</td>
                                                 <td>{{ data.notes }}</td>
 
                                                 <td> <a (click)="
@@ -242,7 +244,7 @@
                                                 </td> -->
 
                                                 <td class="text-align">
-                                                  <span *ngIf="role === 'Executive Director'">
+                                                  <span *ngIf="role === 'Chief Executive Officer'">
                                                     <a (click)="
                                                         openModal(
                                                           appinfomodal,
@@ -255,7 +257,7 @@
                                                   </span>
                                                 </td>
                                                 <td class="text-align">
-                                                  <span *ngIf="role === 'Executive Director'">
+                                                  <span *ngIf="role === 'Chief Executive Officer'">
                                                     <!-- (click)="openModal(appinfomodal,data,false)" -->
                                                     <a (click)="
                                                         openConfirmationTab(

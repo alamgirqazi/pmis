@@ -8,7 +8,7 @@
     </div>
     <div class="modal-body">
       <ul class="wizard-nav max">
-        <li class="wizard-item" *ngIf="role === 'Executive Director'">
+        <li class="wizard-item" *ngIf="role === 'Chief Executive Officer'">
           <a class="wizard-link" [class.active]="tabId == 1" (click)="changeTab(1)">
             Projects Info</a>
         </li>
@@ -45,6 +45,15 @@
               }" class="form-control" type="text" />
           </div>
         </div>
+        <div class="form-group row">
+          <label class="col-lg-3 form-control-label">donor:</label>
+          <div class="col-lg-9">
+            <input formControlName="donor" [ngClass]="{
+                'error-input':
+                  submitForm && appInfoForm.controls['donor'].invalid
+              }" class="form-control" type="text" />
+          </div>
+        </div>
         <!--
         <div class="form-group row">
           <label class="col-lg-3 form-control-label">objective:</label>
@@ -72,7 +81,7 @@
         </div> -->
 
         <div class="form-group row">
-          <label class="col-lg-3 form-control-label">Managing Directors:</label>
+          <label class="col-lg-3 form-control-label">Chief Operating Officers:</label>
           <div class="col-lg-9">
             <ng-select [items]="usersList" formControlName="users" [multiple]="true" bindLabel="name"
               placeholder="Select users">
@@ -226,7 +235,7 @@
               <div class="col-lg-7">
                 <div class="form-group row">
                   <div class="col-lg-3">
-                    <label class=" form-control-label l-label">Project Managers:</label>
+                    <label class=" form-control-label l-label">Managers:</label>
                   </div>
                   <div class="col-lg-9">
                     <!-- <input
@@ -249,7 +258,7 @@
                     <!-- [items]="formDataUsersArray" -->
 
                     <ng-select [items]="projectManagersList" [multiple]="true" bindLabel="name"
-                      formControlName="users_assigned" placeholder="Select project managers">
+                      formControlName="users_assigned" placeholder="Select Managers">
                       <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
                         <div class="ng-value" *ngFor="let item of items ? items.slice(0, 2) : []">
                           <span class="ng-value-label"><img [src]="item.src" width="20px" height="20px" />

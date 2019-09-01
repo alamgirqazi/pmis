@@ -92,7 +92,7 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
     const { id, _id, role } = this.authService.getAccessTokenInfo();
     console.log('TCL: ObjectivesComponent -> ngOnInit -> id', _id);
     this._id = _id;
-    if (role != 'Project Coordinator') {
+    if (role != 'Project Managers') {
       this.router.navigate(['/admin/tasks']);
     }
     this._asideNavigationService.currentMessage.subscribe(message => {

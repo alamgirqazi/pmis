@@ -114,7 +114,7 @@ export class ReportsComponent implements OnInit {
     this.selectedAppStatus = this.allStatuses[0];
     this.getAll();
     const { role } = this.authService.getAccessTokenInfo();
-    if (role === 'Executive Director') {
+    if (role === 'Chief Executive Officer') {
     } else {
       this.router.navigate(['/admin/profile']);
     }

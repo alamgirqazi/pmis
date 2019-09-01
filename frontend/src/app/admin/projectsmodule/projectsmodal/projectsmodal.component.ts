@@ -198,6 +198,7 @@ export class ProjectsmodalComponent implements OnInit {
       priority: ['medium', []],
       start_date: [null, []],
       price: [null, []],
+      donor: [null, []],
       severity: ['normal', []],
       end_date: [null, []],
       notes: [null, []],
@@ -298,11 +299,11 @@ export class ProjectsmodalComponent implements OnInit {
   }
 
   getProjectManagers() {
-    const type = 'Project Manager';
+    const type = 'Managers';
     this.getUsersFromDB(type);
   }
 
-  getUsersFromDB(type = 'Managing Director') {
+  getUsersFromDB(type = 'Chief Operating Officer') {
     // const user_type = null;
     this.userApi.getUsers(type).subscribe(
       async response => {
@@ -315,7 +316,7 @@ export class ProjectsmodalComponent implements OnInit {
           }
         });
 
-        if (type === 'Managing Director') {
+        if (type === 'Chief Operating Officer') {
           this.usersList = response.data.docs;
         } else {
           this.projectManagersList = response.data.docs;

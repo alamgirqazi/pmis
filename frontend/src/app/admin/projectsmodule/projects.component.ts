@@ -87,7 +87,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
       this.router.navigate(['/admin/profile']);
     }
 
-    // if (role != 'Executive Director' || role != 'Managing Director') {
+    // if (role != 'Chief Executive Officer' || role != 'Chief Operating Officer') {
     //   this.router.navigate(['/admin/objectives']);
     // }
     this.role = role;

@@ -1,10 +1,5 @@
-<div
-  id="content"
-  class="app-content box-shadow-z2"
-  [class.app-aside-open]="navOpened"
-  [class.app-aside-closed]="!navOpened"
-  role="main"
->
+<div id="content" class="app-content box-shadow-z2" [class.app-aside-open]="navOpened"
+  [class.app-aside-closed]="!navOpened" role="main">
   <div class="app-body">
     <div class="app-body-inner">
       <div class="row-col">
@@ -26,13 +21,9 @@
                                     </li> -->
 
                                   <li class="nav-item">
-                                    <a
-                                      class="nav-link btn btn-green"
-                                      data-toggle="modal"
-                                      (click)="
+                                    <a class="nav-link btn btn-green" data-toggle="modal" (click)="
                                         openModal(appinfomodal, null, true)
-                                      "
-                                    >
+                                      ">
                                       <i class="material-icons">add</i> Add User
                                     </a>
                                   </li>
@@ -85,26 +76,16 @@
                                             </h2>
                                           </div>
                                           <div class="col-md-9 text-right">
-                                            <form
-                                              class="form-inline pull-right"
-                                            >
+                                            <form class="form-inline pull-right">
                                               <ul class="p-l-0 m-b-0"></ul>
                                             </form>
                                           </div>
                                         </div>
                                       </div>
-                                      <div
-                                        class="table-box-body"
-                                        id="datatable"
-                                        [hidden]="!isFetchingData"
-                                      >
-                                        <table
-                                          datatable
-                                          [dtOptions]="dtOptions"
-                                          [dtTrigger]="dtTrigger"
+                                      <div class="table-box-body" id="datatable" [hidden]="!isFetchingData">
+                                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
                                           class="table b-l-0 route-table m-b-0 table-hover table-striped table-bordered"
-                                          id="angulardatatable"
-                                        >
+                                          id="angulardatatable">
                                           <thead class="thead-light">
                                             <tr>
                                               <!-- class="loadfreeth" -->
@@ -113,7 +94,7 @@
                                               <th>Picture</th>
                                               <th>Role</th>
                                               <th>Email</th>
-                                              <th>Location</th>
+                                              <th>Designation</th>
                                               <!-- class="loadorderth" -->
 
                                               <th class="text-align">Edit</th>
@@ -121,12 +102,7 @@
                                             </tr>
                                           </thead>
                                           <tbody>
-                                            <ng-template
-                                              ngFor
-                                              let-data
-                                              [ngForOf]="result"
-                                              let-i="index"
-                                            >
+                                            <ng-template ngFor let-data [ngForOf]="result" let-i="index">
                                               <!-- [class.odd]="" -->
                                               <tr role="row" class="">
                                                 <td>{{ data.id }}</td>
@@ -134,12 +110,8 @@
                                                   {{ data.name }}
                                                 </td>
                                                 <td>
-                                                  <img
-                                                    [src]="data.src"
-                                                    alt="Avatar"
-                                                    class="custom-avatar"
-                                                    onError="this.src='assets/images/avatar.jpg'"
-                                                  />
+                                                  <img [src]="data.src" alt="Avatar" class="custom-avatar"
+                                                    onError="this.src='assets/images/avatar.jpg'" />
                                                 </td>
                                                 <td>{{ data.role }}</td>
                                                 <td>{{ data.email }}</td>
@@ -147,46 +119,33 @@
 
                                                 <td class="text-align">
                                                   <span>
-                                                    <a
-                                                      (click)="
+                                                    <a (click)="
                                                         openModal(
                                                           appinfomodal,
                                                           data,
                                                           false
                                                         )
-                                                      "
-                                                      ><i class="material-icons"
-                                                        >edit</i
-                                                      >
+                                                      "><i class="material-icons">edit</i>
                                                     </a>
                                                   </span>
                                                 </td>
                                                 <td class="text-align">
                                                   <span>
                                                     <!-- (click)="openModal(appinfomodal,data,false)" -->
-                                                    <a
-                                                      (click)="
+                                                    <a (click)="
                                                         openConfirmationTab(
                                                           deleteconfirmation,
                                                           data
                                                         )
-                                                      "
-                                                      ><i class="material-icons"
-                                                        >delete</i
-                                                      >
+                                                      "><i class="material-icons">delete</i>
                                                     </a>
                                                   </span>
                                                 </td>
                                               </tr>
-                                              <tr
-                                                *ngIf="
+                                              <tr *ngIf="
                                                   result == 0 && isFetchingData
-                                                "
-                                              >
-                                                <td
-                                                  colspan="12"
-                                                  class="no-data-available"
-                                                >
+                                                ">
+                                                <td colspan="12" class="no-data-available">
                                                   Data is not Available.
                                                 </td>
                                               </tr>
@@ -245,10 +204,6 @@
 
 <!-- App Info  Modal -->
 <ng-template #appinfomodal>
-  <app-usersmodal
-    [formData]="formData"
-    [newInstance]="newInstance"
-    (outputAndReload)="outputAndReload()"
-    (output)="decline()"
-  ></app-usersmodal>
+  <app-usersmodal [formData]="formData" [newInstance]="newInstance" (outputAndReload)="outputAndReload()"
+    (output)="decline()"></app-usersmodal>
 </ng-template>

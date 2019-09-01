@@ -67,7 +67,7 @@ export class DashboardmoduleComponent implements OnInit, AfterViewInit {
   _chart: Highcharts.ChartObject;
   ngOnInit() {
     const { role } = this.authService.getAccessTokenInfo();
-    if (role === 'Executive Director') {
+    if (role === 'Chief Executive Officer') {
       console.log('nothing');
     } else {
       this.router.navigate(['/admin/profile']);
@@ -164,26 +164,26 @@ export class DashboardmoduleComponent implements OnInit, AfterViewInit {
         // const hiChartProjects = [];
         const hiChartData = [
           {
-            name: 'Executive Director',
+            name: 'Chief Executive Officer',
             y: users.ed,
             sliced: true,
             selected: true
           },
           {
-            name: 'Managing Director',
+            name: 'Chief Operating Officer',
             y: users.md
           },
           {
-            name: 'Project Manager',
+            name: 'Managers',
             y: users.pm
           },
           {
-            name: 'Project Coordinator',
+            name: 'Project Managers',
             y: users.pc
           },
           {
-            name: 'Official',
-            y: users.official
+            name: 'Project Coordinators / Officers',
+            y: users['Project Coordinators / Officers']
           }
         ];
 

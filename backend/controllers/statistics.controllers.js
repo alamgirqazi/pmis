@@ -102,11 +102,11 @@ statisticsController.getAllProjectsStatistics = async (req, res) => {
 };
 statisticsController.getAllUsersStatistics = async (req, res) => {
   try {
-    const ed = await Users.count({ role: 'Executive Director' });
-    const md = await Users.count({ role: 'Managing Director' });
-    const pm = await Users.count({ role: 'Project Manager' });
-    const pc = await Users.count({ role: 'Project Coordinator' });
-    const official = await Users.count({ role: 'Official' });
+    const ed = await Users.count({ role: 'Chief Executive Officer' });
+    const md = await Users.count({ role: 'Chief Operating Officer' });
+    const pm = await Users.count({ role: 'Managers' });
+    const pc = await Users.count({ role: 'Project Managers' });
+    const official = await Users.count({ role: 'Project Coordinators / Officers'});
     users = {
       ed,md,pm,pc,official
 
