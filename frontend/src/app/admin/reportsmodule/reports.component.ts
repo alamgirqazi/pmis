@@ -489,8 +489,10 @@ export class ReportsComponent implements OnInit {
     const names = [];
 
     for (const iterator of arr) {
-      for (const iterator2 of iterator.users_assigned) {
-        names.push(iterator2.name);
+      if (iterator.users_assigned) {
+        for (const iterator2 of iterator.users_assigned) {
+          names.push(iterator2.name);
+        }
       }
     }
 

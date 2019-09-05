@@ -26,6 +26,9 @@ const User = new Schema({
     department: {
         type: String
     },
+    designation: {
+        type: String
+    },
     avatar: {
         type: String
     },

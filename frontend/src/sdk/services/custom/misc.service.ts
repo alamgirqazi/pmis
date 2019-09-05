@@ -104,10 +104,12 @@ export class MiscHelperService {
     let success = 0;
     let total_users = 0;
     for (const iterator of arr) {
-      for (const iterator2 of iterator.users_assigned) {
-        total_users++;
-        if (iterator2.status && iterator2.status === 'complete') {
-          success++;
+      if (iterator.users_assigned) {
+        for (const iterator2 of iterator.users_assigned) {
+          total_users++;
+          if (iterator2.status && iterator2.status === 'complete') {
+            success++;
+          }
         }
       }
     }

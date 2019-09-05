@@ -7,32 +7,10 @@ donorsController.getAll = async (req, res) => {
         const {
             start,
             length,
-            search,
-            user_type
         } = req.query
-        const {
-            value
-        } = JSON.parse(search)
-
-        let obj = {}
-        if (value != '') {
-
-            obj = {
-                $text: {
-                    $search: value
-                },
-            }
-        }
-            let user_type_obj = {};
-    if (user_type != '' && user_type) {
-        user_type_obj = { role: user_type };
-    }
 
 
-    let merged = {...obj,...user_type_obj};
-    
-
-        donors = await Donors.paginate(merged,{
+        donors = await Donors.paginate({},{
             offset: parseInt(start),
             limit: parseInt(length)
         });

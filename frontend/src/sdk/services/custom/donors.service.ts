@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { AuthService } from '../core/auth.service';
 import { Baseconfig } from '../../base.config';
@@ -40,6 +40,27 @@ export class DonorApi {
         return response;
       });
   }
+
+  public getDonors(): Observable<any> {
+    const url = Baseconfig.getPath() + `/donors`;
+
+    let params = new HttpParams();
+    params = params.append('start', '0');
+    params = params.append('length', '100');
+
+    return this.http
+      .get(url, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          this.authService.getAccessTokenId()
+        ),
+        params: params
+      })
+      .map((response: any) => {
+        return response;
+      });
+  }
+
   public getSingleDonor(_id): Observable<any> {
     const url = Baseconfig.getPath() + `/donors/${_id}`;
 

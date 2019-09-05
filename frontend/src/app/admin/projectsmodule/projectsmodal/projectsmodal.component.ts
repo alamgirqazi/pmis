@@ -27,6 +27,7 @@ import { Subject } from 'rxjs/Subject';
 import { ToasterService } from 'angular2-toaster';
 import { UserApi } from './../../../../sdk/services/custom/user.service';
 import { Validators } from '@angular/forms';
+import { DonorApi } from '../../../../sdk/services/custom/donors.service';
 
 // import { ApplicationApi } from '../../../../sdk/services/custom/assets.service';
 
@@ -43,6 +44,7 @@ export class ProjectsmodalComponent implements OnInit {
     private projectsApi: ProjectsApi,
     private objectivesApi: ObjectivesApi,
     private departmentApi: DepartmentApi,
+    private donorApi: DonorApi,
     private userApi: UserApi,
     private modalService: BsModalService,
     private toasterService: ToasterService,
@@ -97,7 +99,7 @@ export class ProjectsmodalComponent implements OnInit {
 
   priorityList = [];
   severityList = [];
-
+  donorListing = [];
   ngOnInit() {
     // this.locationListing = [...this.miscHelperService.locationList];
     // this.departmentList = this.miscHelperService.departmentList;
@@ -105,6 +107,7 @@ export class ProjectsmodalComponent implements OnInit {
     this.priorityList = this.miscHelperService.priorityList;
     const { role } = this.authService.getAccessTokenInfo();
     this.getUsersFromDB();
+    this.getDonorListing();
     this.getDepartments();
     this.getProjectManagers();
     this.formInitializer();
@@ -335,6 +338,21 @@ export class ProjectsmodalComponent implements OnInit {
       async response => {
         console.log('respoe->', response);
         this.appInfoForm.patchValue(response.data);
+        // this.slimScroll.complete();
+      },
+      error => {
+        console.log('error', error);
+        this.slimScroll.complete();
+      }
+    );
+  }
+  getDonorListing() {
+    this.donorApi.getDonors().subscribe(
+      async response => {
+        console.log('respo donore->', response);
+        if (response.data && response.data.docs) {
+          this.donorListing = response.data.docs;
+        }
         // this.slimScroll.complete();
       },
       error => {

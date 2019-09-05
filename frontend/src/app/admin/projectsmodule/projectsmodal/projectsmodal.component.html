@@ -48,37 +48,15 @@
         <div class="form-group row">
           <label class="col-lg-3 form-control-label">donor:</label>
           <div class="col-lg-9">
-            <input formControlName="donor" [ngClass]="{
-                'error-input':
-                  submitForm && appInfoForm.controls['donor'].invalid
-              }" class="form-control" type="text" />
+            <select formControlName="donor" [ngClass]="{
+              'error-input': submitForm && appInfoForm.controls['donor'].invalid
+            }" name="type" class="form-control valid">
+              <ng-template ngFor let-item [ngForOf]="donorListing" let-i="index">
+                <option value="{{ item.name }}">{{ item.name }}</option>
+              </ng-template>
+            </select>
           </div>
         </div>
-        <!--
-        <div class="form-group row">
-          <label class="col-lg-3 form-control-label">objective:</label>
-          <div class="col-lg-9">
-            <input
-              formControlName="objective"
-              [ngClass]="{
-                'error-input':
-                  submitForm && appInfoForm.controls['objective'].invalid
-              }"
-              class="form-control"
-              type="text"
-            />
-          </div>
-        </div> -->
-        <!-- <div class="form-group row">
-          <label class="col-lg-3 form-control-label">activity:</label>
-          <div class="col-lg-9">
-            <input
-              formControlName="activity"
-              class="form-control"
-              type="text"
-            />
-          </div>
-        </div> -->
 
         <div class="form-group row">
           <label class="col-lg-3 form-control-label">Chief Operating Officers:</label>
