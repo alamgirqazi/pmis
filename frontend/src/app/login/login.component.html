@@ -27,14 +27,16 @@
             <div class="logo-box">
               <!-- brand -->
               <a class="brand" title="PIMS">
-                <!-- <img
-                  src="./assets/images/irmlogo-lg.png"
-                  alt="Institute of Rural Management"
-                /> -->
+                <img
+                  src="./assets/images/actlogo.png"
+                  alt="ACT International"
+                />
               </a>
               <br />
-              <h2 style="text-align: center;    font-size: 1.7rem;
-              ">
+              <h2
+                style="text-align: center;    font-size: 1.7rem;
+              "
+              >
                 Project Management Information System (PMIS)
               </h2>
 
@@ -47,12 +49,27 @@
                   <!-- error will be shown here ! -->
                 </div>
                 <div class="form-group">
-                  <input type="Email" id="email" formControlName="email" name="Email" class="form-control"
-                    placeholder="Email Address" required />
+                  <input
+                    type="Email"
+                    id="email"
+                    formControlName="email"
+                    name="Email"
+                    class="form-control"
+                    placeholder="Email Address"
+                    required
+                  />
                 </div>
                 <div class="form-group">
-                  <input type="password" id="password" formControlName="password" name="password" autocomplete="off"
-                    class="form-control" placeholder="Password" required />
+                  <input
+                    type="password"
+                    id="password"
+                    formControlName="password"
+                    name="password"
+                    autocomplete="off"
+                    class="form-control"
+                    placeholder="Password"
+                    required
+                  />
                 </div>
                 <!-- <div class="row">
                   <div class="col-md-6">
@@ -71,8 +88,16 @@
 
                 <div class="form-group m-b-0">
                   <!-- routerLink="/admin/dashboard" -->
-                  <button class="btn btn-block btn-primary" (click)="login()" id="btn-login" type="submit">
-                    <i *ngIf="isLoading" class="fa fa-circle-o-notch fa-spin btn-spinner"></i>
+                  <button
+                    class="btn btn-block btn-primary"
+                    (click)="login()"
+                    id="btn-login"
+                    type="submit"
+                  >
+                    <i
+                      *ngIf="isLoading"
+                      class="fa fa-circle-o-notch fa-spin btn-spinner"
+                    ></i>
                     <span *ngIf="!isLoading">Log In</span>
                   </button>
                 </div>
