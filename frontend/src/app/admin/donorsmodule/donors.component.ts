@@ -79,8 +79,6 @@ export class DonorsComponent implements OnInit, AfterViewInit {
     }
     this._asideNavigationService.currentMessage.subscribe(message => {
       this.navOpened = message;
-      // console.log('message: ', message);
-      // console.log('this.navOpened: ', this.navOpened);
     });
   }
   ngAfterViewInit() {
@@ -98,7 +96,6 @@ export class DonorsComponent implements OnInit, AfterViewInit {
     this.modalRef = this.modalService.show(template, { class: 'modal-xs' });
   }
   openModal(template: TemplateRef<any>, data, newInstance) {
-    console.log('data', data);
     this.newInstance = newInstance;
     this.formData = data;
     const config = {

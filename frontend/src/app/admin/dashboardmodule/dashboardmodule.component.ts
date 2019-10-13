@@ -68,7 +68,6 @@ export class DashboardmoduleComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     const { role } = this.authService.getAccessTokenInfo();
     if (role === 'Chief Executive Officer') {
-      console.log('nothing');
     } else {
       this.router.navigate(['/admin/profile']);
     }

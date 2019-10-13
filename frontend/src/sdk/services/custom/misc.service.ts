@@ -153,7 +153,10 @@ export class MiscHelperService {
 
     for (const iterator of arr) {
       total_users++;
+      console.log('in');
       if (iterator.status && iterator.status === 'complete') {
+        console.log('in2');
+
         success++;
       }
     }

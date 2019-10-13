@@ -136,16 +136,18 @@ export class TasksComponent implements OnInit, AfterViewInit {
       // buttons: ['csv', 'excel'],
 
       ajax: (dataTablesParameters: any, callback) => {
+        const { _id } = this.authService.getAccessTokenInfo();
+
+        dataTablesParameters.user_id = _id;
+
         const params = this.miscHelperService.objectToHttpParams(
           dataTablesParameters
         );
-        const { _id } = this.authService.getAccessTokenInfo();
 
         //      let filter = this.selectedLocation;
         // if (this.selectedLocation == 'All') {
         //   filter = '';
         // }
-        dataTablesParameters.user_id = _id;
         const url = Baseconfig.getPath() + `/tasks`;
         // const url =
         //   Baseconfig.getPath() + `/projects/objectives/_id/${this._id}`;
@@ -164,6 +166,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
             this.result = docs;
 
             for (const iterator of this.result) {
+              console.log('loop');
               const filter = iterator.users_assigned.filter(
                 e => e._id === this._id
               );
@@ -171,14 +174,16 @@ export class TasksComponent implements OnInit, AfterViewInit {
                 iterator.selected_user_assigned = filter[0];
               }
 
-              if (iterator.status === 'complete') {
-                iterator.percentage = 100;
-              } else {
-                iterator.percentage = 0;
-              }
-              // iterator.percentage = this.miscHelperService.calculateStatusPercentage(
-              //   iterator.task_detail
-              // );
+              // if (iterator.status === 'complete') {
+              //   iterator.percentage = 100;
+              // } else {
+              //   iterator.percentage = 0;
+              // }
+
+              iterator.percentage = this.miscHelperService.calculateStatusPercentageTasks(
+                iterator.users_assigned
+              );
+              console.log('iterator', iterator.users_assigned);
             }
 
             setTimeout(() => {
@@ -239,22 +244,34 @@ export class TasksComponent implements OnInit, AfterViewInit {
     this.slimScroll.progress = 20;
     this.slimScroll.start();
 
+    const selected_user_assigned = data.selected_user_assigned;
+
+    selected_user_assigned.status = status;
+
+    const array = data.users_assigned;
+
+    const filter = array.filter(e => e._id !== this._id);
+
+    const merged = [...filter, ...selected_user_assigned];
+
     const displayMsg = `${data.task_name} is now ${status}`;
 
-    this.tasksApi.updateTasksStatus(data._id, { status }).subscribe(
-      async response => {
-        console.log('response', response);
-        this.configDatatable(true);
-        this.toasterService.pop('success', displayMsg);
-        // Toaster MSG
-        this.slimScroll.complete();
-      },
-      error => {
-        console.log('error', error);
-        this.toasterService.pop('error', 'There are some error updating');
-        this.slimScroll.complete();
-      }
-    );
+    this.tasksApi
+      .updateTasksStatus(data._id, { status, users_assigned: merged })
+      .subscribe(
+        async response => {
+          console.log('response', response);
+          this.configDatatable(true);
+          this.toasterService.pop('success', displayMsg);
+          // Toaster MSG
+          this.slimScroll.complete();
+        },
+        error => {
+          console.log('error', error);
+          this.toasterService.pop('error', 'There are some error updating');
+          this.slimScroll.complete();
+        }
+      );
   }
 
   decline() {

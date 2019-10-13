@@ -101,7 +101,7 @@ export class UsersmodalComponent implements OnInit {
       password: [''],
       email: ['', [Validators.required, Validators.email]],
       role: ['', [Validators.required]],
-      designation: [null],
+      designation: [null, [Validators.required]],
       avatar: [null],
       avatar_ext: [null],
       _id: ['', []]

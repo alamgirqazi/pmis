@@ -197,16 +197,16 @@ export class ActivitiesmodalComponent implements OnInit {
   createTasks() {
     return this.fb.group({
       _id: [''],
-      task_name: [''],
+      task_name: ['', [Validators.required]],
       project_id: [''],
       objective_id: [''],
       activity_id: [''],
-      users_assigned: [null],
+      users_assigned: [null, [Validators.required]],
       attachments: [null, []],
       priority: ['medium', []],
-      start_date: [null, []],
-      severity: ['normal', []],
-      end_date: [null, []]
+      start_date: [null, [Validators.required]],
+      severity: ['normal', [Validators.required]],
+      end_date: [null, [Validators.required]]
     });
   }
   getProjectCoordinators() {

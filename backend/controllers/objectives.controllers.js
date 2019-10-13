@@ -94,15 +94,12 @@ objectivesController.updateAttachment = async (req, res) => {
 
     }
 else {
-    console.log('got in else');
   final_attachments = []
 final_attachments.push(attachment)
 }
 const updates = {
   attachments: final_attachments
 }
-  console.log(attachment);
-  console.log(updates);
     runUpdate(body.objective_id, updates, res);
   } catch (error) {
     console.log('error', error);

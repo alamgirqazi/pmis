@@ -102,7 +102,6 @@ export class DepartmentsmodalComponent implements OnInit {
         this.updateData();
       }
     }
-    // console.log('save against this ID', this.formData._id);
   }
 
   updateData() {

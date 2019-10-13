@@ -77,7 +77,7 @@
                     /> -->
 
                     <ng-select [items]="usersList" [multiple]="true" bindLabel="name" formControlName="users_assigned"
-                      placeholder="Select Project Managerss">
+                      placeholder="Select Project Managers">
                       <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
                         <div class="ng-value" *ngFor="let item of items ? items.slice(0, 2) : []">
                           <span class="ng-value-label"><img [src]="item.src" width="20px" height="20px" />

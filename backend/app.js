@@ -37,6 +37,7 @@ const statisticsRoutes = require('./routes/statistics.routes');
 // mongoose.connect(mongoCon);
 
 const mongocon = 'mongodb://admin:alam1122@ds255917.mlab.com:55917/pmis';
+// const mongocon = 'mongodb://localhost:27017/pmis-db';
 mongoose.connect(mongocon,{ useNewUrlParser: true,useCreateIndex: true });
 
 

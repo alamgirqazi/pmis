@@ -79,8 +79,6 @@ export class DepartmentsComponent implements OnInit, AfterViewInit {
     }
     this._asideNavigationService.currentMessage.subscribe(message => {
       this.navOpened = message;
-      // console.log('message: ', message);
-      // console.log('this.navOpened: ', this.navOpened);
     });
   }
   ngAfterViewInit() {

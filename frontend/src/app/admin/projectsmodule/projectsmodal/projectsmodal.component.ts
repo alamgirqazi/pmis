@@ -197,13 +197,13 @@ export class ProjectsmodalComponent implements OnInit {
       // activity: ['', []],
       // assigned_to: ['', []],
       // task: ['', []],
-      department: ['', []],
-      priority: ['medium', []],
-      start_date: [null, []],
+      department: ['', [Validators.required]],
+      priority: ['medium', [Validators.required]],
+      start_date: [null, [Validators.required]],
       price: [null, []],
       donor: [null, []],
-      severity: ['normal', []],
-      end_date: [null, []],
+      severity: ['normal', [Validators.required]],
+      end_date: [null, [Validators.required]],
       notes: [null, []],
       attachments: [null, []],
       users: [],
@@ -217,11 +217,11 @@ export class ProjectsmodalComponent implements OnInit {
   createObjectives() {
     return this.fb.group({
       _id: [''],
-      objective_name: [''],
+      objective_name: ['', [Validators.required]],
       project_id: [''],
-      severity: ['normal'],
-      start_date: [''],
-      end_date: [''],
+      severity: ['normal', [Validators.required]],
+      start_date: ['', [Validators.required]],
+      end_date: ['', [Validators.required]],
       attachments: [null],
       users_assigned: [null]
     });
@@ -422,28 +422,32 @@ export class ProjectsmodalComponent implements OnInit {
   }
 
   saveObjectivesToDB() {
-    this.isLoading = true;
-    const project_id = this.appInfoForm.controls['_id'].value;
+    this.submitObjectives = true;
+    if (this.appObjectiveForm.valid) {
+      this.isLoading = true;
+      const project_id = this.appInfoForm.controls['_id'].value;
+      this.objectivesApi
+        .insertObjectives(this.appObjectiveForm.value, project_id)
+        .subscribe(
+          async response => {
+            console.log('response->', response);
+            this.outputAndReload.emit(null);
+            this.submitObjectives = false;
+            this.isLoading = false;
 
-    this.objectivesApi
-      .insertObjectives(this.appObjectiveForm.value, project_id)
-      .subscribe(
-        async response => {
-          console.log('response->', response);
-          this.outputAndReload.emit(null);
-          this.isLoading = false;
+            // this.slimScroll.complete();
+          },
+          error => {
+            console.log('error', error);
+            // this.modalRef.hide();
+            this.isLoading = false;
 
-          // this.slimScroll.complete();
-        },
-        error => {
-          console.log('error', error);
-          // this.modalRef.hide();
-          this.isLoading = false;
-
-          this.toasterService.pop('error', 'There are some error inserting');
-          this.slimScroll.complete();
-        }
-      );
+            this.submitObjectives = false;
+            this.toasterService.pop('error', 'There are some error inserting');
+            this.slimScroll.complete();
+          }
+        );
+    }
   }
 
   insertData() {

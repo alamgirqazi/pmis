@@ -89,16 +89,13 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
   _id;
   // @TODO
   ngOnInit() {
-    const { id, _id, role } = this.authService.getAccessTokenInfo();
-    console.log('TCL: ObjectivesComponent -> ngOnInit -> id', _id);
+    const { _id, role } = this.authService.getAccessTokenInfo();
     this._id = _id;
     if (role != 'Project Managers') {
       this.router.navigate(['/admin/tasks']);
     }
     this._asideNavigationService.currentMessage.subscribe(message => {
       this.navOpened = message;
-      // console.log('message: ', message);
-      // console.log('this.navOpened: ', this.navOpened);
     });
   }
   ngAfterViewInit() {
@@ -175,6 +172,10 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
               iterator.percentage = this.miscHelperService.calculateStatusPercentageTasks(
                 iterator.task_detail
               );
+              if (iterator.selected_user_assigned) {
+                iterator.status = iterator.selected_user_assigned.status;
+              }
+
               // iterator.percentage = this.miscHelperService.calculateStatusPercentage(
               //   iterator.task_detail
               // );
@@ -198,7 +199,6 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
   }
   openAttachments(template: TemplateRef<any>, data) {
     this.tempFormData = data;
-    console.log('data', data);
     this.title = `Activity: ${data.activity_name}`;
     this.attachments = data.attachments;
     this.modalRef = this.modalService.show(template, { class: 'modal-xlg' });
@@ -208,7 +208,6 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
     this.configDatatable(true);
   }
   openTreeModal(template: TemplateRef<any>, data) {
-    console.log('data', data);
     this.selectedActivity = data;
     this.treeData = data.task_detail;
     const config = {
@@ -217,7 +216,6 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
       class: 'gray modal-xlg'
     };
     for (const iterator of this.treeData) {
-      console.log('terator', iterator);
       iterator.percentage = this.miscHelperService.calculateStatusPercentageObject(
         iterator
       );
@@ -234,7 +232,6 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
     this.modalRef = this.modalService.show(template, { class: 'modal-xs' });
   }
   openModal(template: TemplateRef<any>, data, newInstance) {
-    console.log('data', data);
     this.newInstance = newInstance;
     this.formData = data;
     const config = {
@@ -258,7 +255,6 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
 
     const merged = [...filter, ...selected_user_assigned];
 
-    console.log('merged', merged);
     const displayMsg = `${data.activity_name} is now ${status}`;
 
     this.activitiesApi
@@ -284,7 +280,7 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
   }
   getNameLetters(name: string) {
     let letter = '';
-    name;
+
     name
       .trim()
       .split(' ')

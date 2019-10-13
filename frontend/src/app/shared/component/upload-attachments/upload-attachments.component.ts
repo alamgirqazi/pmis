@@ -161,7 +161,12 @@ export class UploadAttachmentsComponent implements OnInit {
             this.fileItem['url'] = `${Baseconfig.getPath()}/${
               this.fileItem.filePath
             }attachment-${this.fileItem.id}.${this.fileItem.extension}`;
-
+            if (!this.attachments) {
+              this.attachments = [];
+            }
+            if (!this.attachmentsToDisplay) {
+              this.attachmentsToDisplay = [];
+            }
             this.attachments.push(this.fileItem);
             this.attachmentsToDisplay.push(this.fileItem);
             this.slimScroll.complete();

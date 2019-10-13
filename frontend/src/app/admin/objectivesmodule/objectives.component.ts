@@ -157,8 +157,7 @@ export class ObjectivesComponent implements OnInit, AfterViewInit {
             )
           })
           .subscribe(resp => {
-            console.log('res', resp['data']);
-            const { docs, limit, total, offset } = resp['data'];
+            const { docs } = resp['data'];
             this.result = docs;
 
             if (this.result && this.result.length > 0) {

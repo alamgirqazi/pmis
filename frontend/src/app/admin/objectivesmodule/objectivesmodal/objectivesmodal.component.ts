@@ -104,6 +104,7 @@ export class ObjectivesmodalComponent implements OnInit {
     const objective_id = this.formData._id;
     this.activitiesApi.getActivitiesByIds(objective_id, '').subscribe(
       async response => {
+        console.log('response', response);
         if (response.data && response.data.docs.length > 0) {
           // patch Rooms here
           this.resetActivities();
@@ -115,6 +116,7 @@ export class ObjectivesmodalComponent implements OnInit {
             control.push(addrCtrl);
           }
         } else {
+          console.log('else');
           this.addActivities();
         }
         // this.slimScroll.complete();
@@ -186,17 +188,22 @@ export class ObjectivesmodalComponent implements OnInit {
   createActivities() {
     return this.fb.group({
       _id: [''],
-      activity_name: [''],
+      activity_name: ['', [Validators.required]],
       project_id: [''],
       objective_id: [''],
-      users_assigned: [null],
+      users_assigned: [null, [Validators.required]],
       attachments: [null, []],
-      priority: ['medium', []],
-      start_date: [null, []],
-      severity: ['normal', []],
-      end_date: [null, []]
+      priority: ['medium', [Validators.required]],
+      start_date: [null, [Validators.required]],
+      severity: ['normal', [Validators.required]],
+      end_date: [null, [Validators.required]]
     });
   }
+
+  get formDataObjectives() {
+    return <FormArray>this.appInfoForm.get('activities');
+  }
+
   getProjectCoordinators() {
     const type = 'Project Managers';
     this.getUsersFromDB(type);
@@ -247,7 +254,7 @@ export class ObjectivesmodalComponent implements OnInit {
   }
 
   saveAppInfo() {
-    this.submitForm = true;
+    this.submitObjectives = true;
     if (this.appInfoForm.valid) {
       this.isLoading = true;
       this.activitiesApi
@@ -261,11 +268,14 @@ export class ObjectivesmodalComponent implements OnInit {
             console.log('response->', response);
             this.outputAndReload.emit(null);
             this.isLoading = false;
+            this.submitObjectives = false;
 
             // this.slimScroll.complete();
           },
           error => {
             console.log('error', error);
+            this.submitObjectives = false;
+
             // this.modalRef.hide();
             this.isLoading = false;
 
